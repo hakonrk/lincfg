@@ -1,0 +1,2626 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style type="text/css">
+    body {
+        background: #14171f;
+        color: #a0a0a0;
+    }
+
+    a:link {
+        color: #667fb8;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #8873b0;
+        text-decoration: none;
+    }
+
+    a:active, a:hover {
+        text-decoration: underline;
+    }
+
+    a.nolink {
+        text-decoration: none;
+    }
+
+    pre {
+        border: 1px solid #2a334a;
+        border-radius: 1ex 1ex;
+        padding: 1ex 1ex 1ex 1ex;
+        background: #1a1f29;
+        margin: 0 0 0 0;
+    }
+
+    table {
+        margin: 1ex 0 1ex 0;
+    }
+
+    kbd {
+        font-style: normal;
+        color: #ca2e15;
+    }
+
+    dfn {
+        color: #80a0ff;
+    }
+  </style>
+  <title>Linux-oppsett</title>
+</head>
+<body>
+<ol><li><a href="#1.">Oppsett av terminal o.l.</a>
+<ol><li><a href="#1.1.">Norske tegn i Emacs</a>
+<li><a href="#1.2.">Terminfo/termcap</a>
+</ol><li><a href="#2.">Firefox</a>
+<ol><li><a href="#2.1.">Backspace-oppførsel</a>
+<li><a href="#2.2.">Skru av versjonskontroll på add-ons</a>
+<li><a href="#2.3.">Zoom-oppførsel</a>
+<li><a href="#2.4.">Thumb-buttons (back/forward)</a>
+<li><a href="#2.5.">Cache-plassering</a>
+</ol><li><a href="#3.">ImageMagick</a>
+<ol><li><a href="#3.1.">Liste formater</a>
+<li><a href="#3.2.">Lage montage</a>
+<li><a href="#3.3.">Konvertere RAW YUV til vanlige bilder (uten extension)</a>
+<li><a href="#3.4.">Resizing</a>
+<li><a href="#3.5.">Cropping/clipping</a>
+<li><a href="#3.6.">Colorspace / type</a>
+</ol><li><a href="#4.">Nettverk</a>
+<ol><li><a href="#4.1.">NAT</a>
+<li><a href="#4.2.">Traffic-shaping</a>
+<li><a href="#4.3.">Privat DNS/DHCP med dnsmasq</a>
+</ol><li><a href="#5.">Scanning</a>
+<ol><li><a href="#5.1.">scanimage</a>
+</ol><li><a href="#6.">Utskrift</a>
+<ol><li><a href="#6.1.">CUPS</a>
+<li><a href="#6.2.">Psutils</a>
+</ol><li><a href="#7.">git</a>
+<ol><li><a href="#7.1.">Starte nytt prosjekt</a>
+<li><a href="#7.2.">Alias for å forenkle URL-er</a>
+<li><a href="#7.3.">Jobbe på egen branch avledet av upstream</a>
+<li><a href="#7.4.">Se dine endringer som upstream ikke har merget ennå</a>
+<li><a href="#7.5.">Lage ny branch som også legges på remote repo</a>
+<li><a href="#7.6.">Flytte 'master' noen hakk tilbake, og lage ny branch fra tilsvarende sted</a>
+</ol><li><a href="#8.">Indenting</a>
+<ol><li><a href="#8.1.">astyle</a>
+</ol><li><a href="#9.">IRC</a>
+<ol><li><a href="#9.1.">Endre nummer på vindu</a>
+</ol><li><a href="#10.">SSH</a>
+<ol><li><a href="#10.1.">Nøkler</a>
+<li><a href="#10.2.">SSH agent</a>
+<li><a href="#10.3.">SSH port forwarding</a>
+<li><a href="#10.4.">Fetchmail via SSH-tunnel</a>
+</ol><li><a href="#11.">Exim</a>
+<ol><li><a href="#11.1.">Korrekt avsender</a>
+<li><a href="#11.2.">Bruk sammen med fetchmail</a>
+<li><a href="#11.3.">Relaying på LAN</a>
+<li><a href="#11.4.">Bruk med procmail</a>
+<li><a href="#11.5.">Fikse slik at root kan ta imot post</a>
+<li><a href="#11.6.">Bruk av smarthost med SMTP AUTH og TLS</a>
+<li><a href="#11.7.">Flushe køen</a>
+</ol><li><a href="#12.">GPG</a>
+<ol><li><a href="#12.1.">Signering av filer</a>
+<li><a href="#12.2.">Verifisering av filer</a>
+</ol><li><a href="#13.">Samba</a>
+<ol><li><a href="#13.1.">Oppsett med brukere</a>
+<li><a href="#13.2.">Mounting av Samba-shares</a>
+<li><a href="#13.3.">WINS for navneoppslag</a>
+</ol><li><a href="#14.">Red Hat og Fedora</a>
+<ol><li><a href="#14.1.">Nettverksinstallasjon</a>
+<li><a href="#14.2.">Skru av SELinux</a>
+<li><a href="#14.3.">Installere på ReiserFS</a>
+<li><a href="#14.4.">Flytting til annen disk</a>
+<li><a href="#14.5.">Listing av pakker m/størrelse</a>
+<li><a href="#14.6.">Listing av pakker m/installasjonsdato</a>
+<li><a href="#14.7.">RPM og GPG-signaturer</a>
+<li><a href="#14.8.">Spesifisering av mirrors i yum</a>
+<li><a href="#14.9.">Korrigering av bold og underlined i XTerm</a>
+<li><a href="#14.10.">Fikse treg scrolling i XTerm ved bruk av radeon driver</a>
+<li><a href="#14.11.">Fjerne PID fra core-filer</a>
+<li><a href="#14.12.">Subpixel AA + bytecode-hinter i FreeType</a>
+<li><a href="#14.13.">RPM som vanlig bruker</a>
+<li><a href="#14.14.">Når rpm henger</a>
+<li><a href="#14.15.">Ekstra RPM repositories</a>
+</ol><li><a href="#15.">GNU Arch (tla)</a>
+<ol><li><a href="#15.1.">Nytt arkiv</a>
+<li><a href="#15.2.">Nytt prosjekt</a>
+</ol><li><a href="#16.">Python</a>
+<ol><li><a href="#16.1.">Virtuell installasjon</a>
+</ol><li><a href="#17.">UiO</a>
+<ol><li><a href="#17.1.">Bruk av UiOs backupsystem</a>
+<li><a href="#17.2.">Korrigering av default email på UiO</a>
+</ol><li><a href="#18.">Emulatorer</a>
+<ol><li><a href="#18.1.">C64 (vice)</a>
+</ol><li><a href="#19.">Diverse</a>
+<ol><li><a href="#19.1.">Fikse pulseaudio</a>
+<li><a href="#19.2.">Mixeroppsett i ALSA</a>
+<li><a href="#19.3.">Oppsett for lydopptak</a>
+<li><a href="#19.4.">Kernel modules pre-install</a>
+<li><a href="#19.5.">Mozilla-sertifikater</a>
+<li><a href="#19.6.">Tidssone</a>
+<li><a href="#19.7.">Xauth</a>
+<li><a href="#19.8.">Ramdisk-størrelse</a>
+<li><a href="#19.9.">CD-brenning med mkisofs + cdrecord</a>
+<li><a href="#19.10.">Sletting av CD med cdrecord</a>
+<li><a href="#19.11.">Brenning av video DVD</a>
+<li><a href="#19.12.">CD-dumping med cdrdao</a>
+<li><a href="#19.13.">CD-brenning med cdrdao</a>
+<li><a href="#19.14.">Konvertere binære datafiler til objektkode</a>
+<li><a href="#19.15.">Korrekt spacing i LaTeXs eqnarray</a>
+<li><a href="#19.16.">IDE/ATA DMA</a>
+<li><a href="#19.17.">TeX Live</a>
+<ol><li><a href="#19.17.1.">Installasjon</a>
+</ol><li><a href="#19.18.">LVM</a>
+<ol><li><a href="#19.18.1.">Oppsett</a>
+<li><a href="#19.18.2.">Gjenoppretting av tidligere oppsett</a>
+<li><a href="#19.18.3.">Legge til ekstra partisjon</a>
+<li><a href="#19.18.4.">Krympe volum</a>
+</ol><li><a href="#19.19.">RAID5 med mdadm</a>
+<li><a href="#19.20.">Tuning for SSD</a>
+<li><a href="#19.21.">Konvertere ext2 til ext4</a>
+<li><a href="#19.22.">Bogofilter</a>
+<li><a href="#19.23.">NTP</a>
+<li><a href="#19.24.">RSH</a>
+<li><a href="#19.25.">Starte nytt prosjekt med bzr</a>
+<li><a href="#19.26.">Starte nytt prosjekt med CVS</a>
+<li><a href="#19.27.">LCD-tweaking for laptop</a>
+<li><a href="#19.28.">Bruk av HDMI ved spilling av video</a>
+<li><a href="#19.29.">Touchpad-innstillinger på CL56-laptop</a>
+<li><a href="#19.30.">Wireless-radio på CL56-laptop</a>
+<li><a href="#19.31.">Trådløs WEP-oppkobling</a>
+<li><a href="#19.32.">Trådløs WPA-oppkobling</a>
+<li><a href="#19.33.">Seriell-konsoll</a>
+<li><a href="#19.34.">Bruk av USB flash som erstatning for floppy-boot</a>
+<li><a href="#19.35.">Bruk av aspell til å lage ordlister for vim/look/osv</a>
+<li><a href="#19.36.">Fikse bakgrunnsfarge som henger fra mutt</a>
+<li><a href="#19.37.">Baklengs VNC</a>
+<li><a href="#19.38.">Splitting av MKV/Matroska filmer</a>
+<li><a href="#19.39.">Enkoding med ffmpeg</a>
+<li><a href="#19.40.">FFmpeg pipelining</a>
+<li><a href="#19.41.">Bruke FFmpeg til å segmentere video</a>
+<li><a href="#19.42.">Dumping av rå PCM-lyd med FFmpeg eller mplayer</a>
+<li><a href="#19.43.">Ekstrahere subsegmenter av video med perfekt A/V sync</a>
+<li><a href="#19.44.">Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a>
+<li><a href="#19.45.">Subtitles brent inn i bildet vha FFmpeg og mplayer</a>
+<li><a href="#19.46.">mencoder</a>
+<li><a href="#19.47.">Oppsett av DAV med SSL på Apache</a>
+<li><a href="#19.48.">Oppsett av vBulletin</a>
+<li><a href="#19.49.">Mer SQL</a>
+<ol><li><a href="#19.49.1.">Velge database</a>
+<li><a href="#19.49.2.">Beskrive tabell</a>
+<li><a href="#19.49.3.">Printe innhold i tabell</a>
+<li><a href="#19.49.4.">Slette rad i tabell</a>
+<li><a href="#19.49.5.">Brukere</a>
+</ol></ol><li><a href="#20.">Problemer spesifikke til enkelte maskiner</a>
+<ol><li><a href="#20.1.">Dell Inspiron 1564</a>
+<ol><li><a href="#20.1.1.">Installasjon</a>
+<li><a href="#20.1.2.">Display i X.org</a>
+<li><a href="#20.1.3.">Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver</a>
+<li><a href="#20.1.4.">Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og proprietær driver</a>
+</ol></ol><li><a href="#21.">Annet</a>
+<ol><li><a href="#21.1.">POP3-debugging</a>
+<li><a href="#21.2.">IMAP-debugging</a>
+<li><a href="#21.3.">SMTP-debugging</a>
+<ol><li><a href="#21.3.1.">Standard ikke-autentisert mail</a>
+<li><a href="#21.3.2.">Autentisert mail</a>
+</ol><li><a href="#21.4.">PDF-manipulering vha pdftk</a>
+<li><a href="#21.5.">Kryptering/dekryptering med OpenSSL</a>
+<li><a href="#21.6.">Sende POST requests med curl</a>
+<li><a href="#21.7.">Ubuntu VM</a>
+<li><a href="#21.8.">eCryptfs med passord fra login</a>
+<li><a href="#21.9.">eCryptfs på systemer der authconfig ikke setter det opp</a>
+<li><a href="#21.10.">Bridge mode på Nextgentels Thomson TG789vn på Telenor nett (IPoE)</a>
+<li><a href="#21.11.">Mounting av Android-telefon</a>
+<li><a href="#21.12.">Legge til CA certificates for Firefox/Chrome HTTPS</a>
+</ol></ol>
+<h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
+
+<h2><a class=nolink name="1.1.">1.1. Norske tegn i Emacs</a></h2>
+Legg følgende i <code>~/.emacs</code>:
+<table><tr><td><pre>
+(standard-display-european t)
+(set-input-mode (car (current-input-mode))
+                (nth 1 (current-input-mode))
+                0)
+</pre></table>
+
+<h2><a class=nolink name="1.2.">1.2. Terminfo/termcap</a></h2>
+Hent først ut en nogenlunde riktig terminfo entry med kommandoen
+<code>infocmp -I xterm-color >xterm.ti</code>.  Editer denne filen og
+pass på at følgende verdier er satt:
+<table><tr><td><pre>
+kdch1=\177
+kf1=\EOP
+kf2=\EOQ
+kf3=\EOR
+kf4=\EOS
+khome=\E[1~
+kend=\E[4~
+</pre></table>
+Det er <i>ekstremt</i> viktig at ingen andre taster er satt til samme
+verdi som disse.  (Spesielt pleier <code>kslt</code> å være satt til samme
+verdi som <code>kend</code> skal ha.)  Pass på at <code>xterm.ti</code> har beskrivelsen
+<code>xterm</code> i headeren.  Kompiler filen med kommandoen
+<code>tic xterm.ti</code>.  Som vanlig bruker vil de kompilerte filene plasseres
+i <code>~/.terminfo/</code>, og disse har prioritet over <code>/usr/share/terminfo/</code>.
+
+Etter at <code>xterm</code> entryen er laget, konverter terminfo databasen til
+termcap med kommandoen <code>infocmp -C -r xterm >xterm.termcap</code>.  Erstatt
+gammel entry i <code>/etc/termcap</code> med denne nye utgaven.
+
+<h1><a class=nolink name="2.">2. Firefox</a></h1>
+<h2><a class=nolink name="2.1.">2.1. Backspace-oppførsel</a></h2>
+Gå til <code>about:config</code> og sett
+<table><tr><td><pre>
+browser.backspace_action=0
+</pre></table>
+
+<h2><a class=nolink name="2.2.">2.2. Skru av versjonskontroll på add-ons</a></h2>
+Under <code>about:config</code>, legg til
+<table><tr><td><pre>
+extensions.checkCompatibility = false
+extensions.checkUpdateSecurity = false
+</pre></table>
+
+<h2><a class=nolink name="2.3.">2.3. Zoom-oppførsel</a></h2>
+For å få Firefox 3 sin zoom funksjon til å virke som Firefox 2, sett følgende
+verdier i <a target="_blank" href="about:config">about:config</a>:
+<table><tr><td><pre>
+mousewheel.withcontrolkey.action  = 3
+mousewheel.withcontrolkey.numlines = -1
+browser.zoom.full = false
+</pre></table>
+
+<h2><a class=nolink name="2.4.">2.4. Thumb-buttons (back/forward)</a></h2>
+For å få tommelknappene til å funke som i Firefox 2, legg følgende inn i about:config:
+<table><tr><td><pre>
+mousewheel.horizscroll.withnokey.action = 2
+mousewheel.horizscroll.withnokey.numlines = -1
+mousewheel.horizscroll.withnokey.sysnumlines = false
+</pre></table>
+
+<h2><a class=nolink name="2.5.">2.5. Cache-plassering</a></h2>
+For å endre Firefox's cache katalog, sett
+<code>browser.cache.disk.parent_directory</code> til f.eks. <code>/tmp</code>
+i <a target="_blank" href="about:config">about:config</a>.
+
+<h1><a class=nolink name="3.">3. ImageMagick</a></h1>
+<h2><a class=nolink name="3.1.">3.1. Liste formater</a></h2>
+Gjør <code>identify -list format</code> for å liste formatene støttet av ImageMagick.
+
+<h2><a class=nolink name="3.2.">3.2. Lage montage</a></h2>
+Gitt at man har 9 bilder (<code>[1-9].jpg</code>) som skal slås sammen til étt
+bilde (3x3), og hvert bilde i det sammensatte bildet skal være 512x288
+uten marginer, og vi ønsker å ignorere aspect ratio for å få dem til
+512x288, så bruker man følgende kommando:
+<table><tr><td><pre>
+montage -resize '512x288!' -geometry 512x288+0+0 -tile 3x3 ?.jpg montage.jpg
+</pre></table>
+Andre aktuelle flagg er <code>-quality <var>Q</var></code>, <code>-background <var>COLOR</var></code>.
+
+<h2><a class=nolink name="3.3.">3.3. Konvertere RAW YUV til vanlige bilder (uten extension)</a></h2>
+Normalt vil
+<table><tr><td><pre>
+convert -size <var>W</var>x<var>H</var> yuv:<var>RAWYUV-FILE</var> <var>OUTPUT-IMAGE</var>
+</pre></table>
+Bruk <code>-depth</code> dersom det ikke er vanlig 12 bits per pixel YUV.
+
+<h2><a class=nolink name="3.4.">3.4. Resizing</a></h2>
+<a target="_blank" href="http://www.imagemagick.org/script/command-line-options.php#resize">Resize</a>-operasjonen
+støtter bl.a. følgende funksjonalitet:
+<table><tr><td><pre>
+convert -resize 50%  <dfn># Halverer i begge dimensjoner</dfn>
+convert -resize <var>W</var>x<var>H</var>  <dfn># W og H er maksverdier; behold aspect ratio</dfn>
+convert -resize <var>W</var>x<var>H</var>! <dfn># Resize til eksakt W x H og ignorer aspect ratio</dfn>
+</pre></table>
+Resizing-metode kan spesifiseres med <a target="_blank" href="http://www.imagemagick.org/script/command-line-options.php#filter">-filter</a> opsjonen.
+
+<h2><a class=nolink name="3.5.">3.5. Cropping/clipping</a></h2>
+<a target="_blank" href="http://www.imagemagick.org/script/command-line-options.php#crop">Crop</a>-operasjonen
+klipper ut et rektangulært område av bildet:
+<table><tr><td><pre>
+convert -crop 50% <var>FROM</var> <var>TO</var> <dfn># Lager fire bilder (to-[0-3]); ett per kvadrant</dfn>
+convert -crop <var>W</var>x<var>H</var>+<var>x</var>+<var>y</var>     <dfn># Lager ett bilde i W x H på (x, y); (0,0) = top-left</dfn>
+</pre></table>
+
+<h2><a class=nolink name="3.6.">3.6. Colorspace / type</a></h2>
+For å konvertere colorspace bruker man
+<a target="_blank" href="http://www.imagemagick.org/script/command-line-options.php#type">-type</a>
+flagget.  F.eks. bruker man
+<table><tr><td><pre>
+convert -type Grayscale
+</pre></table>
+for å lage et grayscale bilde.
+
+<h1><a class=nolink name="4.">4. Nettverk</a></h1>
+
+<h2><a class=nolink name="4.1.">4.1. NAT</a></h2>
+Bruk noe à la følgende rc-script for å sette opp NAT:
+<table><tr><td><pre>
+#!/bin/sh
+
+echo -n "Configuring firewall... "
+
+wan_iface=eth1
+lan_iface=eth0
+
+<dfn># Flush all chains in the default table.</dfn>
+iptables -F
+
+<dfn># Flush all chains in the nat table.</dfn>
+iptables -t nat -F
+
+<dfn># Delete all user-defined chains in the default table.</dfn>
+iptables -X
+
+<dfn># Delete all user-defined chains in the nat table.</dfn>
+iptables -t nat -X
+
+<dfn># Set up IP forwarding and masquerading.</dfn>
+iptables -t nat -A POSTROUTING -o $wan_iface -j MASQUERADE
+iptables -A FORWARD -i $lan_iface -j ACCEPT
+
+<dfn># Enable packet forwarding in the kernel.</dfn>
+echo 1 &gt;/proc/sys/net/ipv4/ip_forward
+
+<dfn># This chain is used to hold temporary rules that override all rejections.</dfn>
+iptables -N tmpaccept
+iptables -A INPUT -j tmpaccept
+
+<dfn># Port forwarding</dfn>
+iptables -t nat -A PREROUTING -i $wan_iface -p tcp --dport 222 -j DNAT --to-destination 10.0.0.4:22
+
+<dfn># Allow all traffic from loopback device.</dfn>
+iptables -A INPUT  -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+<dfn># Allow everything on the LAN.</dfn>
+iptables -A INPUT  -i $lan_iface -j ACCEPT
+iptables -A OUTPUT -o $lan_iface -j ACCEPT
+
+<dfn># Ports/services open to the world on the firewall box.</dfn>
+iptables -A INPUT -i $wan_iface -p tcp --dport 22222 -j ACCEPT
+iptables -A INPUT -i $wan_iface -p tcp --dport 10333:10399 -j ACCEPT
+iptables -A INPUT -i $wan_iface -p icmp --icmp-type echo-request -j ACCEPT
+
+<dfn># Accept other incoming data from outside only for established connections.</dfn>
+iptables -A INPUT -i $wan_iface -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+<dfn># Drop all non-forwarded ports!  This is fucking important!</dfn>
+iptables -A INPUT -i $wan_iface -p tcp -j REJECT --reject-with tcp-reset
+iptables -A INPUT -i $wan_iface -j REJECT
+
+echo " done"
+</pre></table>
+
+<h2><a class=nolink name="4.2.">4.2. Traffic-shaping</a></h2>
+Lag et rc.wshaper script basert på følgende mal:
+<table><tr><td><pre>
+#!/bin/sh
+
+<dfn># Set the following values to somewhat less than your actual download</dfn>
+<dfn># and uplink speed. In kilobits. Also set the device that is to be shaped.</dfn>
+DOWNLINK=5500
+UPLINK=905
+DEV=eth1
+
+<dfn># Low priority OUTGOING traffic -- you can leave this blank if you want</dfn>
+<dfn># low priority source netmasks.</dfn>
+NOPRIOHOSTSRC=
+
+<dfn># Low priority destination netmasks.</dfn>
+NOPRIOHOSTDST=
+
+<dfn># Low priority source ports.</dfn>
+NOPRIOPORTSRC=
+
+<dfn># Low priority destination ports.</dfn>
+NOPRIOPORTDST=
+
+if [[ $1 == status ]]; then
+    tc -s qdisc ls dev $DEV
+    tc -s class ls dev $DEV
+    exit
+fi
+
+<dfn># Clean existing down- and uplink qdiscs, hide errors.</dfn>
+tc qdisc del dev $DEV root    2&gt;/dev/null &gt;/dev/null
+tc qdisc del dev $DEV ingress 2&gt;/dev/null &gt;/dev/null
+
+if [[ $1 = stop ]]; then
+    exit
+fi
+
+<dfn># -----------------------------------------------------------------------------</dfn>
+<dfn># Uplink</dfn>
+<dfn># -----------------------------------------------------------------------------</dfn>
+
+<dfn># Install root HTB, point default traffic to 1:20.</dfn>
+tc qdisc add dev $DEV root handle 1: htb default 20
+
+<dfn># Shape everything at $UPLINK speed -- this prevents huge queues in your</dfn>
+<dfn># DSL modem which destroy latency.</dfn>
+tc class add dev $DEV parent 1: classid 1:1 htb rate ${UPLINK}kbit burst 6k
+
+<dfn># High prio class 1:10.</dfn>
+tc class add dev $DEV parent 1:1 classid 1:10 htb rate ${UPLINK}kbit \
+   burst 6k prio 1
+
+<dfn># Bulk &amp; default class 1:20 - gets slightly less traffic, </dfn>
+<dfn># and a lower priority.</dfn>
+tc class add dev $DEV parent 1:1 classid 1:20 htb rate $[9*$UPLINK/10]kbit \
+   burst 6k prio 2
+
+tc class add dev $DEV parent 1:1 classid 1:30 htb rate $[8*$UPLINK/10]kbit \
+   burst 6k prio 2
+
+<dfn># All get Stochastic Fairness:</dfn>
+tc qdisc add dev $DEV parent 1:10 handle 10: sfq perturb 10
+tc qdisc add dev $DEV parent 1:20 handle 20: sfq perturb 10
+tc qdisc add dev $DEV parent 1:30 handle 30: sfq perturb 10
+
+<dfn># TOS Minimum Delay (ssh, NOT scp) in 1:10:</dfn>
+tc filter add dev $DEV parent 1:0 protocol ip prio 10 u32 \
+      match ip tos 0x10 0xff  flowid 1:10
+
+<dfn># ICMP (ip protocol 1) in the interactive class 1:10 so we </dfn>
+<dfn># can do measurements &amp; impress our friends:</dfn>
+tc filter add dev $DEV parent 1:0 protocol ip prio 10 u32 \
+        match ip protocol 1 0xff flowid 1:10
+
+<dfn># To speed up downloads while an upload is going on, put ACK packets in</dfn>
+<dfn># the interactive class:</dfn>
+tc filter add dev $DEV parent 1: protocol ip prio 10 u32 \
+   match ip protocol 6 0xff \
+   match u8 0x05 0x0f at 0 \
+   match u16 0x0000 0xffc0 at 2 \
+   match u8 0x10 0xff at 33 \
+   flowid 1:10
+
+<dfn># Rest is 'non-interactive' ie 'bulk' and ends up in 1:20.</dfn>
+
+<dfn># Some traffic however suffers a worse fate</dfn>
+for i in $NOPRIOPORTDST; do
+    tc filter add dev $DEV parent 1: protocol ip prio 14 u32 \
+       match ip dport $i 0xffff flowid 1:30
+done
+
+for i in $NOPRIOPORTSRC; do
+    tc filter add dev $DEV parent 1: protocol ip prio 15 u32 \
+       match ip sport $i 0xffff flowid 1:30
+done
+
+for i in $NOPRIOHOSTSRC; do
+    tc filter add dev $DEV parent 1: protocol ip prio 16 u32 \
+       match ip src $i flowid 1:30
+done
+
+for i in $NOPRIOHOSTDST; do
+    tc filter add dev $DEV parent 1: protocol ip prio 17 u32 \
+       match ip dst $i flowid 1:30
+done
+
+<dfn># Rest is 'non-interactive' ie 'bulk' and ends up in 1:20.</dfn>
+tc filter add dev $DEV parent 1: protocol ip prio 18 u32 \
+   match ip dst 0.0.0.0/0 flowid 1:20
+
+<dfn></dfn>
+<dfn># -----------------------------------------------------------------------------</dfn>
+<dfn># Downlink</dfn>
+<dfn># -----------------------------------------------------------------------------</dfn>
+
+<dfn># Slow downloads down to somewhat less than the real speed to prevent queuing</dfn>
+<dfn># at our ISP.  Tune to see how high you can set it.  ISPs tend to have *huge*</dfn>
+<dfn># queues to make sure big downloads are fast.</dfn>
+
+<dfn># Attach ingress policer:</dfn>
+tc qdisc add dev $DEV handle ffff: ingress
+
+<dfn># Filter *everything* to it (0.0.0.0/0), drop everything that's coming in too</dfn>
+<dfn># fast:</dfn>
+tc filter add dev $DEV parent ffff: protocol ip prio 50 u32 match ip src \
+   0.0.0.0/0 police rate ${DOWNLINK}kbit burst 10k drop flowid :1
+</pre></table>
+
+<h2><a class=nolink name="4.3.">4.3. Privat DNS/DHCP med dnsmasq</a></h2>
+Start med å skru av DHCP på NAT-router, og sett opp dnsmasq-boksen
+slik at den har statisk IP.  Opprett en <code>/etc/hosts.dnsmasq</code> i samme
+format som <code>/etc/hosts</code> som mapper alle statiske IP-er på LAN-et til
+hostname.  Opprett så en eller flere filer i <code>/etc/dnsmasq.d</code>
+med følgende innhold:
+<table><tr><td><pre>
+<dfn># All reverse lookups for private IP ranges (ie 192.168.x.x, etc) which are not</dfn>
+<dfn># found in /etc/hosts or the DHCP leases file are answered with "no such</dfn>
+<dfn># domain" rather than being forwarded upstream.</dfn>
+bogus-priv
+
+<dfn># Don't read the hostnames in /etc/hosts, since it might contain mappings that</dfn>
+<dfn># should not be available in DNS (for example, if /etc/hosts maps the hostname</dfn>
+<dfn># of the dnsmasq server to 127.0.0.1, other clients on the LAN would resolve</dfn>
+<dfn># the dnsmasq server name to 127.0.0.1, which is obviously wrong).</dfn>
+no-hosts
+
+<dfn># Makes it so that addresses from alternative hosts-files</dfn>
+<dfn># (e.g., ~/src/misc/etc/hosts) also can be reached with &lt;name&gt;.&lt;domain&gt;</dfn>
+<dfn># where &lt;domain&gt; is the value set in domain=&lt;...&gt;</dfn>
+expand-hosts
+domain=venod.com
+
+<dfn># We don't use /etc/hosts, but these extra files are formatted the same</dfn>
+<dfn># way, and do not have the 127.0.0.1-problem that /etc/hosts has.</dfn>
+addn-hosts=/home/hakonrk/src/misc/etc/hosts
+addn-hosts=/etc/hosts.dnsmasq
+addn-hosts=/etc/hosts.dyndhcp
+
+<dfn># DHCP clients gets these values for gateway and DNS server</dfn>
+dhcp-option=option:router,10.0.0.3
+dhcp-option=option:dns-server,10.0.0.3
+
+<dfn># IP addresses of the upstream DNS servers to use for external lookups.</dfn>
+server=213.158.233.130
+server=213.158.233.131
+
+<dfn># Never forward DNS requests for *.venod.com to external DNS servers.</dfn>
+local=/venod.com/
+
+<dfn># DHCP range for clients without a static map (12 hour lease).</dfn>
+dhcp-range=10.0.0.100,10.0.0.199,12h
+
+<dfn># Static DHCP mappings.</dfn>
+dhcp-host=00:1F:D0:DA:E0:FC,10.0.0.4    <dfn># snowbird</dfn>
+dhcp-host=00:15:99:28:DA:A5,10.0.0.28   <dfn># samsung ml-2851nd</dfn>
+dhcp-host=00:02:3F:07:D6:0B,10.0.0.9    <dfn># montana (ethernet)</dfn>
+dhcp-host=00:0E:35:0C:13:D5,10.0.0.8    <dfn># montana (wifi)</dfn>
+dhcp-host=00:12:5A:C3:48:AA,10.0.0.36   <dfn># xbox 360</dfn>
+</pre></table>
+Deretter må man sette opp dnsmasq-boksens <code>/etc/resolv.conf</code>
+til å inneholde seg selv (eks: <code>nameserver 10.0.0.3</code>).  Det er ikke
+nødvendig med eksterne DNS-servere siden de er registrert med egne
+<code>server</code>-linjer i configfilene til dnsmasq.  Gjør så på DNS-serveren:
+<table><tr><td><pre>
+sudo service network restart
+sudo service dnsmasq restart
+</pre></table>
+Alle DHCP-klienter på LAN-et må så be om ny IP.  (For Linux-bokser må
+<code>/etc/sysconfig/networking/devices/ifcfg-&lt;interface&gt;</code> oppdateres ved
+at DNS-linjene slettes; man bør også slette <code>SEARCH=</code> linjen.)
+
+<h1><a class=nolink name="5.">5. Scanning</a></h1>
+
+<h2><a class=nolink name="5.1.">5.1. scanimage</a></h2>
+Første gang scanimage brukes, er det lurt å sjekke hvilke flagg som
+støttes av scanneren.  Dette gjøres med kommandoen <code>scanimage -h</code>
+som vil kommunisere med scanneren for å finne ut egenskapene.
+<p>
+Eksempel på scanning av étt dokument:
+<table><tr><td><pre>
+scanimage --mode 'True Gray' --resolution 150 ><var>foo.pnm</var>
+</pre></table>
+
+Eksempel på scanning av flere dokumenter:
+<table><tr><td><pre>
+scanimage --batch --mode 'True Gray' --resolution 150
+</pre></table>
+
+<h1><a class=nolink name="6.">6. Utskrift</a></h1>
+
+<h2><a class=nolink name="6.1.">6.1. CUPS</a></h2>
+Dersom printeren ikke er støttet av standardinstallasjonen, last først ned
+riktig PPD-fil fra <a target="_blank" href="http://www.linuxprinting.org/">LinuxPrinting.org</a>
+og kopier denne til <code>/usr/share/cups/model</code>.  Restart <code>cups</code> med
+<code>/etc/rc.d/rc.cups restart</code> og logg inn på <code>http://localhost:631/admin</code> for å
+legge til den nye skriveren.  Kun <var>Name</var>-feltet trenger å fylles ut i den
+første dialogen.  Alternativt kan skriveren legges inn fra kommandolinjen.
+Eks. for HL-1250:
+<table><tr><td><pre>
+lpadmin -p HL-1250 -E -v usb://Brother/HL-1250%20series -m Brother-HL-1250-hl1250.ppd
+</pre></table>
+Device-navnet kan finnes med <code>lpinfo -v</code> dersom man bruker USB-skriver.  For en
+Windows-basert Samba-skriver må man ha device-navnet som følger:
+<code>smb://<var>USER</var>:<var>PASSWORD</var>@<var>SERVER</var>/<var>SHARENAME</var></code>.  I tilfellet der skriveren er
+delt for alle brukere skal passordet droppes, og <code><var>USER</var></code> skal være <code>guest</code>.
+<b>Husk å konfigurere skriveren for papirsstørrelse osv. via web-interfacet så
+snart skriveren er lagt inn!</b>
+<p>
+Windows kan bruke skriveren via Samba og driveren <var>MS Publisher Imagesetter</var>
+som er listet under produsent <var>Generic</var>.  For å fikse problemet med at det
+skrives ut to søppelsider for hver utskrift må man installere
+<code>foomatic-gswrapper</code> som et kjørbart script under <code>/usr/bin</code>.  <a target="_blank" href="http://www.linuxprinting.org/gswrapper.html">gswrapper kan lastes ned
+her.</a>  Mer at denne metoden krever at <code>/usr/bin/foomatic-rip</code> er
+installert, og denne kommer med <code>hpijs</code> (<code>hpijs</code> inneholder også støtte for de
+fleste av HPs blekkskrivere).
+<p>
+Det kan skje at CUPS setter printeren som inaktiv dersom man prøver
+å ta en utskrift før printeren er klar (f.eks. mens den varmer opp).
+Dette kan man fikse ved å gjøre <code>enable <var>NAME</var></code>, der <code><var>NAME</var></code> er
+navnet på skriveren (<code>HL-1250</code> i eksempelet over).  Navnet kan ellers
+finnes med f.eks. <code>lpc status</code>.
+<p>
+Dersom skriveren skal aksesseres via LAN (eksempelvis 10.0.0.0/24),
+pass på at <code>&lt;Location /&gt; ... &lt;/Location&gt;</code> inneholder <code>Allow From 10.0.0.0/24</code>.
+For å aksessere en CUPS-skriver med IP-adresse 10.0.0.4 og navn
+HL-1250 i Windows, gå til <code>Add Printer Wizard</code>, legg til en nettverksskriver
+med adresse
+<table><tr><td><pre>
+http://10.0.0.4:631/printers/HL-1250
+</pre></table>
+
+<h2><a class=nolink name="6.2.">6.2. Psutils</a></h2>
+For å få flere sider på ett ark, bruk
+<table><tr><td><pre>
+psnup -2 -pa4 -b0cm -m0cm <var>foo.ps</var> &gt;<var>bar.ps</var>
+</pre></table>
+Her får man ingen rammer, og minst mulig marginer.  <code>-b</code>
+gir marginene rundt hver av de krympede sidene, mens <code>-m</code>
+er marginene på selve papiret, rundt alle de krympede sidene.
+
+<h1><a class=nolink name="7.">7. git</a></h1>
+<h2><a class=nolink name="7.1.">7.1. Starte nytt prosjekt</a></h2>
+Lag først en lokal arbeidskatalog.  Eks:
+<table><tr><td><pre>
+mkdir foo
+cd foo
+git init
+touch bar
+git add .
+git commit -m "first rev"
+</pre></table>
+For lage et remote repository for <code>foo</code>, logg inn på ekstern server
+og følg dette eksempelet:
+<table><tr><td><pre>
+cd /path/to/gitroot
+mkdir foo
+cd foo
+git init --bare
+</pre></table>
+Tilbake på maskinen med arbeidskatalogen gjør man deretter følgende (i
+katalogen <code>foo</code>):
+<table><tr><td><pre>
+git remote add origin ssh://server/path/to/gitroot/foo/
+git push origin master
+git config branch.master.remote origin
+git config branch.master.merge refs/heads/master
+</pre></table>
+Dersom man setter opp repoet på samme maskin som man har arbeidskatalogen
+bør <code>ssh://server</code> erstattes med <code>file://</code>.  Det er også mulig å droppe
+<code>git remote add origin ssh://server/path/to/gitroot/foo/</code> hvis man legger
+inn
+<table><tr><td><pre>
+[remote "origin"]
+        url = ssh://server/path/to/gitroot/foo/
+        fetch = +refs/heads/*:refs/remotes/origin/*
+</pre></table>
+i <code>.git/config</code> (rett etter <code>[core]</code>-blokken).  De to siste linjene
+(<code>git config branch...</code>) kan droppes hvis man legger inn
+<table><tr><td><pre>
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+</pre></table>
+rett etter <code>[remote "origin"]</code>-blokken.
+<h2><a class=nolink name="7.2.">7.2. Alias for å forenkle URL-er</a></h2>
+Legg inn
+<table><tr><td><pre>
+[url "ssh://foo.bar.com:22222/home/fred/git/"]
+        insteadOf = fred:
+</pre></table>
+for å kunne bruke <code>fred:</code> i stedet for
+<code>ssh://foo.bar.com:22222/home/fred/git/</code> i enhver URL.
+
+<h2><a class=nolink name="7.3.">7.3. Jobbe på egen branch avledet av upstream</a></h2>
+Gå til eget remote git repository, og gjør
+<table><tr><td><pre>
+git clone --bare <var>UPSTREAM-REPO-URL</var> <var>LOCAL-REPO-NAME</var>
+</pre></table>
+Denne kan må så klone og bruke på vanlig måte på arbeidsstasjonen.
+Når man skal hente endringer fra upstream anbefales det at man først
+gjør
+<table><tr><td><pre>
+git remote add upstream <var>UPSTREAM-REPO-URL</var>
+</pre></table>
+Deretter funker det å gjøre
+<table><tr><td><pre>
+git fetch upstream
+git merge upstream/master
+</pre></table>
+for å hente og merge in upstreams endringer.
+
+<h2><a class=nolink name="7.4.">7.4. Se dine endringer som upstream ikke har merget ennå</a></h2>
+Gjør <code>git diff upstream/master..master</code> for å se endringene som
+upstream ennå ikke har merget.
+
+<h2><a class=nolink name="7.5.">7.5. Lage ny branch som også legges på remote repo</a></h2>
+Lag først ny branch med
+<table><tr><td><pre>
+git checkout -b <var>MY-BRANCH</var>
+</pre></table>
+Gjør endringer, og commit disse.  Rediger så <code>.git/config</code> og
+legg til
+<table><tr><td><pre>
+[branch "<var>MY-BRANCH</var>"]
+        remote = origin
+        merge = refs/heads/<var>MY-BRANCH</var>
+</pre></table>
+Gjør til slutt <code>git push origin <var>MY-BRANCH</var></code>.  Deretter vil ny
+branch være tilgjengelig for andre som sjekker ut fra remote.
+De kan ta <code>git checkout <var>MY-BRANCH</var></code> etter <code>git pull</code> for å komme
+inn på samme branch.
+
+<h2><a class=nolink name="7.6.">7.6. Flytte 'master' noen hakk tilbake, og lage ny branch fra tilsvarende sted</a></h2>
+Dersom man har gjort X antall commits på master branch, og ønsker at alle
+commits etter <code><var>REVISION</var></code> (SHA1 hash) skal tilhøre <code><var>NEW-BRANCH</var></code>, så gjør
+man:
+<table><tr><td><pre>
+git branch <var>NEW-BRANCH</var>
+git reset --hard <var>REVISION</var>
+git checkout <var>NEW-BRANCH</var>
+</pre></table>
+
+<h1><a class=nolink name="8.">8. Indenting</a></h1>
+
+<h2><a class=nolink name="8.1.">8.1. astyle</a></h2>
+For K&amp;R style,
+<table><tr><td><pre>
+astyle -A3
+</pre></table>
+
+<h1><a class=nolink name="9.">9. IRC</a></h1>
+
+<h2><a class=nolink name="9.1.">9.1. Endre nummer på vindu</a></h2>
+For å gi nåværende vindu nummeret <var>N</var>, så gjør man:
+<table><tr><td><pre>
+/window number <var>N</var>
+</pre></table>
+
+<h1><a class=nolink name="10.">10. SSH</a></h1>
+
+<h2><a class=nolink name="10.1.">10.1. Nøkler</a></h2>
+Lag nøkler med
+<table><tr><td><pre>
+ssh-keygen -t rsa1 -N '' -f ~/.ssh/identity
+ssh-keygen -t rsa  -N '' -f ~/.ssh/id_rsa
+ssh-keygen -t dsa  -N '' -f ~/.ssh/id_dsa
+</pre></table>
+(For SSH1 trengs bare den første, og kun én av de to siste er nødvendig
+for SSH2.) <code>cat</code> deretter innholdet av klientes <code>~/.ssh/*.pub</code> til
+<code>~/.ssh/authorized_keys</code> på serveren.
+
+<h2><a class=nolink name="10.2.">10.2. SSH agent</a></h2>
+Dersom nøkler med passphrase brukes, så kan man likevel slippe
+å skrive passphrase ved hver login dersom man oppretter en
+<code>ssh-agent</code> session.  Dette kan f.eks. gjøres med
+<code>ssh-agent <var>SHELL</var></code>, der <code><var>SHELL</var></code> kan være et vanlig shell,
+som <code>/bin/sh</code>, eller f.eks. <code>startx</code>.  Når man er inne i en
+<code>ssh-agent</code> session, så kan man legge til, slette, og liste nøkler
+med <code>ssh-add</code>:
+<table><tr><td><pre>
+ssh-add ~/.ssh/id_rsa           <dfn># add key</dfn>
+ssh-add -d ~/.ssh/id_rsa        <dfn># delete key</dfn>
+ssh-add -l                      <dfn># list active keys</dfn>
+</pre></table>
+Man må så skrive inn passphrase for nøkkelen, men deretter huskes
+den så lenge man er inne i <code>ssh-agent</code> session'en.  I forbindelse
+med dette kan det også være nødvendig å angi egne nøkler for
+spesielle SSH-servere.  Dette gjøres i <code>~/.ssh/config</code>:
+<table><tr><td><pre>
+Host <var>SERVER</var>
+ IdentityFile ~/.ssh/id_rsa-<var>SERVER</var>
+</pre></table>
+
+<h2><a class=nolink name="10.3.">10.3. SSH port forwarding</a></h2>
+Det er to typer SSH forwarding:
+<table><tr><td><pre>
+ssh -L port:host:hostport remote-host <dfn># localhost:port -> remote-host -> host:hostport</dfn>
+ssh -R port:host:hostport remote-host <dfn># remote-host:port -> localhost -> host:hostport</dfn>
+</pre></table>
+<code>-L</code>-varianten betyr at ssh vil lytte på port nummer <code>port</code>
+på maskinen der kommandoen utføres.  Når noen connecter til denne
+porten vil det videresendes til <code>remote-host</code>, som videre
+gjør connect til adresse <code>host:hostport</code>.  Dette kan brukes
+til å få tilgang til maskin <code>host</code> som egentlig ikke er tilgjengelig
+fra der ssh kjøres, ved å gå via <code>remote-host</code>.
+
+<code>-R</code>-varianten er som <code>-L</code>, men går andre veien.  Det betyr
+at ssh setter opp en listening socket på port nummer <code>port</code> på
+<code>remote-host</code>.  Når noen connecter til <code>remote-host:port</code>,
+så vil dette bli videresendt til maskinen der du utførte <code>ssh
+-R</code>, som igjen vil connecte til <code>host:hostport</code> og sende
+alle videre data i denne forbindelsen dit.  Dette kan brukes
+til å lage en vei gjennom en firewall.  Hvis du f.eks. har en
+firewall som blokker alle innkommende forbindelser til maskinen
+du kjørte <code>ssh -R</code> på, så vil dette kunne omgå det ved å
+initiere forbindelsen fra innsiden av det avgrensede nettet.
+
+<h2><a class=nolink name="10.4.">10.4. Fetchmail via SSH-tunnel</a></h2>
+La <code>~/.fetchmailrc</code> inneholde følgende:
+<table><tr><td><pre>
+poll <var>SERVER</var> via localhost port <var>LOCAL-PORT</var> username <var>USERNAME</var> password "<var>PASSWD</var>"
+  preconnect "ssh -fL <var>LOCAL-PORT</var>:<var>SERVER</var>:110 <var>SERVER</var> sleep 20"
+</pre></table>
+
+<h1><a class=nolink name="11.">11. Exim</a></h1>
+<h2><a class=nolink name="11.1.">11.1. Korrekt avsender</a></h2>
+Fjern først <code><var>Sender:</var></code> ved å sette
+<table><tr><td><pre>
+local_from_check = false
+</pre></table>
+først i <code>exim.conf</code>.  Under <code>begin rewrite</code> legger man så noe slikt:
+<table><tr><td><pre>
+*@*.venod.com ${lookup{$1}lsearch{/etc/email-addresses}{$value}fail} Ff
+</pre></table>
+Dette vil instruere Exim til å omskrive <code>From</code>  basert på
+<code>/etc/email-addresses</code> dersom avsenderadresse matcher <code>*@*.venod.com</code>.
+<code>email-addresses</code> skal inneholde linjer på formen:
+<table><tr><td><pre>
+hakonrk: haakon.riiser@fys.uio.no
+</pre></table>
+Første kolonne er lokalt brukernavn, og andre kolonne er den faktiske
+epost-adressen for denne brukeren.
+
+<h2><a class=nolink name="11.2.">11.2. Bruk sammen med fetchmail</a></h2>
+Fetchmail leverer til <code><var>USERNAME</var>@localhost</code>, så det er svært viktig at Exim
+vet at <code>localhost</code>-domenet er en lokal adresse.  Dette gjøres ved å editere
+Exims konfigurasjonsfil slik at <code>domainlist local_domains</code> er satt som følger:
+<table><tr><td><pre>
+domainlist local_domains = @ : localhost
+</pre></table>
+
+<h2><a class=nolink name="11.3.">11.3. Relaying på LAN</a></h2>
+For å la en Exim-server gjøre relaying på LAN (f.eks. 10.0.0.0/24),
+editer Exims konfigurasjonsfil slik at <code>hostlist relay_from_hosts</code> er
+satt som følger:
+<table><tr><td><pre>
+hostlist relay_from_hosts = 127.0.0.1 : 10.0.0.0/24
+</pre></table>
+
+<h2><a class=nolink name="11.4.">11.4. Bruk med procmail</a></h2>
+For å la Exim levere til procmail legger man følgende i <code>~/.forward</code>:
+<table><tr><td><pre>
+| /usr/bin/formail -A 'X-Local: yes' -ds /usr/bin/procmail
+</pre></table>
+Her brukes først <code>formail</code> til å legge til headeren <code>X-Local: yes</code>,
+og sender så meldingen videre til procmail.  Procmail kan så sjekke
+<code>X-Local</code> for å se om det er en lokal melding, og umiddelbart levere
+den riktig.
+
+
+<h2><a class=nolink name="11.5.">11.5. Fikse slik at root kan ta imot post</a></h2>
+Editér <code>/etc/aliases</code> og sett slik at root og andre relevante systembrukere
+får posten sin levert til en ekte bruker.
+
+
+<h2><a class=nolink name="11.6.">11.6. Bruk av smarthost med SMTP AUTH og TLS</a></h2>
+For å sette opp smarthost (eksempelvis smtp.uio.no) med SMTP AUTH og TLS,
+editer Exims konfigurasjonsfil og rett under <code>begin routers</code> legger man
+<table><tr><td><pre>
+smarthost:
+  driver = manualroute
+  transport = remote_smtp
+  route_list = !+local_domains smtp.uio.no
+</pre></table>
+Under <code>begin transports</code>, pass på at det finnes en <code>remote_smtp</code> regel
+som ser slik ut:
+<table><tr><td><pre>
+remote_smtp:
+  driver = smtp
+  hosts_try_auth = smtp.uio.no
+  hosts_require_tls = smtp.uio.no
+  port = 587
+</pre></table>
+Rett under <code>begin authenticators</code> skal man ha følgende:
+<table><tr><td><pre>
+fixed_plain:
+  driver = plaintext
+  public_name = PLAIN
+  client_send = ^<var>USERNAME</var>^<var>PASSWORD</var>
+</pre></table>
+
+<h2><a class=nolink name="11.7.">11.7. Flushe køen</a></h2>
+Skriv <code>exim -qff</code> for å prøve å sende ut alle meldinger i køen.
+
+<h1><a class=nolink name="12.">12. GPG</a></h1>
+<h2><a class=nolink name="12.1.">12.1. Signering av filer</a></h2>
+For å lage en ASCII signatur av <code>foo</code>, gjør
+<table><tr><td><pre>
+gpg --armor --detach-sig --output <var>foo.asc</var> --local-user <var>SIGNING-KEY-EMAIL-ADDR</var> <var>foo</var>
+</pre></table>
+
+<h2><a class=nolink name="12.2.">12.2. Verifisering av filer</a></h2>
+For å verifisere at <code>foo</code> ved hjelp av <code>foo.asc</code>, gjør
+<table><tr><td><pre>
+gpg --verify <var>foo.asc</var>
+</pre></table>
+
+<h1><a class=nolink name="13.">13. Samba</a></h1>
+<h2><a class=nolink name="13.1.">13.1. Oppsett med brukere</a></h2>
+La <code>/etc/samba/smb.conf</code> inneholde <code>security = user</code> (eller ingenting,
+da dette er default setting).  Legg til ny bruker med <code>smbpasswd</code>:
+<table><tr><td><pre>
+smbpasswd -a <var>USERNAME</var>
+</pre></table>
+
+<h2><a class=nolink name="13.2.">13.2. Mounting av Samba-shares</a></h2>
+Mount med kommandoen
+<table><tr><td><pre>
+smbmount //<var>SERVER</var>/<var>SHARENAME MOUNT-POINT</var> -o username=<var>USERNAME</var>,password=<var>PASSWORD</var>,rw,fmask=644
+</pre></table>
+<code>/usr/bin/smbmnt</code> og <code>/usr/bin/smbumount</code> må være SUID root for
+å la vanlige brukere mounte.
+
+<h2><a class=nolink name="13.3.">13.3. WINS for navneoppslag</a></h2>
+Legg inn <code>/lib/libnss_wins.so.2</code> og la <code>/etc/nsswitch.conf</code> inneholde
+<table><tr><td><pre>
+hosts: files dns wins
+</pre></table>
+For å gjøre caching av navn, i stedet for
+broadcast-oppslag hver eneste gang, putt <code>wins support = yes</code> i
+<code>global</code>-seksjonen i <code>smb.conf</code>.
+
+<h1><a class=nolink name="14.">14. Red Hat og Fedora</a></h1>
+<h2><a class=nolink name="14.1.">14.1. Nettverksinstallasjon</a></h2>
+Adressen som oppgis i nettverksinstallasjonen må inneholde katalogen
+<code>repodata</code>.  Eks. for Fedora 8:
+<table><tr><td><pre>
+ftp://ftp.uio.no/linux/Fedora/releases/8/Fedora/i386/os/
+</pre></table>
+
+<h2><a class=nolink name="14.2.">14.2. Skru av SELinux</a></h2>
+På slutten av <code>kernel</code>-linjen i <code>/etc/grub.conf</code>, legg til <code>selinux=0</code>.  Man
+kan også legge til <code>selinux=0</code> når man installerer Linux for å skru det av by
+default.  Evt. kan dette gjøres i <code>/etc/selinux/config</code> ved å sette
+<code>SELINUX=disabled</code>.  Evt. kan man installere via et kickstart-script og ha
+<code>selinux --disabled</code> i scriptet.
+
+For å slette SELinux attributter i filsystemet, gjør
+<table><tr><td><pre>
+find <var>ROOT</var> -print0 | xargs -0 setfattr -x security.selinux
+</pre></table>
+
+<h2><a class=nolink name="14.3.">14.3. Installere på ReiserFS</a></h2>
+Legg til <code>selinux=0 reiserfs</code> på kernel-kommandolinjen ved installasjon
+for å muliggjøre installasjon til ReiserFS.
+
+<h2><a class=nolink name="14.4.">14.4. Flytting til annen disk</a></h2>
+Opprett partisjoner på ny disk for data og swap.  Boot fra rescue
+CD e.l., og kopier over alle data til ny disk.  Sett opp swap med
+<code>mkswap <var>DEVICE</var></code>.  Oppdater UUID på alle partisjoner i
+<code>/etc/fstab</code> og <code>/etc/grub.conf</code>.  UUID kan leses ut med
+<code>blkid /dev/<var>PARTITION</var></code>, <code>/lib/udev/vol_id /dev/<var>PARTITION</var></code>,
+eller <code>sudo dumpe2fs -h /dev/<var>PARTISJON</var> | grep UUID</code> for ext2/ext3.
+(Hvis det ble brukt labels i stedet for UUID, så sett opp labels
+på partisjonene som matcher det gamle oppsettet med
+<code>/sbin/e2label <var>PARTITION-DEVICE</var> <var>LABEL</var></code>.)
+
+Reinstaller grub med:
+<table><tr><td><pre>
+cp -a /dev/null /dev/sd<var>X</var>* <var>MOUNT-POINT</var>/dev
+chroot <var>MOUNT-POINT</var>
+grub-install /dev/sd<var>X</var>
+</pre></table>
+der <code><var>MOUNT-POINT</var></code> er katalogen der den nye root-partisjonen
+er mountet, og <code>/dev/sd<var>X</var></code> er disk (ikke partisjon) device'et for
+den nye disken.  Helt til slutt må også initrd settes opp på nytt.
+Det skal funke å gjøre
+<table><tr><td><pre>
+mount <var>NEW-BOOT-PARTITION</var> <var>MOUNT-POINT</var>/boot
+chroot <var>MOUNT-POINT</var>
+mv /boot/initrd-<var>KERNEL-VERSION</var>.img{,.orig}
+mkinitrd /boot/initrd-<var>KERNEL-VERSION</var>.img <var>KERNEL-VERSION</var>
+</pre></table>
+der <code><var>NEW-BOOT-PARTITION</var></code> er <code>/boot</code> på den nye disken, og
+<code><var>KERNEL-VERSION</var></code> er <code>uname -r</code> fra OS-et som flyttes.
+Hvis ikke mkinitrd funker, så kan man modifisere den gamle direkte:
+<table><tr><td><pre>
+mkdir tmp-initrd
+cd tmp-initrd
+zcat <var>OLD-INITRD</var>.img | cpio -ivd
+<dfn># Update the labels/UUID values in the init script</dfn>
+find . | cpio -co &gt;<var>NEW-INITRD</var>.img
+</pre></table>
+
+<h2><a class=nolink name="14.5.">14.5. Listing av pakker m/størrelse</a></h2>
+Følgende kommando lister all installerte pakker og installert størrelse,
+sortert slik at den siste pakken er den største, og formatert slik at
+alle tallene kommer i samme kolonne:
+<table><tr><td><pre>
+rpm -qa --qf '%{name} %{size}\n' | sort -nk2 | column -t
+</pre></table>
+
+<h2><a class=nolink name="14.6.">14.6. Listing av pakker m/installasjonsdato</a></h2>
+Følgende kommando lister all installerte pakker, med Unix-timestamp
+i første kolonne, lesbar dato etter det, og så pakkenavn:
+<table><tr><td><pre>
+rpm -qa --qf '%{installtime} (%{installtime:date}) %{name}\n' |
+ sed 's#\(.*\) #\1/#' |
+ column -s / -t
+</pre></table>
+
+<h2><a class=nolink name="14.7.">14.7. RPM og GPG-signaturer</a></h2>
+For at RPM skal kunne verifisere GPG-signaturene i RPM-pakkene, så er det
+nødvendig å importere de passende GPG-nøklene i RPM.  For Fedora ligger
+filene i <code>/usr/share/doc/fedora-release-?/RPM-GPG-KEY*</code>.  I denne
+katalogen ligger mange forskjellige nøkler, så for å finne den riktige
+filen er det nødvendig å vise dens nøkkel-ID med kommandoen
+<table><tr><td><pre>
+gpg -n --import <var>KEYFILE</var>
+</pre></table>
+For at nøkkelen skal kunne brukes av RPM, så er det nødvendig å importere
+den med rpm:
+<table><tr><td><pre>
+rpm --import <var>KEYFILE</var>
+</pre></table>
+RPM har ingen mekanisme for å detektere om samme nøkkel er importert allerede,
+så man risikerer å få den importert mange ganger.  Skjekk dette med
+<table><tr><td><pre>
+rpm -qa gpg-pubkey | sort | uniq -c
+</pre></table>
+Dupliserte nøkler må slettes med
+<table><tr><td><pre>
+rpm -e --allmatches gpg-pubkey-<var>XXXXXXXX</var>-<var>YYYYYYYY</var>
+</pre></table>
+
+<h2><a class=nolink name="14.8.">14.8. Spesifisering av mirrors i yum</a></h2>
+Editér <code>.repo</code>-filene under <code>/etc/yum.repos.d/</code> og sett
+<table><tr><td><pre>
+baseurl=<var>URL1</var>
+        <var>URL2</var>
+        <var>...</var>
+failovermethod=priority
+</pre></table>
+<code>failovermethod=priority</code> vil si at <code><var>URL1</var></code> prøves først, deretter
+<code><var>URL2</var></code>, osv.
+
+<h2><a class=nolink name="14.9.">14.9. Korrigering av bold og underlined i XTerm</a></h2>
+For å få ekte bold og underlined tekst i XTerm, editér
+<code>/usr/X11R6/lib/X11/app-defaults/XTerm</code> og fiks linjene
+<table><tr><td><pre>
+!*VT100*colorULMode: on
+!*VT100*underLine: off
+
+! Uncomment this to use color for the bold attribute
+!*VT100*colorBDMode: on
+</pre></table>
+For å forhindre at XTerm-tittelen ser ut som et shell-prompt, unset
+bash-variabelen <code>PROMPT_COMMAND</code>, som er satt i <code>/etc/bashrc</code>.
+
+<h2><a class=nolink name="14.10.">14.10. Fikse treg scrolling i XTerm ved bruk av radeon driver</a></h2>
+Opprett <code>/etc/X11/xorg.conf.d/02-radeon.conf</code>:
+<table><tr><td><pre>
+Section "Device"
+    Identifier "vga"
+    Driver "radeon"
+    Option "ColorTiling" "false"
+    Option "ColorTiling2D" "false"
+EndSection
+</pre></table>
+
+<h2><a class=nolink name="14.11.">14.11. Fjerne PID fra core-filer</a></h2>
+De følgende to kommandoene er ekvivalente:
+<table><tr><td><pre>
+echo 0 &gt;/proc/sys/kernel/core_uses_pid
+/sbin/sysctl -w kernel.core_uses_pid=0
+</pre></table>
+Disse blir på Fedora og Red Hat satt via <code>/etc/sysctl.conf</code>.
+
+<h2><a class=nolink name="14.12.">14.12. Subpixel AA + bytecode-hinter i FreeType</a></h2>
+Last ned SRPM-filen til FreeType, og gjør <code>rpm -ivh
+<var>SRPM</var></code>.  Dette vil pakke ut filen i <code>/usr/src/redhat</code>,
+eller i <code>%_topdir</code> definert i <code>~/.rpmmacros</code>. Bygg pakken
+med
+<table><tr><td><pre>
+rpmbuild --with bytecode_interpreter --with subpixel_rendering --rebuild -bp <var>PATH-TO-SRC-RPM</var>
+</pre></table>
+For å bygge 32-bit versjonen på et 64-bit system, gjør
+<table><tr><td><pre>
+/usr/bin/mock -r <var>SYSTEM</var> --with bytecode_interpreter --with subpixel_rendering --rebuild <var>PATH-TO-SRC-RPM</var>
+</pre></table>
+der <code><var>SYSTEM</var></code> er basename av navnene i <code>/etc/mock/*.cfg</code> (dvs. minus <code>/etc/mock/</code> prefix og <code>.cfg</code> suffix).
+Man kan rydde opp etterpå med
+<table><tr><td><pre>
+/usr/bin/mock -r <var>SYSTEM</var> --scrub=all
+</pre></table>
+
+<h2><a class=nolink name="14.13.">14.13. RPM som vanlig bruker</a></h2>
+Lag katalogstrukturen for <code>rpmbuild</code>:
+<table><tr><td><pre>
+mkdir -p /foo/rpmbuild/{BUILD,SOURCES,SPECS,SRPMS,RPMS/i386}
+</pre></table>
+Sett opp <code>rpm</code> til å bruke <code>/foo/rpmbuild</code>:
+<table><tr><td><pre>
+echo "%_topdir /foo/rpmbuild" &gt;~/.rpmmacros
+</pre></table>
+Det er også mulig å overstyre <code>~/.rpmmacros</code> ved å bruke argumentet
+<code>--define "_topdir <var>DIRECTORY</var>"</code> på <code>rpm</code> og <code>rpmbuild</code>.
+
+<h2><a class=nolink name="14.14.">14.14. Når rpm henger</a></h2>
+Slett <code>rpm</code>s lock-filer, dvs. de som begynner på <code>__db</code> i
+<code>/var/run/rpm</code> eller <code>/var/lib/rpm</code>.  Utfør deretter kommandoen
+<code>rpm --rebuilddb</code> for å regenerere filene.
+
+<h2><a class=nolink name="14.15.">14.15. Ekstra RPM repositories</a></h2>
+Pakker som pga. lisens, patent, eller andre grunner ikke kan
+aksepteres av Fedora kan ofte fås hos
+<a target="_blank" href="http://rpm.livna.org/rlowiki/">Livna</a>.  Legg
+inn deres GPG-nøkkel med
+<code>rpm --import http://rpm.livna.org/RPM-LIVNA-GPG-KEY</code> før
+repo'et tas i bruk.
+
+<h1><a class=nolink name="15.">15. GNU Arch (tla)</a></h1>
+<h2><a class=nolink name="15.1.">15.1. Nytt arkiv</a></h2>
+For å lage ett nytt arkiv ved navn <code>foo@bar--2005</code> i katalogen
+<code>/qux/2005</code>, pass først på at katalogen <code>/qux</code> eksisterer, og at
+underkatalogen <code>2005</code> <i>ikke</i> eksisterer.  Opprett arkivet
+med kommandoen
+<table><tr><td><pre>
+tla make-archive -l foo@bar--2005 /qux/2005
+</pre></table>
+(<code>-l</code> betyr at tla skal vedlikeholde <code>.listing</code>-filer automatisk;
+kun nødvendig for arkiv som skal aksesseres over HTTP.)
+Merk at katalogen må være absolutt; det ville ikke virke om man
+først gikk inn i <code>/qux</code> og så prøvde å angi katalogen som <code>2005</code>.
+Arkivet blir automatisk registrert som <code>foo@bar--2005</code>, som kan
+bekreftes med <code>tla archives</code>.  Arkivet kan gjøres til default med
+kommandoen
+<table><tr><td><pre>
+tla my-default-archive foo@bar--2005
+</pre></table>
+
+<h2><a class=nolink name="15.2.">15.2. Nytt prosjekt</a></h2>
+Dersom man ønsker å legge inn prosjektet <var>zot</var>, som
+er lagret i <code>~/src/zot</code>, i et eksisterende arkiv <code>foo@bar--2005</code>,
+så gjør man følgende:
+<table><tr><td><pre>
+cd ~/src/zot
+tla init-tree foo@bar--2005/zot--main--0
+tla add-id <var>fil1 fil2 ...</var>
+tla import -S
+</pre></table>
+Dersom <code>foo@bar--2005</code> er default archive, så trenger man ikke
+angi dette i <code>init-tree</code>-kommandoen.
+
+<h1><a class=nolink name="16.">16. Python</a></h1>
+
+<h2><a class=nolink name="16.1.">16.1. Virtuell installasjon</a></h2>
+En virtuell installasjon av Python gjør det mulig for en vanlig bruker å
+administrere sine egne moduler o.l.  uten å måtte sette <code>PYTHONPATH</code>.
+Dette kan settes opp som følgende:
+<table><tr><td><pre>
+pythonprefix=<var>/local/opt/python</var>
+mkdir -p $pythonprefix
+wget -P /tmp http://peak.telecommunity.com/dist/virtual-python.py
+python /tmp/virtual-python.py --prefix=$pythonprefix
+</pre></table>
+For å bruke den virtuelle installasjonen må <code>$pythonprefix/bin</code> legges til
+<code>PATH</code>, før alle andre <code>python</code> executables.  Når alt dette er gjort er det
+lurt å installere <code>setuptools</code>, da dette inkluderer <code>easy_install</code> som er
+Pythons svar på CPAN.  Installasjonen er triviell:
+<table><tr><td><pre>
+wget -P /tmp http://peak.telecommunity.com/dist/ez_setup.py
+python /tmp/ez_setup.py
+</pre></table>
+
+<h1><a class=nolink name="17.">17. UiO</a></h1>
+
+<h2><a class=nolink name="17.1.">17.1. Bruk av UiOs backupsystem</a></h2>
+For å gjenopprette katalog <code>~/foo</code> i den tilstand den var 10. juli
+2002, kl. 13:00, så kan man bruke følgende kommando (fra tid.uio.no):
+<table><tr><td><pre>
+/local/tsm/bin/dsmc restore -subdir=yes -pitd=7/10/2002 -pitt=13:00:00 ~/foo
+</pre></table>
+Det skal også være mulig å be om det som sist var lagret ved å bytte ut <code>-pitd</code> og
+<code>-pitt</code> med <code>-latest</code>.
+
+<h2><a class=nolink name="17.2.">17.2. Korrigering av default email på UiO</a></h2>
+Start opp <code>bofh</code> og gjør noe à la følgende session:
+<table><tr><td><pre>
+jbofh> <kbd>person list_user_priorities hakonrk</kbd>
+   Uname Priority Affiliation
+ hakonrk        1 STUDENT@150000 (Mat.nat. fakultet)
+ hakonrk        6 STUDENT@150400 (Fysisk institutt)
+
+jbofh> <kbd>person set_user_priority hakonrk 6 1</kbd>
+OK
+</pre></table>
+Man kan deretter verifisere at operasjonen var vellykket ved
+å se på output fra <code>email info hakonrk</code>.
+
+<h1><a class=nolink name="18.">18. Emulatorer</a></h1>
+
+<h2><a class=nolink name="18.1.">18.1. C64 (vice)</a></h2>
+Start et spill med følgende kommando:
+<table><tr><td><pre>
+x64 -joydev1 0 -logfile /dev/null <var>DISK/TAPE/CART</var>
+</pre></table>
+Når spillet starter, høyreklikk i vinduet og velg
+<i>Joystick settings | Joystick device in port 1 | Analog Joystick 0</i>.
+Trykk <code>Alt-J</code> for å få joysticken til å virke.  Video mode settes via
+<i>VIC II</i>-menyen; bruk <code>Alt-D</code> for å gå til fullscreen.
+
+<h1><a class=nolink name="19.">19. Diverse</a></h1>
+
+<h2><a class=nolink name="19.1.">19.1. Fikse pulseaudio</a></h2>
+Dersom pulseaudio henger under X, editer <code>/etc/pulse/default.pa</code> og
+gjør om linjen
+<table><tr><td><pre>
+load-module module-hal-detect
+</pre></table>
+til
+<table><tr><td><pre>
+load-module module-hal-detect tsched=0
+</pre></table>
+
+<h2><a class=nolink name="19.2.">19.2. Mixeroppsett i ALSA</a></h2>
+Mixeren kan stilles med programmet <code>amixer</code>.  Eksempelvis vil
+følgende sette hhv. Master- og PCM-volum til 71 %, samtidig som
+mute skrus av:
+<table><tr><td><pre>
+amixer -q set Master 71% unmute
+amixer -q set PCM 71% unmute
+</pre></table>
+Hele mixeroppsettet kan lagres/gjenopprettes med <code>alsactl</code>:
+<table><tr><td><pre>
+alsactl store [-f <var>STATE-FILE</var>]
+alsactl restore [-f <var>STATE-FILE</var>]
+</pre></table>
+Hvis ikke <code>-f <var>STATE-FILE</var></code> er angitt, så vil programmet bruke
+<code>/etc/asound.state</code>.
+
+<h2><a class=nolink name="19.3.">19.3. Oppsett for lydopptak</a></h2>
+Når <code>alsamixer</code> først startes vil den være i Playback-modus, så
+trykk <code>Tab</code> for å veksle mellom Playback/Capture/All.  Evt. trykk
+<code>F5</code> for å gå rett til Capture.  Pass på å sette volum og unmute
+på den relevante input-kanalen, og sett også input-source til å
+matche dette.  Volumet på kanalen <code>Capture</code> må også settes på, og
+det må trykkes <code>Space</code> på denne slik at opptak skrus på.  Det vil
+komme noe rød tekst under volumkontrollen som viser at opptak er
+på.  Dette kan også settes med amixer:
+<table><tr><td><pre>
+amixer -q set Capture 50% cap
+</pre></table>
+
+<h2><a class=nolink name="19.4.">19.4. Kernel modules pre-install</a></h2>
+Sett argumentet <code>INSTALL_MOD_PATH</code> til temp-prefikset hvor
+<code>/lib/modules/...</code> blir installert.  (Tilsvarer <code>DESTDIR</code>
+for vanlige makefiler.)
+
+<h2><a class=nolink name="19.5.">19.5. Mozilla-sertifikater</a></h2>
+For å kopiere over Mozillas sertifikater til en ny Mozilla katalog trenger
+man to filer: <code>cert8.db</code> og <code>key3.db</code>.
+
+<h2><a class=nolink name="19.6.">19.6. Tidssone</a></h2>
+La <code>/usr/share/zoneinfo/localtime</code> peke på <code>/etc/localtime</code>,
+som igjen skal peke på <code>/usr/share/zoneinfo/Europe/Oslo</code>.  Kan også
+bruke programmet <code>tzselect</code>, som vil vise hva variabelen <code>TZ</code> skal
+settes til.
+
+<h2><a class=nolink name="19.7.">19.7. Xauth</a></h2>
+Lag først en tilfeldig 128-bit nøkkel:
+<table><tr><td><pre>
+key=`hexdump -n16 -e '16/1 "%02x"' /dev/random`
+</pre></table>
+(Kan også bruke <code>mcookie</code> til dette.)  Skriv så følgende:
+<table><tr><td><pre>
+xauth add `hostname -f`:0 . $key
+xauth add `hostname`:0 . $key
+</pre></table>
+Editér så <code>~/.xserverrc</code> og pass på at den inneholder
+<table><tr><td><pre>
+exec X :0 -dpi 100 -auth $HOME/.Xauthority
+</pre></table>
+
+<h2><a class=nolink name="19.8.">19.8. Ramdisk-størrelse</a></h2>
+Sett størrelse med parameter <code>ramdisk_size=<var>SIZE-IN-KB</var></code> når ramdisk er
+kompilert inn i kjernen, og bruk <code>rd_size</code> hvis den er modul.
+
+<h2><a class=nolink name="19.9.">19.9. CD-brenning med mkisofs + cdrecord</a></h2>
+Kompiler SCSI (<code>CONFIG_SCSI</code>), SCSI CD-ROM (<code>CONFIG_BLK_DEV_SR</code>),
+SCSI generic (<code>CONFIG_CHR_DEV_SG</code>), og SCSI emulation
+(<code>CONFIG_BLK_DEV_IDESCSI</code>) som moduler.  Last inn modulene i følgende
+rekkefølge:  <code>scsi_mod.o</code>, <code>sg.o</code>, <code>sr_mod.o</code>, <code>ide-scsi.o</code>.
+Nå skulle IDE CD-spillerene være tilgjengelige som <code>/dev/sr0</code>,
+<code>/dev/sr1</code>, osv.    Lag et ISO-image med kommandoen
+<table><tr><td><pre>
+mkisofs -J -r -o <var>IMAGE-FILE DIRECTORY</var>
+</pre></table>
+hvor <code><var>DIRECTORY</var></code> vil bli roten i det nye filsystemet.
+Skriv selve CD-en med kommandoen
+<table><tr><td><pre>
+cdrecord -v driveropts=burnfree speed=2 dev=<var>SCSIBUS,TARGET,LUN</var> -data <var>IMAGE-FILE</var>
+</pre></table>
+der <code><var>SCSIBUS,TARGET,LUN</var></code>-verdiene kan fås med kommandoen <code>cdrecord -scanbus</code>.
+I nyere Linux-kjerner er det mulig å bruke <code>/dev/hd<var>X</var></code> direkte (når man brenner
+med ATAPI i stedet for SCSI emulation).
+
+Den beste måten å konfigurere dette på hvis man har både ATAPI-leser og brenner
+er å legge følgende i <code>/etc/modules.conf</code>:
+<table><tr><td><pre>
+options ide-cd        ignore=hdd
+pre-install sg        modprobe ide-scsi
+pre-install sr_mod    modprobe ide-scsi
+pre-install ide-scsi  modprobe ide-cd
+</pre></table>
+Av en eller annen grunn funker ikke autoloading når man monterer
+cdrecorder som vanlig bruker, via <code>user</code> i <code>/etc/fstab</code>.
+
+<h2><a class=nolink name="19.10.">19.10. Sletting av CD med cdrecord</a></h2>
+For å slette alt som ligger på CD-en:
+<table><tr><td><pre>
+cdrecord blank=fast -immed dev=IOCompactDiscServices dev=<var>RECORDER-DEVICE</var>
+</pre></table>
+
+<h2><a class=nolink name="19.11.">19.11. Brenning av video DVD</a></h2>
+<table><tr><td><pre>
+growisofs -dvd-compat -Z /dev/dvd=<var>/path/to/dvd.iso</var>
+</pre></table>
+
+<h2><a class=nolink name="19.12.">19.12. CD-dumping med cdrdao</a></h2>
+Følgende kommandoer kan brukes for å dumpe ut CD-er til ISO:
+<table><tr><td><pre>
+cdrdao read-cd --device <var>/dev/cdrecorder</var> --datafile <var>foo.iso</var> /tmp/foo.toc
+</pre></table>
+I dette tilfellet kan <code>/tmp/foo.toc</code> slettes siden filen ikke er
+nødvendig for rene ISO-filer.  For CDRWINs BIN/CUE format kan følgende
+metode brukes:
+<table><tr><td><pre>
+cdrdao read-cd --read-raw --device <var>/dev/cdrecorder</var> --datafile <var>foo.bin</var> <var>foo.toc</var>
+toc2cue <var>foo.toc</var> <var>foo.cue</var>
+rm -f <var>foo.toc</var>
+</pre></table>
+
+<h2><a class=nolink name="19.13.">19.13. CD-brenning med cdrdao</a></h2>
+Følgende kommandoer kan brukes for å brenne f.eks. BIN/CUE-filer med cdrdao:
+<table><tr><td><pre>
+cdrdao write --device /dev/cdrecorder --driver generic-mmc <var>foo.cue</var>
+</pre></table>
+
+<h2><a class=nolink name="19.14.">19.14. Konvertere binære datafiler til objektkode</a></h2>
+For å konvertere filen <code>foo.bin</code> til objektfilen <code>foo.o</code>,
+så skriver man <code>ld -s -r -b binary foo.bin -o foo.o</code>.
+Flagget <code>-s</code> betyr strip, og <code>-b binary</code> betyr at den
+neste filen på kommandoenlinjen er av dette formatet.  For å få
+normal alignment på <code>.rodata</code>, så kan man linke inn en
+vanlig objektfil først, som godt kan være helt tom:
+<table><tr><td><pre>
+touch dummy.c
+gcc -c dummy.c
+ld -s -r dummy.o -b binary foo.bin -o foo.o
+</pre></table>
+Merk at <code>dummy.o</code> kommer før <code>-b binary</code>!  Det er også mulig
+å definere symbolnavn selv, ved å lage et linkescript.  I eksempelet
+over lager ld symbolene <code>_binary_foo_bin_start</code> og
+<code>_binary_foo_bin_stop</code>.  Følgende linkescript lager alternativene
+<code>foo_start</code> og <code>foo_end</code>:
+<table><tr><td><pre>
+OUTPUT_FORMAT("elf32-i386")
+OUTPUT_ARCH(i386)
+SECTIONS
+{
+  .data :
+  {
+        foo_start = .;
+        *(.data)
+        foo_end = .;
+  }
+}
+</pre></table>
+For å bruke scriptet sier man <code>-T <var>ld-script</var></code> til ld.
+En enda lettere måte å linke med et vanlig program er:
+<table><tr><td><pre>
+gcc -Wl,-b,binary foo.bin -Wl,-b,elf32-i386 bar.c -o foobar
+</pre></table>
+
+<h2><a class=nolink name="19.15.">19.15. Korrekt spacing i LaTeXs eqnarray</a></h2>
+Gjør <code>\setlength{\arraycolsep}{2pt}</code>.
+
+<h2><a class=nolink name="19.16.">19.16. IDE/ATA DMA</a></h2>
+For å få maks ytelse av disken, legg følgende i <code>/etc/rc.d/rc.S</code>:
+<table><tr><td><pre>
+/usr/sbin/hdparm -q -c3 -m16 -d1 -u1 /dev/hda
+</pre></table>
+Forklaring: <code>-q</code> skrur av output, <code>-c3</code> velger 32-bit IDE I/O med sync,
+<code>-m16</code> setter sector count til 16 for multiple sector I/O (IDE Block Mode),
+<code>-d1</code> skrur på DMA, og <code>-u1</code> lar disken unmask'e interrupts under
+interrupt prosessering.  For å se grenser for hva som kan skrus på, se
+<code>/proc/ide/hda/settings</code> og <code>hdparm -i /dev/hda</code>.
+
+<h2><a class=nolink name="19.17.">19.17. TeX Live</a></h2>
+
+<h3><a class=nolink name="19.17.1.">19.17.1. Installasjon</a></h3>
+
+Gå til <a target="_blank" href="http://www.tug.org/texlive/acquire-netinstall.html">Tex Live</a>
+og last ned <a target="_blank" href="http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz">install-tl-unx.tar.gz</a>.
+Installer <code>perl-Tk</code> for å kjøre GUI-versjonen av installasjonsprogrammet.
+<table><tr><td><pre>
+./install-tl -gui=perltk
+</pre></table>
+Alternativt, text-only installer:
+<table><tr><td><pre>
+./install-tl -gui=text
+</pre></table>
+
+<h2><a class=nolink name="19.18.">19.18. LVM</a></h2>
+
+<h3><a class=nolink name="19.18.1.">19.18.1. Oppsett</a></h3>
+Det følgende er et eksempel som viser hvordan man setter opp to disker
+(<code>/dev/sda</code> og <code>/dev/sdb</code>) i LVM med striping (64 KiB stripe size).
+Start med å opprette en partisjon på hver disk som dekker hele disken.
+Gjør så:
+<table><tr><td><pre>
+pvcreate /dev/sda1 /dev/sdb1
+vgcreate <var>vgname</var> /dev/sda1 /dev/sdb1
+lvcreate -n <var>lv00</var> -i 2 -I 64 -l '100%FREE' <var>vgname</var>
+</pre></table>
+Dersom <code>pvcreate</code> (eller noe annet) gir feilmeldinger om at disken
+er i bruk, og den ikke er mountet, så er trolig feilen at software
+RAID driveren har stjålet disken.  Det vil evt. stå i <code>/proc/mdstat</code>.
+Dette kan fikses med <code>mdadm --stop <var>MD-DEVICE</var></code>.
+
+Dersom filsystemet på volumet skal være ext2 eller ext3, pass på
+å spesifisere stride.  Hvis f.eks. filsystemets block size
+er 4 KiB og LVM stripe size er 64 KiB, så er stride lik 64/4 = 16:
+<table><tr><td><pre>
+mkfs.ext3 -b 4096 -E stride=16 /dev/<var>vgname</var>/<var>lv00</var>
+</pre></table>
+Dersom man har glemt stripe size på volumet, kan den vises med
+<table><tr><td><pre>
+lvs --units b -o stripesize /dev/<var>vgname</var>/<var>lv00</var>
+</pre></table>
+
+<h3><a class=nolink name="19.18.2.">19.18.2. Gjenoppretting av tidligere oppsett</a></h3>
+For å hente fram og sette opp et tidligere LVM-oppsett, kjør <code>vgscan</code> for å
+finne gruppene, og deretter
+<table><tr><td><pre>
+vgchange -ay <var>VG-NAME</var>
+</pre></table>
+
+<h3><a class=nolink name="19.18.3.">19.18.3. Legge til ekstra partisjon</a></h3>
+For å legge til <code>/dev/sdq3</code> i volume group <code><var>VG-NAME</var></code>, gjør:
+<table><tr><td><pre>
+pvcreate /dev/sdq3
+vgextend <var>VG-NAME</var> /dev/sdq3
+lvextend -l +100%Free /dev/<var>VG-NAME</var>/<var>LV-NAME</var>
+resize2fs /dev/<var>VG-NAME</var>/<var>LV-NAME</var>
+</pre></table>
+
+<h3><a class=nolink name="19.18.4.">19.18.4. Krympe volum</a></h3>
+Reduser filsystemet til minimum:
+<table><tr><td><pre>
+resize2fs -M /dev/<var>VOLGROUP</var>/<var>LVNAME</var>
+</pre></table>
+Reduser volum til ønsket størrelse, men <var>IKKE</var> mindre enn størrelsen
+som filsystemet ble satt til ovenfor:
+<table><tr><td><pre>
+lvresize -l <var>NUM_EXTENTS</var> /dev/<var>VOLGROUP</var>/<var>LVNAME</var>
+</pre></table>
+For å regne ut minimum <code><var>NUM_EXTENTS</var></code>, gjør:
+<table><tr><td><pre>
+block_count=$(dumpe2fs -h /dev/<var>VOLGROUP</var>/<var>LVNAME</var> 2&gt;/dev/null | sed -n 's/^Block count://p')
+block_size=$(dumpe2fs -h /dev/<var>VOLGROUP</var>/<var>LVNAME</var> 2&gt;/dev/null | sed -n 's/^Block size://p')
+fs_size=$(echo "$block_size * $block_count" | bc -l)
+extent_size=$(vgs --noheadings --nosuffix --units b -o vg_extent_size <var>VOLGROUP</var>)
+<dfn># Antall extents som eksakt tilsvarer filsystemets størrelse.</dfn>
+<dfn># Rund dette opp til nærmeste heltall.</dfn>
+echo $fs_size / $extent_size | bc -l
+</pre></table>
+Når volumet er resizet til ønsket antall extents, la filsystemet vokse til
+å fylle volumet:
+<table><tr><td><pre>
+resize2fs /dev/<var>VOLGROUP</var>/<var>LVNAME</var>
+</pre></table>
+
+<h2><a class=nolink name="19.19.">19.19. RAID5 med mdadm</a></h2>
+Følgende viser et eksempel på hvordan man kan sette
+opp et RAID5-array bestående av fire disker, <code>/dev/sda</code>
+t.o.m. <code>/dev/sdd</code>.  Begynn med å partisjonere opp diskene
+slik at de inneholder én partisjon som dekker hele disken.
+Dette fordi man da kan sette partisjonstypen til <i>Linux raid
+autodetect</i> (hexverdi <i>fd</i>), som gjør at mdadm klarer å
+auto-gjenoppbygge RAID-devicet, uten å måtte fortelles hvordan
+det skal gjøres.  (Dersom man <i>ikke</i> brukte partisjoner av
+denne typen, men hele disker, så måtte man eksplisitt sette opp
+arrayen i <code>/etc/rc.d/rc.local</code> e.l. vha. <code>mdadm -A <var>MD-DEVICE</var>
+<var>DISK-DEVICES</var></code>.)  Når diskene er ferdig partisjonert, kan man
+opprette RAID-arrayet med følgende kommando:
+<table><tr><td><pre>
+mdadm -Cv /dev/md0 -l5 -n4 /dev/sd[a-d]1
+</pre></table>
+Operasjonen vil ta lang tid, og status kan lese ut fra <code>/proc/mdstat</code>.
+Det kan være ønskelig å lage en <code>/etc/mdadm.conf</code> som beskriver
+RAID-oppsettet.  Det kan gjøres automatisk med
+<table><tr><td><pre>
+mdadm -Ds &gt;/etc/mdadm.conf
+</pre></table>
+Dersom filsystemet på RAID-devicet skal være ext2 eller ext3,
+pass på å spesifisere RAID-stride.  Hvis f.eks. filsystemets
+block size er 4 KiB og RAIDs chunk size (se <code>/proc/mdstat</code>)
+er 64 KiB, så er RAID-stride 64/4 = 16:
+<table><tr><td><pre>
+mkfs.ext3 -b 4096 -E stride=16 /dev/md0
+</pre></table>
+
+<h2><a class=nolink name="19.20.">19.20. Tuning for SSD</a></h2>
+Legg til <code>noatime,discard</code> på mount options i <code>/etc/fstab</code> for å fjerne access
+time updates og skru på TRIM.  <i>IKKE</i> skru av journaling, for da virker ikke
+<code>discard</code> (auto-TRIM).  Trim kan utføres manuelt med
+<table><tr><td><pre>
+fstrim -v /
+</pre></table>
+Sett minimalt med swapping ved å legge til i <code>/etc/sysctl.conf</code>:
+<table><tr><td><pre>
+vm.swappiness = 1
+</pre></table>
+Bytt også I/O scheduler til <code>noop</code> ved å lage <code>/etc/udev/rules.d/10-schedulers.rules</code> med:
+<table><tr><td><pre>
+<dfn># Set noop scheduler for non-rotating disks.</dfn>
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="noop"
+
+<dfn># Set cfq scheduler for rotating disks.</dfn>
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="cfq"
+</pre></table>
+Verifiser at riktig scheduler brukes med
+<table><tr><td><pre>
+cat /sys/block/<var>DEVICE</var>/queue/scheduler
+</pre></table>
+
+<h2><a class=nolink name="19.21.">19.21. Konvertere ext2 til ext4</a></h2>
+Unmount <code><var>PARTITION</var></code> og gjør:
+<table><tr><td><pre>
+tune2fs -O extents,uninit_bg,dir_index,has_journal <var>PARTITION</var>
+fsck.ext4 -y <var>PARTITION</var>
+</pre></table>
+Husk å oppdatere <code>/etc/fstab</code> og muligens også <code>grub-install <var>DEVICE</var> --recheck</code>.
+
+<h2><a class=nolink name="19.22.">19.22. Bogofilter</a></h2>
+Trening av filteret:
+<table><tr><td><pre>
+bogofilter -d <var>DB-DIR</var> [-s | -n] [-M] -B <var>FILENAMES</var>...
+</pre></table>
+der <code><var>DB-DIR</var></code> er katalogen hvor orddatabasen skal bli skrevet,
+<code>-s</code> tagger mailen som spam og <code>-n</code> tagger mailen som non-spam.
+Bruk <code>-M</code> for å si at vanlige filer (i <code><var>FILENAMES</var></code>) er
+mbox'er, ikke enkeltstående mails.
+
+For å bruke bogofilter med procmail, bruk følgende procmail-regel:
+<table><tr><td><pre>
+:0 fw
+| nice -19 bogofilter -u -e -p
+</pre></table>
+Flagget <code>-u</code> får bogofilter til å registrere mailens tekst
+i databasen etter den er klassifisert som spam/non-spam.
+<code>-e</code> betyr at bogofilter skal returnere 0 uansett om meldingen
+er spam eller ikke, unntatt når det skjedde noe feil.
+<code>-p</code> betyr at bogofilter skal skrive ut en kopi av mailen som
+kom på stdin til stdout, men med en X-Bogosity header satt inn.
+
+For å tagge alle meldinger med spam score mindre enn 0.10 som non-spam,
+alle mellom 0.10 og 0.95 som usikre, og alle over 0.95 som spam, legg
+<table><tr><td><pre>
+ham_cutoff = 0.10
+spam_cutoff = 0.95
+</pre></table>
+i <code>~/.bogofilter.cf</code> og
+<table><tr><td><pre>
+:0
+* ^X-Bogosity: (Yes|Spam)
+junk/Spam/
+
+:0
+* ^X-Bogosity: Unsure
+junk/Pending/
+</pre></table>
+etter bogofilter i procmail-reglene.
+
+<h2><a class=nolink name="19.23.">19.23. NTP</a></h2>
+La <code>/etc/ntp.conf</code> på NTP-serveren inneholde følgende:
+<table><tr><td><pre>
+<dfn># Permit time synchronization with our time source, but do not</dfn>
+<dfn># permit the source to query or modify the service on this system.</dfn>
+restrict default nomodify notrap noquery
+
+<dfn># Permit all access over the loopback interface.  This could</dfn>
+<dfn># be tightened as well, but to do so would effect some of</dfn>
+<dfn># the administrative functions.</dfn>
+restrict 127.0.0.1
+
+<dfn># Allow all local hosts to perform ntpq and ntpdc queries.</dfn>
+restrict 10.0.0.0 mask 255.0.0.0 nomodify notrap
+
+<dfn># Undisciplined Local Clock. This is a fake driver intended for backup</dfn>
+<dfn># and when no outside source of synchronized time is available. The</dfn>
+<dfn># default stratum is usually 3, but in this case we elect to use stratum</dfn>
+<dfn># 10. Since the server line does not have the prefer keyword, this driver</dfn>
+<dfn># is never used for synchronization, unless no other other</dfn>
+<dfn># synchronization source is available. In case the local host is</dfn>
+<dfn># controlled by some external source, such as an external oscillator or</dfn>
+<dfn># another protocol, the prefer keyword would cause the local host to</dfn>
+<dfn># disregard all other synchronization sources, unless the kernel</dfn>
+<dfn># modifications are in use and declare an unsynchronized condition.</dfn>
+server 127.127.1.0
+fudge 127.127.1.0 stratum 10
+
+<dfn># The real NTP servers.</dfn>
+server <var>SERVER1</var>
+server <var>SERVER2</var>
+...
+
+<dfn># Log the intrinsic frequency error on the local clock.  This</dfn>
+<dfn># allows the ntp program to be even more accurate, since it can</dfn>
+<dfn># compensate for the drift between each server sync.</dfn>
+driftfile /etc/ntp.drift
+
+logfile /var/log/ntp.log
+</pre></table>
+For klientmaskinene bruker man samme <code>ntp.conf</code>, men erstatt
+alle <code>server</code>-linjene med én enkelt <code>server <var>ADDR</var></code> der <code><var>ADDR</var></code>
+er addressen til maskinen som ble satt opp som NTP-server.  Start opp ntpd,
+men merk at det kan ta <i>lang</i> tid (over 20 minutter) før klientene
+klarer å bruke NTP-serveren, pga. at serveren ikke slipper til klienter
+før den har synkronisert seg ordentlig mot sine eksterne servere.
+(Det vil sannsynligvis dukke opp en linje i NTP-loggen som sier
+<code>kernel time sync disabled</code> omtrent samtidig som serveren er klar.)
+
+<h2><a class=nolink name="19.24.">19.24. RSH</a></h2>
+På Red Hat/Fedora må både klient- og serverpakken installeres, hhv.
+<code>rsh</code> og <code>rsh-server</code>.  Deretter må de to inetd-tjenestene <code>rsh</code>
+og <code>rlogin</code> skrus på, og inetd restartes.  Følgende fremgangsmåte for
+Red Hat/Fedora:
+<table><tr><td><pre>
+chkconfig rsh on
+chkconfig rlogin on
+service xinetd restart
+</pre></table>
+For å tillate login uten passord fra en bestemt maskin til en
+bestemt bruker, gjør <code>echo <var>IP-ADDRESS</var> &gt;~<var>USER</var>/.rhosts</code>.
+
+<h2><a class=nolink name="19.25.">19.25. Starte nytt prosjekt med bzr</a></h2>
+For å lage et nytt repository i katalog <code>/path/to/bzrrepo</code>:
+<table><tr><td><pre>
+bzr init-repo --no-trees /path/to/bzrrepo
+</pre></table>
+Et prosjekt <code>foo</code> kan legges til i repositoryet med
+<table><tr><td><pre>
+bzr init /path/to/bzrrepo/foo
+</pre></table>
+Dette prosjektet kan så sjekkes ut med <code>bzr co</code>.  Dersom man skal
+sjekke ut fra en annen maskin over SFTP, så kan følgende syntaks brukes:
+<table><tr><td><pre>
+bzr co sftp://<var>SERVER</var>/path/to/bzrrepo/foo
+</pre></table>
+Man kan videre gjøre en såkalt "light checkout" av denne for å slippe
+å ha masse søppel i prosjektets <code>.bzr</code> katalog, men likevel ha fordelen
+av å kunne gjøre diff o.l. operasjoner uten å bruke nettet:
+<table><tr><td><pre>
+bzr co --lightweight /path/to/full/checkout/foo foo
+</pre></table>
+
+<h2><a class=nolink name="19.26.">19.26. Starte nytt prosjekt med CVS</a></h2>
+For å lage et nytt repository på ekstern server i katalog <code>/path/to/cvsroot</code>:
+<table><tr><td><pre>
+cvs -d :ext:<var>SERVER</var>:/path/to/cvsroot init
+</pre></table>
+Deretter kan man begynne å bruke repository'et ved å gjøre:
+<table><tr><td><pre>
+cvs -d :ext:<var>SERVER</var>:/path/to/cvsroot import -m 'imported sources' <var>PROJECT-DIRECTORY</var> vendor release
+</pre></table>
+
+<h2><a class=nolink name="19.27.">19.27. LCD-tweaking for laptop</a></h2>
+For å manuelt dimme backlight, bruk
+<table><tr><td><pre>
+xbacklight -set <var>PERCENT</var>
+</pre></table>
+For å klone laptopens LCD-display til VGA, gjør
+<table><tr><td><pre>
+xrandr --output LVDS --auto --output VGA --auto --same-as LVDS
+</pre></table>
+For å sette oppløsning:
+<table><tr><td><pre>
+<dfn># Oppløsning spesifisert direkte</dfn>
+xrandr -s <var>WIDTH</var>x<var>HEIGHT</var>
+<dfn># Ved indeks</dfn>
+xrandr -s <var>INDEX</var>
+</pre></table>
+
+<h2><a class=nolink name="19.28.">19.28. Bruk av HDMI ved spilling av video</a></h2>
+For å klone laptopens LCD-display til HDMI, gjør
+<table><tr><td><pre>
+xrandr --output LVDS1 --auto --output HDMI1 --auto --same-as LVDS1
+</pre></table>
+Alternativt, dersom <code>--auto</code> ikke gir gode resultater, kan man
+prøve å skalere ved å legge til <code>--scale <var>X</var>x<var>Y</var></code>. En tredje mulighet
+er å lage en egen mode. Eksempel:
+<table><tr><td><pre>
+xrandr --newmode "custom1024x768" 63.50 1024 1072 1176 1328 768 771 775 798 -hsync +vsync
+xrandr --addmode HDMI1 custom1024x768
+</pre></table>
+Denne brukes deretter med
+<table><tr><td><pre>
+xrandr --output HDMI1 --mode custom1024x768
+</pre></table>
+Neste trinn er audio. Finn ut hvilket device som er HDMI output med
+<table><tr><td><pre>
+aplay -l
+</pre></table>
+Man kan så bruke mplayer til å spille video på HDMI:
+<table><tr><td><pre>
+mplayer -ao alsa:device=hw=<var>X</var>.<var>Y</var> ...
+</pre></table>
+For å skru av HDMI1, gjør
+<table><tr><td><pre>
+xrandr --output HDMI1 --off
+</pre></table>
+
+<h2><a class=nolink name="19.29.">19.29. Touchpad-innstillinger på CL56-laptop</a></h2>
+For å få riktige innstillinger (som vanlig mus, og uten tapping), inkludér
+følgende i <code>/etc/X11/xorg.conf</code>:
+<table><tr><td><pre>
+Section "ServerLayout"
+	InputDevice    "Synaptics" "AlwaysCore"
+EndSection
+
+Section "Module"
+	Load  "synaptics"
+EndSection
+
+Section "InputDevice"
+	Identifier  "Synaptics"
+	Driver      "synaptics"
+	Option	    "Device" "/dev/input/mice"
+	Option	    "Protocol" "auto-dev"
+	Option	    "Emulate3Buttons" "yes"
+        <dfn># Disable tapping.</dfn>
+        Option      "MaxTapTime" "0"
+        <dfn># Disable coasting.</dfn>
+        Option      "CoastingSpeed" "0"
+        <dfn># No vertical scrolling area in the edges of the display.</dfn>
+        Option      "VertScrollDelta" "0"
+        <dfn># No horizontal scrolling area in the edges of the display.</dfn>
+        Option      "HorizScrollDelta" "0"
+        Option      "MinSpeed" "0.15"
+        Option      "MaxSpeed" "0.80"
+EndSection
+</pre></table>
+
+<h2><a class=nolink name="19.30.">19.30. Wireless-radio på CL56-laptop</a></h2>
+Radioen må skrus på med <a target="_blank" href="http://www.informatik.hu-berlin.de/~tauber/acerhk/">Acer Hotkey driver</a>.  Last inn denne driveren, og gjør
+<code>echo 1 &gt;/proc/driver/acerhk/wirelessled</code> for å skru på radioen.
+
+<h2><a class=nolink name="19.31.">19.31. Trådløs WEP-oppkobling</a></h2>
+For å konfigurere mot et aksesspunkt som bruker WEP-kryptering, gjør
+følgende:
+<table><tr><td><pre>
+iwconfig eth1 essid <var>NAME</var> mode managed channel <var>CHANNEL</var> key <var>KEY</var>
+while iwconfig eth1 | grep -q 00:00:00:00:00:00; do
+    echo 'Access point not found... retrying in 1 second.' 2&gt;&amp;1
+    sleep 1
+done
+</pre></table>
+Det kan hende, avhengig av aksesspunkt, at det er nødvendig å
+legge til <code>restricted</code> eller <code>open</code> etter <code>key</code>.
+For å sette adresse kan man så kjøre <code>dhclient eth1</code> eller sette
+adresse manuelt:
+<table><tr><td><pre>
+ifconfig eth1 <var>IP-ADDRESS</var>
+route add default gw 10.0.0.1 eth1
+</pre></table>
+
+
+<h2><a class=nolink name="19.32.">19.32. Trådløs WPA-oppkobling</a></h2>
+Lag en <code>wpa_supplicant.conf</code> som inneholder:
+<table><tr><td><pre>
+ctrl_interface=/var/run/wpa_supplicant
+ctrl_interface_group=wheel
+
+network={
+        ssid="<var>NAME-OF-ACCESS-POINT</var>"
+        psk="<var>PASSWORD</var>"
+        scan_ssid=1
+}
+
+network={
+	ssid="any"
+	key_mgmt=NONE
+}
+</pre></table>
+Start så <code>wpa_supplicant</code> med kommandoen
+<table><tr><td><pre>
+sudo wpa_supplicant -B -i<var>WIRELESS-NETWORK-INTERFACE</var> -c<var>/path/to/wpa_supplicant.conf</var>
+</pre></table>
+der <code><var>WIRELESS-NETWORK-INTERFACE</var></code> er f.eks. <code>eth1</code>.
+
+<h2><a class=nolink name="19.33.">19.33. Seriell-konsoll</a></h2>
+For å få Linux-konsollen sendt over seriell nullmodem-kabel, legger
+man <code>console=ttyS0,115200n8</code> på kjernens kommandolinje på maskinen
+hvis log skal observeres.  På maskinen som skal se på loggen bruker
+man minicom med følgende konfigurasjonsfil (<code>/etc/minirc.dfl</code>):
+<table><tr><td><pre>
+pr port             /dev/ttyS0
+pu baudrate         115200
+pu rtscts           No 
+</pre></table>
+Start så minicom, og loggen vil vises på skjermen.  For å dumpe til
+fil, trykk <code>Ctrl-A L</code>.  <code>Ctrl-A X</code> avslutter minicom.
+
+<h2><a class=nolink name="19.34.">19.34. Bruk av USB flash som erstatning for floppy-boot</a></h2>
+(Antar i det følgende at <code>/dev/flash</code> refererer til flash-devicet,
+og at <code>/dev/flash1</code> er flashens første partisjon.)
+<table><tr><td><pre>
+# <kbd>parted /dev/flash</kbd>
+(parted) <kbd>mklabel msdos</kbd>
+Warning: The existing disk label on /dev/sdb will be destroyed and all data on this disk will be lost. Do you want to continue?
+Yes/No? <kbd>y</kbd>
+(parted) <kbd>mkpart primary fat32 0% 100%</kbd>
+(parted) <kbd>set 1 boot on</kbd>
+(parted) <kbd>quit</kbd>
+# <kbd>mkdosfs /dev/flash1</kbd>
+# <kbd>syslinux --install /dev/flash1</kbd>
+# <kbd>dd conv=notrunc if=/usr/share/syslinux/mbr.bin of=/dev/flash</kbd>
+# <kbd>mount /dev/flash1 /media</kbd>
+# <kbd>cp /usr/share/syslinux/memdisk /media</kbd>
+# <kbd>cat &lt;&lt;\EOF &gt;/media/syslinux.cfg
+default dos
+label dos
+  kernel memdisk
+  append initrd=disk.img
+EOF</kbd>
+# <kbd>dd if=/dev/zero of=/media/disk.img bs=1k count=1440</kbd>
+# <kbd>mkdosfs /media/disk.img</kbd>
+# <kbd>mount -o loop /media/disk.img /mnt</kbd>
+<dfn>&lt;copy DOS system files into /mnt&gt;</dfn>
+# <kbd>umount /mnt</kbd>
+# <kbd>ms-sys -1 -f /media/disk.img</kbd>
+# <kbd>umount /media</kbd>
+</pre></table>
+Hvis man ikke har <code>ms-sys</code>, så skal det holde å gjøre
+<table><tr><td><pre>
+# <kbd>dd conv=notrunc if=floppy_bootsector.bin of=/media/disk.img</kbd>
+</pre></table>
+Last ned bootsectoren her: <a target="_blank" href="files/floppy_bootsector.bin">floppy_bootsector.bin</a>.
+
+Merk at <code><var>disk.img</var></code> skal være rådata fra floppydisken, og <i>må</i> være i en
+av de standard floppy-størrelsene (360K, 720K, 1200K, 1440K, 1680K, 1722K,
+eller 2880K). (<code><var>disk.img</var></code> kan være et gzippet floppy-image, i hvilket
+tilfelle størrelsen ikke trenger å være som over så lenge resultatet av gunzip
+blir en standard floppy-størrelse.)
+
+<h2><a class=nolink name="19.35.">19.35. Bruk av aspell til å lage ordlister for vim/look/osv</a></h2>
+For å lage en sortert ordliste for norsk:
+<table><tr><td><pre>
+aspell dump master norsk | sort &gt;~/share/dict/norsk
+</pre></table>
+
+<h2><a class=nolink name="19.36.">19.36. Fikse bakgrunnsfarge som henger fra mutt</a></h2>
+Fjern <code>bce</code> fra terminfo:  Kjør først <code>infocmp &gt;xterm.ti</code> for å
+generere en terminfo fil ved navn <code>xterm.ti</code>.  Editér og fjern
+<code>bce</code> dersom det finnes, og kjør <code>tic xterm.ti</code> for å installere
+oppdatert terminfo.  Slett så <code>xterm.ti</code>.
+
+<h2><a class=nolink name="19.37.">19.37. Baklengs VNC</a></h2>
+Start <code>vncviewer</code> på Linux-boksen med <code>vncviewer -listen</code>.  Dette
+gjør at <code>vncviewer</code> vil lytte på port 5500.  På serversiden, som
+ligger bak en NAT-router, kobler man så til klientens IP-adresse.
+
+<h2><a class=nolink name="19.38.">19.38. Splitting av MKV/Matroska filmer</a></h2>
+For å splitte en MKV-film til under 4 GB, installer <code>mkvtoolnix</code>
+og gjør
+<table><tr><td><pre>
+mkvmerge --split 4050m -o <var>OUTPUT</var>.mkv <var>INPUT</var>.mkv
+</pre></table>
+
+<h2><a class=nolink name="19.39.">19.39. Enkoding med ffmpeg</a></h2>
+Enkoding med ffmpeg har følgende syntaks:
+<table><tr><td><pre>
+ffmpeg <var>INPUT-OPTIONS</var> -i <var>INPUT-FILE</var> <var>OUTPUT-OPTIONS</var> <var>OUTPUT-FILE</var>
+</pre></table>
+Rekkefølgende på <code><var>INPUT-OPTIONS</var></code> og <code><var>OUTPUT-OPTIONS</var></code> er
+<i>ekstremt</i> viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-FILE</var> -acodec libmp3lame -ab 128kb -vcodec libx264 -vb 1000kb <var>OUTPUT-FILE</var>
+</pre></table>
+Formatet på <code><var>OUTPUT-FILE</var></code> blir satt av extension.  For å liste forskjellige
+formater for a/v codec og containerstrøm, gjør <code>ffmpeg -formats</code>.
+
+<h2><a class=nolink name="19.40.">19.40. FFmpeg pipelining</a></h2>
+For å sende rå YUV-frames via pipe til x264:
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-VIDEO</var> -an -f rawvideo - |
+  x264 --threads auto -B <var>BITRATE</var> --fps <var>FPS</var> -o <var>OUTPUT-VIDEO</var> - <var>WIDTH</var>x<var>HEIGHT</var>
+</pre></table>
+For å sende YUV-frames i YUV4MPEG-format til x264:
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-VIDEO</var> -an -f yuv4mpegpipe - |
+  x264 -B <var>BITRATE</var> -o <var>H264-OUTPUT</var> --demuxer y4m -
+</pre></table>
+For å sende lyd i WAV-format til faac:
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-STREAM</var> -f wav -vn - |
+  faac [<var>QUALITY-OPTIONS</var>] -o <var>AAC-OUTPUT</var> -
+</pre></table>
+For å sende lyd i rå PCM-data:
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-VIDEO</var> -f s16le -vn - |
+faac -X -P -C <var>CHANNELS</var> -R <var>RATE</var> -o <var>AAC-OUTPUT</var> <var>PCM-INPUT</var>
+</pre></table>
+
+<h2><a class=nolink name="19.41.">19.41. Bruke FFmpeg til å segmentere video</a></h2>
+<table><tr><td><pre>
+<dfn># Til MP4:</dfn>
+ffmpeg -i INPUT -codec copy -f segment -segment_time 1 -segment_format mp4 /tmp/out%05d.mp4
+
+<dfn># Til HLS:</dfn>
+ffmpeg -i INPUT -codec copy -bsf h264_mp4toannexb -f segment -segment_time 1 -segment_list /tmp/out.m3u8 -segment_format mpeg2ts /tmp/out%05d.ts
+</pre></table>
+
+<h2><a class=nolink name="19.42.">19.42. Dumping av rå PCM-lyd med FFmpeg eller mplayer</a></h2>
+<table><tr><td><pre>
+<dfn># Alternativ 1: med FFmpeg</dfn>
+ffmpeg -i <var>INPUT-STREAM</var> -f s16le -vn -
+<dfn># Alternativ 2: med mplayer</dfn>
+mplayer -ao pcm:fast:nowaveheader:file=/dev/stdout -vo null <var>INPUT-STREAM</var>
+</pre></table>
+Kan teste å spille lyden med
+<table><tr><td><pre>
+aplay -f S16_LE -c <var>CHANNELS</var> -r <var>RATE</var> <var>PCMFILE</var>
+</pre></table>
+
+<h2><a class=nolink name="19.43.">19.43. Ekstrahere subsegmenter av video med perfekt A/V sync</a></h2>
+Antar først at lyd og bilde starter likt.  For å velge ut frame
+range, gjør
+<table><tr><td><pre>
+mplayer -nosound -vo jpeg:quality=20 -benchmark <var>INPUT-VIDEO</var>
+</pre></table>
+og kikk på JPEG-filene som blir produsert for å finne passende snutter.
+Når snuttene er valgt må tilhørende lyd også hentes ut.  Regn først ut
+antall bytes lyd per video frame:
+<table><tr><td><pre>
+BYTES_PER_FRAME = 2 × <var>CHANNELS</var> × <var>SAMPLE-RATE</var> / <var>FPS</var>
+</pre></table>
+Kall <code>bytes_per_frame</code> en lydblokk.
+Dvs. at dersom første ønskede video frame er <code>A</code>, så er det <code><var>Q</var>=A - 1</code>
+lydblokker som må skippes, og antall lydblokker som skal brukes er
+naturligvis lik antall video frames <code>N</code>.  For å hente ut lyden,
+gjør
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-VIDEO</var> -f s16le -vn - | 
+dd iflag=fullblock bs=<var>BYTES_PER_FRAME</var> skip=<var>Q</var> count=<var>N</var> of=<var>PCMFILE</var>
+</pre></table>
+Dump så ut videodelen i rå YUV-data:
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-VIDEO</var> -s <var>NEWW</var>x<var>NEWH</var> -an -f rawvideo - |
+dd iflag=fullblock bs=$((<var>NEWW</var>×<var>NEWH</var>×12/8)) skip=<var>Q</var> count=<var>N</var> of=<var>YUVFILE</var>
+</pre></table>
+For testing kan <code><var>PCMFILE</var></code> og <code><var>YUVFILE</var></code> spilles sammen med
+<table><tr><td><pre>
+mplayer \
+ -audio-demuxer rawaudio \
+ -rawaudio channels=<var>C</var>:rate=<var>R</var>:samplesize=2 -audiofile <var>PCMFILE</var> \
+ -demuxer rawvideo \
+ -rawvideo fps=<var>FPS</var>:w=<var>NEWW</var>:h=<var>NEWH</var>:i420 <var>YUVFILE</var>
+</pre></table>
+For å enkode disse, gjør
+<table><tr><td><pre>
+ffmpeg -ar <var>RATE</var> -ac <var>CHANNELS</var> -f s16le -i <var>PCMFILE</var> \
+       -s <var>NEWW</var>x<var>NEWH</var> -r <var>FPS</var> -pix_fmt yuv420p -f rawvideo -i <var>YUVFILE</var> \
+       <var>&lt;-acodec/-vcodec parametre&gt;</var> \
+       <var>OUTPUT-VIDEO</var>
+</pre></table>
+
+<h2><a class=nolink name="19.44.">19.44. Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a></h2>
+Installer FFmpeg med libass for brenne inn subtitles i bildet.
+Transkoding av video gjøres slik:
+
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT-VIDEO</var> \
+  -c:a ac3 -b:a 448k \
+  -c:v libx264 -crf 16 \
+  -vf subtitles=SRT-FILE \
+  <var>OUTPUT-VIDEO</var>.mp4
+</pre></table>
+
+Installer MiniDLNA og gjør følgende endringer i <code>/etc/minidlna.conf</code>:
+
+<table><tr><td><pre>
+--- /etc/minidlna.conf.orig     2014-09-14 16:39:59.000000000 +0200
++++ /etc/minidlna.conf  2014-11-27 20:34:48.622085035 +0100
+@@ -5 +5 @@
+-#network_interface=eth0
++network_interface=p4p2
+@@ -18 +18 @@
+-media_dir=/opt
++media_dir=/local/video/dlna
+@@ -25 +25 @@
+-#friendly_name=My DLNA Server
++friendly_name=snowbird
+@@ -28 +28 @@
+-#db_dir=/var/cache/minidlna
++db_dir=/local/video/dlna/DB
+</pre></table>
+
+Kopier MP4-filene til <code>media_dir</code> og start minidlnad:
+
+<table><tr><td><pre>
+minidlnad -d -R
+</pre></table>
+
+<h2><a class=nolink name="19.45.">19.45. Subtitles brent inn i bildet vha FFmpeg og mplayer</a></h2>
+<table><tr><td><pre>
+mkfifo /tmp/video.y4m
+mplayer \
+    -nosound \
+    -benchmark \
+    -vo yuv4mpeg:file=/tmp/video.y4m \
+    -sid 0 \
+    -subfont ~/share/fonts/ttf/arial.ttf \
+    -subfont-text-scale 25 \
+    -subfont-autoscale 0 \
+    -subpos 96 \
+    -spualign 2 \
+    <var>SRC-STREAM</var> &amp;&gt;/dev/null &amp;
+ffmpeg \
+    -i /tmp/video.y4m \
+    -i <var>SRC-STREAM</var> \
+    -map 0:0 \ <dfn># first stream from first file (video.y4m)</dfn>
+    -map 1:<var>N</var> \ <dfn># Nth stream (audio) from second file (<var>SRC-STREAM</var>)</dfn>
+    -acodec ac3 \
+    -ab 640k \
+    -vcodec libx264 \
+    -vb <var>VIDEO-BITRATE</var> \
+    -level 41 \
+    <var>OUTPUT</var>.mp4
+</pre></table>
+
+<h2><a class=nolink name="19.46.">19.46. mencoder</a></h2>
+Minimal syntaks er
+<table><tr><td><pre>
+mencoder -force-avi-aspect <var>W/H</var> -oac <var>ACODEC</var> -ovc <var>VCODEC</var> <var>INPUT-FILE</var> -o <var>OUTPUT-FILE</var>
+</pre></table>
+Det vanligste lydformatet er MP3, som kan brukes slik:
+<table><tr><td><pre>
+-oac mp3lame -lameopts abr:br=128:mode=3
+</pre></table>
+Flaggene i <code>-lameopts</code> betyr gjennomsnittlig bitrate på 128 kbps, og mikset
+ned til mono (<code>mode=3</code>).
+
+<h2><a class=nolink name="19.47.">19.47. Oppsett av DAV med SSL på Apache</a></h2>
+Lag først nøkler:
+<table><tr><td><pre>
+openssl req -new -x509 -keyout /etc/httpd/conf/server.key -out /etc/httpd/conf/server.crt
+</pre></table>
+Disse krever passphrase, som gjør at httpd trenger dette skrevet inn når den starter.
+For å fjerne passphrase, gjør:
+<table><tr><td><pre>
+mv /etc/httpd/conf/server.key /etc/httpd/conf/server.key-with-passphrase
+openssl rsa -in /etc/httpd/conf/server.key-with-passphrase -out /etc/httpd/conf/server.key
+</pre></table>
+I <code>/etc/httpd/conf.d/ssl.conf</code> skal det nå stå:
+<table><tr><td><pre>
+SSLCertificateFile /etc/httpd/conf/server.crt
+SSLCertificateKeyFile /etc/httpd/conf/server.key
+</pre></table>
+Lag så en passord-fil for DAV-brukere:
+<table><tr><td><pre>
+htpasswd -c /etc/httpd/conf/webdav-passwd <var>USERNAME</var>
+</pre></table>
+Merk at <code>-c</code> får htpasswd til å overskrive eksisterende filer.  Dropp <code>-c</code>
+hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
+
+<h2><a class=nolink name="19.48.">19.48. Oppsett av vBulletin</a></h2>
+Pakk ut vBulletin i <code>/var/www/html</code>.  Sett så opp MySQL:
+<table><tr><td><pre>
+<dfn># Opprett root-bruker.</dfn>
+mysqladmin -uroot password <var>ROOT-MYSQL-PASSWORD</var>
+
+<dfn># Opprett vBulletin-bruker.</dfn>
+mysql -uroot -p<var>ROOT-MYSQL-PASSWORD</var> mysql
+mysql> <kbd>GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON <var>DBNAME</var>.* TO <var>USERNAME</var>@localhost IDENTIFIED BY '<var>PASSWORD</var>';</kbd> 
+mysql> <kbd>FLUSH PRIVILEGES;</kbd>
+
+<dfn># Opprett database.</dfn>
+mysqladmin -u<var>USERNAME</var> -p<var>PASSWORD</var> create <var>DBNAME</var>
+
+<dfn># Importer siste database-backup.</dfn>
+mysql -u<var>USERNAME</var> -p<var>PASSWORD</var> <var>DBNAME</var> &lt; <var>LAST-BACKUP</var>.sql
+</pre></table>
+Når alt dette er gjort kan man editere <code>config.php</code> i vBulletin-katalogen, og sette
+<table><tr><td><pre>
+$config['Database']['dbname'] = '<var>DBNAME</var>'
+$config['Database']['technicalemail'] = '<var>ADMIN-EMAIL-ADDRESS</var>'
+$config['MasterServer']['username'] = '<var>USERNAME</var>'
+$config['MasterServer']['password'] = '<var>PASSWORD</var>'
+<dfn># Trenger normalt ikke endres:</dfn>
+$config['MasterServer']['servername'] = 'localhost'
+</pre></table>
+
+<h2><a class=nolink name="19.49.">19.49. Mer SQL</a></h2>
+<h3><a class=nolink name="19.49.1.">19.49.1. Velge database</a></h3>
+To muligheter: <code>mysql -u<var>USER</var> -p<var>PASSWORD</var> <var>DBNAME</var></code> eller
+bare <code>mysql -u<var>USER</var> -p<var>PASSWORD</var></code> og så <code>use <var>DBNAME</var></code>
+i mysql-promptet.
+
+<h3><a class=nolink name="19.49.2.">19.49.2. Beskrive tabell</a></h3>
+<table><tr><td><pre>
+mysql> <kbd>describe <var>TABLE</var>;</kbd>
+</pre></table>
+
+<h3><a class=nolink name="19.49.3.">19.49.3. Printe innhold i tabell</a></h3>
+<table><tr><td><pre>
+<dfn># Utvalgte kolonner</dfn>
+mysql> <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
+<dfn># Alle kolonner</dfn>
+mysql> <kbd>select * from <var>TABLE</var>;</kbd>
+</pre></table>
+
+<h3><a class=nolink name="19.49.4.">19.49.4. Slette rad i tabell</a></h3>
+<table><tr><td><pre>
+mysql> <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
+</pre></table>
+
+<h3><a class=nolink name="19.49.5.">19.49.5. Brukere</a></h3>
+Brukere i MySQL ligger i databasen <code>mysql</code> og tabellen <code>user</code>.
+
+<h1><a class=nolink name="20.">20. Problemer spesifikke til enkelte maskiner</a></h1>
+
+<h2><a class=nolink name="20.1.">20.1. Dell Inspiron 1564</a></h2>
+
+<h3><a class=nolink name="20.1.1.">20.1.1. Installasjon</a></h3>
+Bruk safe mode pga. at Intel display drivers ikke funker under install.
+
+<h3><a class=nolink name="20.1.2.">20.1.2. Display i X.org</a></h3>
+Når installasjonen er ferdig må <code>nomodeset</code> fjernes fra <code>grub.conf</code>,
+og <code>/etc/X11/xorg.conf</code> må inneholde
+<table><tr><td><pre>
+Section "Device"
+    Identifier "Videocard0"
+    Driver "intel"
+EndSection
+</pre></table>
+
+<h3><a class=nolink name="20.1.3.">20.1.3. Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver</a></h3>
+Last ned <a target="_blank" href="http://downloads.openwrt.org/sources/broadcom-wl-4.178.10.4.tar.bz2">Broadcom's firmware</a>,
+og installer denne som følger:
+<table><tr><td><pre>
+tar xjf broadcom-wl-4.178.10.4.tar.bz2
+cd broadcom-wl-4.178.10.4/linux
+b43-fwcutter -w /lib/firmware wl_apsta.o
+</pre></table>
+Etter dette skal kortet være tilgjengelig på <code>wlan0</code>:
+<table><tr><td><pre>
+ifconfig wlan0 up
+wpa_supplicant -i wlan0 -c ~/src/misc/etc/wpa_supplicant.conf -B
+dhclient wlan0
+</pre></table>
+
+<h3><a class=nolink name="20.1.4.">20.1.4. Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og proprietær driver</a></h3>
+Skru først av vanlig b43 driver ved å legge inn følgende i
+<code>/etc/modprobe.d/broadcom.conf</code>:
+<table><tr><td><pre>
+blacklist ssb
+blacklist b43
+</pre></table>
+Legg deretter inn
+<a target="_blank" href="http://www.broadcom.com/support/802.11/linux_sta.php">Broadcoms proprietære driver</a>.
+
+<h1><a class=nolink name="21.">21. Annet</a></h1>
+
+<h2><a class=nolink name="21.1.">21.1. POP3-debugging</a></h2>
+Eksempel på POP3-sesjon:
+<table><tr><td><pre>
+<dfn># Dersom vanlig ukryptert POP3:</dfn>
+$ <kbd>telnet pop.example.com 110</kbd>
+<dfn># Dersom POP3S på port 995:</dfn>
+$ <kbd>openssl s_client -crlf -connect pop.example.com:995</kbd>
+<dfn># Dersom POP3 + STARTTLS:</dfn>
+$ <kbd>openssl s_client -crlf -connect pop.example.com:110 -starttls pop3
+</pre></table>
+Når man har koblet til er det følgende likt uansett metode:
+<table><tr><td><pre>
++OK Hello there.
+<kbd>user <var>USERNAME</var></kbd>
++OK Password required.
+<kbd>pass <var>PASSWORD</var></kbd>
++OK logged in.
+<kbd>stat</kbd>
++OK 3 42734
+<kbd>list</kbd>
++OK POP3 clients that break here, they violate STD53.
+1 14459
+2 25979
+3 2296
+.
+<kbd>retr 3</kbd>
++OK 2296 octets follow.
+&lt;...&gt;
+.
+<kbd>dele 3</kbd>
++OK Deleted.
+<kbd>quit</kbd>
++OK Bye-bye.
+</pre></table>
+Hvis bruk av POP3S på port 995, koble til med
+<code>openssl s_client -connect pop.example.com:995</code>.
+Dersom bruk av POP3 med STARTTLS, koble til med
+<code>openssl s_client -crlf -connect pop.example.com:110 -starttls pop3</code>.
+
+<h2><a class=nolink name="21.2.">21.2. IMAP-debugging</a></h2>
+Eksempel på IMAP-sesjon:
+<table><tr><td><pre>
+<dfn># Dersom vanlig ukryptert IMAP:</dfn>
+$ <kbd>telnet imap.example.com 143</kbd>
+<dfn># Dersom IMAPS:</dfn>
+$ <kbd>openssl s_client -crlf -connect imap.example.com:993</kbd>
+</pre></table>
+Når man har koblet til er det følgende likt uansett metode:
+<table><tr><td><pre>
+* OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS XMAGICTRASH] Courier-IMAP ready. Copyright 1998-2008 Double Precision, Inc.  See COPYING for distribution information.
+<kbd>. login <var>USERNAME</var> <var>PASSWORD</var></kbd>
+. OK LOGIN Ok.
+<dfn># Lister alle mailbokser</dfn>
+<kbd>. list "" *</kbd>
+* LIST (\Unmarked \HasChildren) "." "INBOX"
+* LIST (\HasNoChildren) "." "INBOX.Spam"
+* LIST (\HasNoChildren) "." "INBOX.Trash"
+. OK LIST completed
+<dfn># Velg mailboks med read-write-tilgang (s/SELECT/EXAMINE/ for read-only)</dfn>
+<kbd>. select INBOX.Trash</kbd>
+* FLAGS (\Draft \Answered \Flagged \Deleted \Seen \Recent)
+* OK [PERMANENTFLAGS (\* \Draft \Answered \Flagged \Deleted \Seen)]
+* Limited
+* 3 EXISTS
+* 0 RECENT
+* OK [UIDVALIDITY 1168969248] Ok
+* OK [MYRIGHTS "acdilrsw"] ACL
+. OK [READ-WRITE] Ok
+<dfn># Dump From/Subject/Date headers fra melding nr 1</dfn>
+<kbd>. fetch 1 (body[header.fields (from subject date)])</kbd>
+* 1 FETCH (BODY[HEADER.FIELDS ("from" "subject" "date")] {115}
+Date: Wed, 11 Feb 2009 14:43:21 +0200
+Subject: hystream rapp
+From: Paul Vigmostad &lt;paul.vigmostad@netview.no&gt;
+
+)
+. OK FETCH completed.
+<dfn># Hent message body</dfn>
+<kbd>. fetch 1 body[text]</kbd>
+* 1 FETCH (BODY[TEXT] {31}
+Hi,
+
+Goodbye.
+
+-- 
+ Fred Fubar
+)
+. OK FETCH completed.
+<dfn># Sett "deleted" flagg på alle meldinger [1 .. last]</dfn>
+<kbd>. store 1:* flags \Deleted</kbd>
+* 1 FETCH (FLAGS (\Deleted))
+* 2 FETCH (FLAGS (\Deleted))
+* 3 FETCH (FLAGS (\Deleted))
+. OK STORE completed.
+<dfn># Slett alle meldinger markert i forrige skritt</dfn>
+<kbd>. expunge</kbd>
+* 1 EXPUNGE
+* 1 EXPUNGE
+* 1 EXPUNGE
+* 0 EXISTS
+* 0 RECENT
+. OK EXPUNGE completed
+<kbd>. logout</kbd>
+* BYE Courier-IMAP server shutting down
+. OK LOGOUT completed
+</pre></table>
+
+<h2><a class=nolink name="21.3.">21.3. SMTP-debugging</a></h2>
+
+<h3><a class=nolink name="21.3.1.">21.3.1. Standard ikke-autentisert mail</a></h3>
+For å sende mail fra <code>my@email.com</code> til <code>destination@address.com</code>
+ved hjelp av SMTP-serveren <code>mail.foo.com</code> som lytter på port 25:
+<table><tr><td><pre>
+$ <kbd>telnet mail.foo.com 25</kbd>
+Connected to mail.foo.com
+Escape character is '^]'.
+220 mail.foo.com ESMTP Exim 4.69 Thu, 08 Apr 2010 16:21:09 +0200
+<kbd>helo world</kbd>
+250 mail.foo.com Hello world
+<kbd>mail from:&lt;my@email.com&gt;</kbd>
+250 OK
+<kbd>rcpt to:&lt;destination@address.com&gt;</kbd>
+250 Accepted
+<kbd>data</kbd>
+354 Enter message, ending with "." on a line by itself
+<kbd>Subject: hello, world
+
+hello, world
+.</kbd>
+250 OK id=1Nzsg9-0004UJ-51
+<kbd>quit</kbd>
+221 mail.foo.com closing connection
+</pre></table>
+
+<h3><a class=nolink name="21.3.2.">21.3.2. Autentisert mail</a></h3>
+For å sende mail fra <code>my-name@my-email-domain.com</code> til <code>destination@address.com</code>
+ved hjelp av SMTP-serveren <code>mail.foo.com</code> som lytter på port 587:
+<table><tr><td><pre>
+<dfn># For ukryptert SMTP:</dfn>
+$ <kbd>telnet mail.foo.com 587</kbd>
+<dfn># Kryptert med STARTTLS:</dfn>
+$ <kbd>openssl s_client -crlf -connect smtp.example.com:587 -starttls smtp</kbd>
+</pre></table>
+Når man har koblet til er det følgende likt uansett metode:
+<table><tr><td><pre>
+220 mail.foo.com ESMTP Exim 4.69 Thu, 08 Apr 2010 16:21:09 +0200
+<kbd>ehlo my-email-domain.com</kbd>
+250-mail.foom.com Hello bar.example.com [1.2.3.4]
+250-SIZE 157286400
+250-PIPELINING
+250-AUTH PLAIN LOGIN
+250-STARTTLS
+250 HELP
+<kbd>auth login</kbd>
+334 VXNlcm5hbWU6
+<dfn>&lt;fyll ut resultatet av 'echo -n BRUKERNAVN | base64'&gt;</dfn>
+334 UGFzc3dvcmQ6
+<dfn>&lt;fyll ut resultatet av 'echo -n PASSORD | base64'&gt;</dfn>
+235 Authentication succeeded
+<kbd>mail from:&lt;my-name@my-email-domain.com&gt;</kbd>
+250 OK
+<kbd>rcpt to:&lt;destination@address.com&gt;</kbd>
+250 Accepted
+<kbd>data</kbd>
+354 Enter message, ending with "." on a line by itself
+<kbd>Subject: hello, world
+
+hello, world
+.</kbd>
+250 OK id=1Nzsg9-0004UJ-51
+<kbd>quit</kbd>
+221 mail.foo.com closing connection
+</pre></table>
+
+<h2><a class=nolink name="21.4.">21.4. PDF-manipulering vha pdftk</a></h2>
+Slå sammen flere PDF-er:
+<table><tr><td><pre>
+pdftk 1.pdf 2.pdf 3.pdf cat output 123.pdf
+</pre></table>
+Ekstrahere utvalgte sider fra flere PDF-er inn i étt nytt dokument:
+<table><tr><td><pre>
+pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf
+</pre></table>
+Rotere første siden av en PDF (<code><var>E</var></code> = 90° med klokken, <code><var>L</var></code> =
+90° mot klokken, <code><var>S</var></code> er 180°):
+<table><tr><td><pre>
+pdftk in.pdf cat 1E 2-end output out.pdf
+</pre></table>
+
+<h2><a class=nolink name="21.5.">21.5. Kryptering/dekryptering med OpenSSL</a></h2>
+<table><tr><td><pre>
+<dfn># List ciphers</dfn>
+openssl -h
+
+<dfn># encrypt</dfn>
+openssl enc -aes-128-cbc -K ffeeddccbbaa99887766554433221100 -iv 00112233445566778899aabbccddeeff -in file.txt -out file.txt.enc
+
+<dfn># decrypt</dfn>
+openssl enc -d -aes-128-cbc -K ffeeddccbbaa99887766554433221100 -iv 00112233445566778899aabbccddeeff -in file.txt.enc
+</pre></table>
+
+<h2><a class=nolink name="21.6.">21.6. Sende POST requests med curl</a></h2>
+Eksempler:
+<table><tr><td><pre>
+<dfn># Store cookies in session-cookies.txt, and POST body specified on cmdline:</dfn>
+curl \
+ -c session-cookies.txt \
+ -d 'username=Fred&amp;password=1234' \
+ -o <var>OUTPUT</var> \
+ <var>URL</var>
+
+<dfn># As above, but POST body stored in postbody.xml and set Content-Type to XML.</dfn>
+curl \
+ -H 'Content-Type: text/xml' \
+ -d @postbody.xml \
+ -o <var>OUTPUT</var> \
+ <var>URL</var>
+</pre></table>
+
+<h2><a class=nolink name="21.7.">21.7. Ubuntu VM</a></h2>
+Bruk "Host only adapter" i nettverkstype, og sett opp routing på host med
+<table><tr><td><pre>
+#!/bin/bash
+
+set -x
+wan_iface=em1
+lan_iface=vboxnet0
+ip=192.168.56.102
+
+iptables -F
+iptables -t nat -F
+iptables -X
+iptables -t nat -X
+
+iptables -t nat -A POSTROUTING -o $wan_iface -j MASQUERADE
+iptables -A FORWARD -i $lan_iface -j ACCEPT
+echo 1 &gt;/proc/sys/net/ipv4/ip_forward
+
+iptables -t nat -A PREROUTING -i $wan_iface -p tcp --dport 10245 -j DNAT --to-de
+iptables -t nat -A PREROUTING -i $wan_iface -p tcp --dport 8765:8766 -j DNAT --t
+iptables -t nat -A PREROUTING -i $wan_iface -p udp --dport 8765:8766 -j DNAT --t
+</pre></table>
+Deretter må nettet settes opp tilsvarende i guest Ubuntu sin <code>/etc/network/interfaces</code>:
+<table><tr><td><pre>
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0 inet static
+address 192.168.56.102
+netmask 255.255.255.0
+gateway 192.168.56.1
+dns-nameservers 10.20.64.4 10.20.64.5
+dns-search oslo.osa
+</pre></table>
+Restart nettet i guest med
+<table><tr><td><pre>
+/etc/init.d/networking restart
+</pre></table>
+Guest OS kan startes uten GUI med
+<table><tr><td><pre>
+vboxmanage startvm --type headless <var>VM-NAME</var>
+</pre></table>
+Evt. med minimalt GUI ved å bytte ut "headless" med "sdl".
+
+<h2><a class=nolink name="21.8.">21.8. eCryptfs med passord fra login</a></h2>
+For å få /foo/private ferdig mountet med ecryptfs ved login
+uten å måtte skrive mount passphrase, start med å sette opp ecryptfs
+mount:
+<table><tr><td><pre>
+mount -t ecryptfs /bar/private.crypt /foo/private
+</pre></table>
+Svar på alle spørsmålene som kommer opp - valg av passphrase er helt
+fritt, man trenger ikke velge samme som login-passord.  Når <code>/foo/private</code>
+er ferdig mountet gjør man:
+<table><tr><td><pre>
+grep ecryptfs /etc/mtab &gt;&gt;/etc/fstab
+</pre></table>
+Rediger <code>/etc/fstab</code> og legg til <code>user,noauto,exec</code> på mount options for
+linjen som nettopp ble lagt til.  Opprett deretter <code>$HOME/.ecryptfs/</code> for
+brukeren som skal ha <code>/foo/private</code> automountet.  I denne katalogen
+skal man først lage en tom <code>auto-mount</code>:
+<table><tr><td><pre>
+touch $HOME/.ecryptfs/auto-mount
+</pre></table>
+I tillegg må man lage <code>wrapped-passphrase</code> med følgende metode:
+<table><tr><td><pre>
+ecryptfs-wrap-passphrase $HOME/.ecryptfs/wrapped-passphrase <var>MOUNT-PASSPHRASE</var> <var>LOGIN-PASSWORD</var>
+</pre></table>
+Her er <code><var>MOUNT-PASSPHRASE</var></code> samme passphrase som ble brukt i først
+mount-kommandoen ovenfor, mens <code><var>LOGIN-PASSWORD</var></code> er det vanlige passordet
+brukeren logger inn med.  NB: Pass på at root kan lese <code>wrapped-passphrase</code>!
+Helt til slutt gjør man (som root):
+<table><tr><td><pre>
+authconfig --enableecryptfs --updateall
+</pre></table>
+Ved login skal nå mount passphrase automatisk settes inn i keyring. Dette kan
+verifiseres ved å bruke <code>keyctl</code>, f.eks:
+<table><tr><td><pre>
+$ <kbd>keyctl list @u</kbd>
+2 keys in keyring:
+1052219576: --alswrv   500     0 user: 151c72727ff0c21f
+386276186: --alswrv   500     0 user: ee0581f60fdc6272
+</pre></table>
+rett etter brukeren logger inn.  NB: Hvis brukeren bytter passord,
+så vil dette IKKE virke, pga. at <code>wrapped-passphrase</code> vil være
+kryptert med et annet passord enn det brukeren logger inn med. Hvis
+nøkkelringen ikke er tom, så skal det nå virke å mounte med
+<table><tr><td><pre>
+mount -i /foo/private
+</pre></table>
+uten å måtte oppgi passord.  Dersom det ikke virker automatisk på login kan
+man teste <code>wrapped-passphrase</code> med:
+<table><tr><td><pre>
+$ <kbd>echo -n <var>LOGIN-PASSWORD</var> | ecryptfs-insert-wrapped-passphrase-into-keyring $HOME/.ecryptfs/wrapped-passphrase -</kbd>
+<dfn>'keyctl list @u' should now show the key's signature.</dfn>
+$ <kbd>echo -n <var>LOGIN-PASSWORD</var> | ecryptfs-unwrap-passphrase $HOME/.ecryptfs/wrapped-passphrase</kbd>
+<dfn>Outputs <var>MOUNT-PASSWORD</var> in plaintext</dfn>
+</pre></table>
+
+<h2><a class=nolink name="21.9.">21.9. eCryptfs på systemer der authconfig ikke setter det opp</a></h2>
+Som et alternativ til <code>authconfig --enableecryptfs --updateall</code> kan man prøve
+følgende patch på /etc/pam.d:
+<table><tr><td><pre>
+diff -ruN etc/pam.d/login /etc/pam.d/login
+--- etc/pam.d/login	2011-05-25 19:04:08.000000000 +0200
++++ /etc/pam.d/login	2011-11-21 12:43:50.179687805 +0100
+@@ -1,6 +1,7 @@
+ #%PAM-1.0
+ auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so
+<kbd>-auth       include      system-auth</kbd>
+<dfn>+auth       substack     system-auth</dfn>
+<dfn>+auth       include      postlogin</dfn>
+ account    required     pam_nologin.so
+ account    include      system-auth
+ password   include      system-auth
+@@ -13,4 +14,5 @@
+ session    required     pam_namespace.so
+ session    optional     pam_keyinit.so force revoke
+ session    include      system-auth
+<dfn>+session    include      postlogin</dfn>
+ -session   optional     pam_ck_connector.so
+diff -ruN etc/pam.d/passwd /etc/pam.d/passwd
+--- etc/pam.d/passwd	2010-11-23 23:48:35.000000000 +0100
++++ /etc/pam.d/passwd	2011-11-21 00:20:25.232977654 +0100
+@@ -3,3 +3,4 @@
+ account    include	system-auth
+ password   substack	system-auth
+ -password   optional	pam_gnome_keyring.so
+<dfn>+password   substack     postlogin</dfn>
+diff -ruN etc/pam.d/postlogin /etc/pam.d/postlogin
+--- etc/pam.d/postlogin	1970-01-01 01:00:00.000000000 +0100
++++ /etc/pam.d/postlogin	2011-11-21 00:21:31.607435436 +0100
+@@ -0,0 +1,3 @@
+<dfn>+auth        optional      pam_ecryptfs.so unwrap</dfn>
+<dfn>+password    optional      pam_ecryptfs.so unwrap</dfn>
+<dfn>+session     optional      pam_ecryptfs.so unwrap</dfn>
+diff -ruN etc/pam.d/remote /etc/pam.d/remote
+--- etc/pam.d/remote	2011-05-25 19:04:08.000000000 +0200
++++ /etc/pam.d/remote	2011-11-21 12:45:30.386363611 +0100
+@@ -1,6 +1,7 @@
+ #%PAM-1.0
+ auth       required     pam_securetty.so
+<kbd>-auth       include      password-auth</kbd>
+<dfn>+auth       substack     password-auth</dfn>
+<dfn>+auth       include      postlogin</dfn>
+ account    required     pam_nologin.so
+ account    include      password-auth
+ password   include      password-auth
+</pre></table>
+
+<h2><a class=nolink name="21.10.">21.10. Bridge mode på Nextgentels Thomson TG789vn på Telenor nett (IPoE)</a></h2>
+Få admin-bruker, logg inn på modemet og utfør:
+<table><tr><td><pre>
+<dfn># Bind ethernet port number 4 to the VDSL connection.</dfn>
+:eth bridge vlan ifadd name=dummy intf=ethport4
+<dfn># Unbind ethernet port number 4 from the NAT'ed default connection.</dfn>
+:eth bridge vlan ifdelete name=default intf=ethport4
+<dfn># Apply the changes and make them permanent.</dfn>
+saveall
+</pre></table>
+
+<h2><a class=nolink name="21.11.">21.11. Mounting av Android-telefon</a></h2>
+Installer SIMPLE-MTPFS og gjør <code>simple-mtpfs /MOUNT-POINT</code>.
+
+<h2><a class=nolink name="21.12.">21.12. Legge til CA certificates for Firefox/Chrome HTTPS</a></h2>
+Last ned alle <code>*.crt</code> filene som skal legges til i trust-databasen og utfør:
+<table><tr><td><pre>
+sudo trust anchor *.crt
+</pre></table>
+
+­­ QEMU
+<table><tr><td><pre>
+# New image.
+qemu-img create -f qcow2 IMAGE-FILE 3G
+
+# Copy-on-write derived image.
+qemu-img create -f qcow2 -b BASE-IMAGE DERIVED-IMAGE
+
+# Install Windows.
+qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
+</pre></table>
+
+Starte Windows qemu image:
+<table><tr><td><pre>
+#!/bin/bash
+iface=$(/sbin/ip route get 8.8.8.8 | paste -s | awk '{for(i=1;i!=NF;++i){if($i=="dev"){print$(i+1);exit;}}}')
+qemu-system-i386 \
+    -m 512 \
+    -hda winxp.img \
+    -boot c \
+    -netdev user,id=enp0s4f1u2,net=192.168.76.0/24,dhcpstart=192.168.76.9 \
+    -net nic,model=rtl8139 -net user
+</pre></table>
+
+For å gjøre slik at localhost:9000 går til localhost:22 i VM'en, legg til:
+<table><tr><td><pre>
+-net user,hostfwd=tcp::9000-:22 -net nic
+</pre></table>
+</body></html>
