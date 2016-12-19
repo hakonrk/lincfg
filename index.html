@@ -213,6 +213,7 @@
 <li><a href="#21.10.">Bridge mode på Nextgentels Thomson TG789vn på Telenor nett (IPoE)</a>
 <li><a href="#21.11.">Mounting av Android-telefon</a>
 <li><a href="#21.12.">Legge til CA certificates for Firefox/Chrome HTTPS</a>
+<li><a href="#21.13.">QEMU</a>
 </ol></ol>
 <h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
 
@@ -2595,15 +2596,15 @@ Last ned alle <code>*.crt</code> filene som skal legges til i trust-databasen og
 sudo trust anchor *.crt
 </pre></table>
 
-­­ QEMU
+<h2><a class=nolink name="21.13.">21.13. QEMU</a></h2>
 <table><tr><td><pre>
-# New image.
+<dfn># New image.</dfn>
 qemu-img create -f qcow2 IMAGE-FILE 3G
 
-# Copy-on-write derived image.
+<dfn># Copy-on-write derived image.</dfn>
 qemu-img create -f qcow2 -b BASE-IMAGE DERIVED-IMAGE
 
-# Install Windows.
+<dfn># Install Windows.</dfn>
 qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
 </pre></table>
 

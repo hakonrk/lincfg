@@ -2381,15 +2381,15 @@ Last ned alle ´*.crt´ filene som skal legges til i trust-databasen og utfør:
 sudo trust anchor *.crt
 ´
 
-­­ QEMU
+­­ QEMU
 ´
-# New image.
+¡# New image.
 qemu-img create -f qcow2 IMAGE-FILE 3G
 
-# Copy-on-write derived image.
+¡# Copy-on-write derived image.
 qemu-img create -f qcow2 -b BASE-IMAGE DERIVED-IMAGE
 
-# Install Windows.
+¡# Install Windows.
 qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
 ´
 
