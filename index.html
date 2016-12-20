@@ -2617,7 +2617,7 @@ qemu-system-i386 \
     -m 512 \
     -hda winxp.img \
     -boot c \
-    -netdev user,id=enp0s4f1u2,net=192.168.76.0/24,dhcpstart=192.168.76.9 \
+    -netdev user,id=$iface,net=192.168.76.0/24,dhcpstart=192.168.76.9 \
     -net nic,model=rtl8139 -net user
 </pre></table>
 
