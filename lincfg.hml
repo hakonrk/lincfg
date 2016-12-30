@@ -2398,6 +2398,7 @@ Starte Windows qemu image:
 #!/bin/bash
 iface=$(/sbin/ip route get 8.8.8.8 | paste -s | awk '{for(i=1;i!=NF;++i){if($i=="dev"){print$(i+1);exit;}}}')
 qemu-system-i386 \
+    -enable-kvm \
     -m 512 \
     -hda winxp.img \
     -boot c \
@@ -2405,10 +2406,17 @@ qemu-system-i386 \
     -net nic,model=rtl8139 -net user
 ´
 
-For å gjøre slik at localhost:9000 går til localhost:22 i VM'en, legg til:
+For å gjøre slik at localhost:9000 går til localhost:22 i VM'en, bytt
+´-net´ argumentet til:
 ´
 -net user,hostfwd=tcp::9000-:22 -net nic
 ´
+Hvis det ikke er ønskelig å åpne et X11-vindu, men i stedet bruke
+VNC, legg til:
+´
+-vnc :5
+´
+Klienter kan da koble til med «vncviewer ¨HOSTNAME¨:5».
 
 ­­ PDF-manipulering vha qpdf
 ´
