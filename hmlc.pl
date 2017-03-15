@@ -27,12 +27,7 @@ $document =~ s#\n((?:·.*\n)+)#\n<ul>\n$1</ul>\n#gm;
 $document =~ s#^·\s*#<li>#gm;
 make_headlines();
 
-print <<EOF;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <style type="text/css">
+my $theme_dark = <<EOF;
     body {
         background: #14171f;
         color: #a0a0a0;
@@ -76,6 +71,64 @@ print <<EOF;
     dfn {
         color: #80a0ff;
     }
+EOF
+
+my $theme_light = <<EOF;
+    body {
+        background: #f5f5f5;
+        color: #000000;
+        font-family: sans-serif;
+    }
+
+    a:link {
+        color: #0000ff;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #b10040;
+        text-decoration: none;
+    }
+
+    a:active, a:hover {
+        text-decoration: underline;
+    }
+
+    a.nolink {
+        text-decoration: none;
+    }
+
+    pre {
+        border: 1px solid #aaaaaa;
+        border-radius: 1ex 1ex;
+        padding: 1ex 1ex 1ex 1ex;
+        background: #e5e5e5;
+        margin: 0 0 0 0;
+    }
+
+    table {
+        margin: 1ex 0 1ex 0;
+    }
+
+    kbd {
+        font-style: normal;
+        font-weight: bold;
+        color: #a00000;
+    }
+
+    dfn {
+        font-weight: bold;
+        color: #0000aa;
+    }
+EOF
+
+print <<EOF;
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style type="text/css">
+  $theme_light
   </style>
   <title>Linux-oppsett</title>
 </head>
