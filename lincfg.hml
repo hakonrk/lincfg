@@ -370,6 +370,53 @@ Alle DHCP-klienter på LAN-et må så be om ny IP.  (For Linux-bokser må
 ´/etc/sysconfig/networking/devices/ifcfg-<interface>´ oppdateres ved
 at DNS-linjene slettes; man bør også slette ´SEARCH=´ linjen.)
 
+­­ Netboot (PXE) vha. dnsmasq
+Følg instruksjonene ovenfor for å sette opp dnsmasq, og opprett i tillegg
+´/etc/dnsmasq.d/netboot.cfg´:
+´
+¡# Look for files to transfer using TFTP relative to the given directory.
+tftp-root=/local/tftp
+
+¡# Enable the TFTP server function.
+enable-tftp
+
+¡# Set the boot filename for BOOTP.
+dhcp-boot=pxelinux.0
+
+¡# Force "simple and safe" behavior to support old/broken clients.
+dhcp-no-override
+
+¡# Specify a boot option.  Note that ".0" is automatically added
+¡# to the boot image basename ("pxelinux" in this case).
+pxe-service=x86PC, "Boot from network", pxelinux
+´
+Opprett så ´/local/tftp´:
+´
+¡# Create the TFTP root tree.
+mkdir /local/tftp/pxelinux.cfg
+
+¡# Copy syslinux boot files to TFTP root.
+dnf install syslinux
+cp /usr/share/syslinux/pxelinux.0 /local/tftp
+cp /usr/share/syslinux/menu.c32 /local/tftp
+
+¡# Install the memtest image, for easy testing.
+wget -qO- 'http://www.memtest.org/download/5.01/memtest86+-5.01.bin.gz' | gunzip >/local/tftp/memtest
+
+¡# Create the syslinux boot config.
+cat >/local/tftp/pxelinux.cfg/default <<\EOF
+default menu.c32
+prompt 0
+
+menu title PXE Boot Menu
+
+label memtest86
+    menu label memtest86
+    kernel memtest
+    append -
+EOF
+´
+
 ­ Scanning
 
 ­­ scanimage

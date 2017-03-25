@@ -74,6 +74,7 @@
 <ol><li><a href="#4.1.">NAT</a>
 <li><a href="#4.2.">Traffic-shaping</a>
 <li><a href="#4.3.">Privat DNS/DHCP med dnsmasq</a>
+<li><a href="#4.4.">Netboot (PXE) vha. dnsmasq</a>
 </ol><li><a href="#5.">Scanning</a>
 <ol><li><a href="#5.1.">scanimage</a>
 </ol><li><a href="#6.">Utskrift</a>
@@ -591,6 +592,53 @@ sudo service dnsmasq restart
 Alle DHCP-klienter på LAN-et må så be om ny IP.  (For Linux-bokser må
 <code>/etc/sysconfig/networking/devices/ifcfg-&lt;interface&gt;</code> oppdateres ved
 at DNS-linjene slettes; man bør også slette <code>SEARCH=</code> linjen.)
+
+<h2><a class=nolink name="4.4.">4.4. Netboot (PXE) vha. dnsmasq</a></h2>
+Følg instruksjonene ovenfor for å sette opp dnsmasq, og opprett i tillegg
+<code>/etc/dnsmasq.d/netboot.cfg</code>:
+<table><tr><td><pre>
+<dfn># Look for files to transfer using TFTP relative to the given directory.</dfn>
+tftp-root=/local/tftp
+
+<dfn># Enable the TFTP server function.</dfn>
+enable-tftp
+
+<dfn># Set the boot filename for BOOTP.</dfn>
+dhcp-boot=pxelinux.0
+
+<dfn># Force "simple and safe" behavior to support old/broken clients.</dfn>
+dhcp-no-override
+
+<dfn># Specify a boot option.  Note that ".0" is automatically added</dfn>
+<dfn># to the boot image basename ("pxelinux" in this case).</dfn>
+pxe-service=x86PC, "Boot from network", pxelinux
+</pre></table>
+Opprett så <code>/local/tftp</code>:
+<table><tr><td><pre>
+<dfn># Create the TFTP root tree.</dfn>
+mkdir /local/tftp/pxelinux.cfg
+
+<dfn># Copy syslinux boot files to TFTP root.</dfn>
+dnf install syslinux
+cp /usr/share/syslinux/pxelinux.0 /local/tftp
+cp /usr/share/syslinux/menu.c32 /local/tftp
+
+<dfn># Install the memtest image, for easy testing.</dfn>
+wget -qO- 'http://www.memtest.org/download/5.01/memtest86+-5.01.bin.gz' | gunzip &gt;/local/tftp/memtest
+
+<dfn># Create the syslinux boot config.</dfn>
+cat &gt;/local/tftp/pxelinux.cfg/default &lt;&lt;\EOF
+default menu.c32
+prompt 0
+
+menu title PXE Boot Menu
+
+label memtest86
+    menu label memtest86
+    kernel memtest
+    append -
+EOF
+</pre></table>
 
 <h1><a class=nolink name="5.">5. Scanning</a></h1>
 
