@@ -51,6 +51,14 @@ my $theme_dark = <<EOF;
         text-decoration: none;
     }
 
+    code {
+        border: 1px solid #2a334a;
+        border-radius: 0 0;
+        padding: 0 0 0 0;
+        background: #1a1f29;
+        margin: 0 0 0 0;
+    }
+
     pre {
         border: 1px solid #2a334a;
         border-radius: 1ex 1ex;
@@ -98,9 +106,19 @@ my $theme_light = <<EOF;
         text-decoration: none;
     }
 
+    code {
+        // font-size: 13px;
+        font-weight: normal;
+        border: 1px solid #aaaaaa;
+        border-radius: 3px 3px;
+        padding: 2px 2px 2px 2px;
+        background: #e5e5e5;
+        margin: 0 0 0 0;
+    }
+
     pre {
         border: 1px solid #aaaaaa;
-        border-radius: 1ex 1ex;
+        border-radius: 3px 3px;
         padding: 1ex 1ex 1ex 1ex;
         background: #e5e5e5;
         margin: 0 0 0 0;
@@ -152,7 +170,7 @@ sub make_headlines {
     my $current_level = 0;
     my @index_counter;
 
-    while ($document =~ /^(­+) (.+)/gm) {
+    while ($document =~ /^(−+) (.+)/gm) {
         my $headline = $2;
         $level = length $1;
         if ($level > $last_level) {
@@ -162,7 +180,7 @@ sub make_headlines {
         }
 
         my $index = make_index($level, \@index_counter);
-        $document =~ s#^­(.*)#<h$level><a class=nolink name="$index">$index $headline</a></h$level>#m;
+        $document =~ s#^−(.*)#<h$level><a class=nolink name="$index">$index $headline</a></h$level>#m;
 
         if ($level > $last_level) {
             $toc .= '<ol>' x ($level - $last_level);
