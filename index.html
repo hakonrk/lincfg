@@ -180,33 +180,34 @@
 <li><a href="#19.25.">Starte nytt prosjekt med bzr</a>
 <li><a href="#19.26.">Starte nytt prosjekt med CVS</a>
 <li><a href="#19.27.">LCD-tweaking for laptop</a>
-<li><a href="#19.28.">Bruk av HDMI ved spilling av video</a>
-<li><a href="#19.29.">Touchpad-innstillinger på CL56-laptop</a>
-<li><a href="#19.30.">Wireless-radio på CL56-laptop</a>
-<li><a href="#19.31.">Trådløs WEP-oppkobling</a>
-<li><a href="#19.32.">Trådløs WPA-oppkobling</a>
-<li><a href="#19.33.">Seriell-konsoll</a>
-<li><a href="#19.34.">Bruk av USB flash som erstatning for floppy-boot</a>
-<li><a href="#19.35.">Bruk av aspell til å lage ordlister for vim/look/osv</a>
-<li><a href="#19.36.">Fikse bakgrunnsfarge som henger fra mutt</a>
-<li><a href="#19.37.">Baklengs VNC</a>
-<li><a href="#19.38.">Splitting av MKV/Matroska filmer</a>
-<li><a href="#19.39.">Enkoding med ffmpeg</a>
-<li><a href="#19.40.">FFmpeg pipelining</a>
-<li><a href="#19.41.">Bruke FFmpeg til å segmentere video</a>
-<li><a href="#19.42.">Dumping av rå PCM-lyd med FFmpeg eller mplayer</a>
-<li><a href="#19.43.">Ekstrahere subsegmenter av video med perfekt A/V sync</a>
-<li><a href="#19.44.">Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a>
-<li><a href="#19.45.">Subtitles brent inn i bildet vha FFmpeg og mplayer</a>
-<li><a href="#19.46.">mencoder</a>
-<li><a href="#19.47.">Oppsett av DAV med SSL på Apache</a>
-<li><a href="#19.48.">Oppsett av vBulletin</a>
-<li><a href="#19.49.">Mer SQL</a>
-<ol><li><a href="#19.49.1.">Velge database</a>
-<li><a href="#19.49.2.">Beskrive tabell</a>
-<li><a href="#19.49.3.">Printe innhold i tabell</a>
-<li><a href="#19.49.4.">Slette rad i tabell</a>
-<li><a href="#19.49.5.">Brukere</a>
+<li><a href="#19.28.">Skru på composite mode uten tearing (NVidia)</a>
+<li><a href="#19.29.">Bruk av HDMI ved spilling av video</a>
+<li><a href="#19.30.">Touchpad-innstillinger på CL56-laptop</a>
+<li><a href="#19.31.">Wireless-radio på CL56-laptop</a>
+<li><a href="#19.32.">Trådløs WEP-oppkobling</a>
+<li><a href="#19.33.">Trådløs WPA-oppkobling</a>
+<li><a href="#19.34.">Seriell-konsoll</a>
+<li><a href="#19.35.">Bruk av USB flash som erstatning for floppy-boot</a>
+<li><a href="#19.36.">Bruk av aspell til å lage ordlister for vim/look/osv</a>
+<li><a href="#19.37.">Fikse bakgrunnsfarge som henger fra mutt</a>
+<li><a href="#19.38.">Baklengs VNC</a>
+<li><a href="#19.39.">Splitting av MKV/Matroska filmer</a>
+<li><a href="#19.40.">Enkoding med ffmpeg</a>
+<li><a href="#19.41.">FFmpeg pipelining</a>
+<li><a href="#19.42.">Bruke FFmpeg til å segmentere video</a>
+<li><a href="#19.43.">Dumping av rå PCM-lyd med FFmpeg eller mplayer</a>
+<li><a href="#19.44.">Ekstrahere subsegmenter av video med perfekt A/V sync</a>
+<li><a href="#19.45.">Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a>
+<li><a href="#19.46.">Subtitles brent inn i bildet vha FFmpeg og mplayer</a>
+<li><a href="#19.47.">mencoder</a>
+<li><a href="#19.48.">Oppsett av DAV med SSL på Apache</a>
+<li><a href="#19.49.">Oppsett av vBulletin</a>
+<li><a href="#19.50.">Mer SQL</a>
+<ol><li><a href="#19.50.1.">Velge database</a>
+<li><a href="#19.50.2.">Beskrive tabell</a>
+<li><a href="#19.50.3.">Printe innhold i tabell</a>
+<li><a href="#19.50.4.">Slette rad i tabell</a>
+<li><a href="#19.50.5.">Brukere</a>
 </ol></ol><li><a href="#20.">Problemer spesifikke til enkelte maskiner</a>
 <ol><li><a href="#20.1.">Dell Inspiron 1564</a>
 <ol><li><a href="#20.1.1.">Installasjon</a>
@@ -1785,7 +1786,12 @@ xrandr -s <var>WIDTH</var>x<var>HEIGHT</var>
 xrandr -s <var>INDEX</var>
 </pre></table>
 
-<h2><a class=nolink name="19.28.">19.28. Bruk av HDMI ved spilling av video</a></h2>
+<h2><a class=nolink name="19.28.">19.28. Skru på composite mode uten tearing (NVidia)</a></h2>
+<table><tr><td><pre>
+sudo nvidia-xconfig --composite --metamodes="$(xrandr | awk -vs=", " '$2=="connected"{printf "%s: nvidia-auto-select { ForceFullCompositionPipeline = On }%s", $1, s; s=""}')"
+</pre></table>
+
+<h2><a class=nolink name="19.29.">19.29. Bruk av HDMI ved spilling av video</a></h2>
 For å klone laptopens LCD-display til HDMI, gjør
 <table><tr><td><pre>
 xrandr --output LVDS1 --auto --output HDMI1 --auto --same-as LVDS1
@@ -1814,7 +1820,7 @@ For å skru av HDMI1, gjør
 xrandr --output HDMI1 --off
 </pre></table>
 
-<h2><a class=nolink name="19.29.">19.29. Touchpad-innstillinger på CL56-laptop</a></h2>
+<h2><a class=nolink name="19.30.">19.30. Touchpad-innstillinger på CL56-laptop</a></h2>
 For å få riktige innstillinger (som vanlig mus, og uten tapping), inkludér
 følgende i <code>/etc/X11/xorg.conf</code>:
 <table><tr><td><pre>
@@ -1845,11 +1851,11 @@ Section "InputDevice"
 EndSection
 </pre></table>
 
-<h2><a class=nolink name="19.30.">19.30. Wireless-radio på CL56-laptop</a></h2>
+<h2><a class=nolink name="19.31.">19.31. Wireless-radio på CL56-laptop</a></h2>
 Radioen må skrus på med <a target="_blank" href="http://www.informatik.hu-berlin.de/~tauber/acerhk/">Acer Hotkey driver</a>.  Last inn denne driveren, og gjør
 <code>echo 1 &gt;/proc/driver/acerhk/wirelessled</code> for å skru på radioen.
 
-<h2><a class=nolink name="19.31.">19.31. Trådløs WEP-oppkobling</a></h2>
+<h2><a class=nolink name="19.32.">19.32. Trådløs WEP-oppkobling</a></h2>
 For å konfigurere mot et aksesspunkt som bruker WEP-kryptering, gjør
 følgende:
 <table><tr><td><pre>
@@ -1869,7 +1875,7 @@ route add default gw 10.0.0.1 eth1
 </pre></table>
 
 
-<h2><a class=nolink name="19.32.">19.32. Trådløs WPA-oppkobling</a></h2>
+<h2><a class=nolink name="19.33.">19.33. Trådløs WPA-oppkobling</a></h2>
 Lag en <code>wpa_supplicant.conf</code> som inneholder:
 <table><tr><td><pre>
 ctrl_interface=/var/run/wpa_supplicant
@@ -1892,7 +1898,7 @@ sudo wpa_supplicant -B -i<var>WIRELESS-NETWORK-INTERFACE</var> -c<var>/path/to/w
 </pre></table>
 der <code><var>WIRELESS-NETWORK-INTERFACE</var></code> er f.eks. <code>eth1</code>.
 
-<h2><a class=nolink name="19.33.">19.33. Seriell-konsoll</a></h2>
+<h2><a class=nolink name="19.34.">19.34. Seriell-konsoll</a></h2>
 For å få Linux-konsollen sendt over seriell nullmodem-kabel, legger
 man <code>console=ttyS0,115200n8</code> på kjernens kommandolinje på maskinen
 hvis log skal observeres.  På maskinen som skal se på loggen bruker
@@ -1905,7 +1911,7 @@ pu rtscts           No
 Start så minicom, og loggen vil vises på skjermen.  For å dumpe til
 fil, trykk <code>Ctrl-A L</code>.  <code>Ctrl-A X</code> avslutter minicom.
 
-<h2><a class=nolink name="19.34.">19.34. Bruk av USB flash som erstatning for floppy-boot</a></h2>
+<h2><a class=nolink name="19.35.">19.35. Bruk av USB flash som erstatning for floppy-boot</a></h2>
 (Antar i det følgende at <code>/dev/flash</code> refererer til flash-devicet,
 og at <code>/dev/flash1</code> er flashens første partisjon.)
 <table><tr><td><pre>
@@ -1947,31 +1953,31 @@ eller 2880K). (<code><var>disk.img</var></code> kan være et gzippet floppy-imag
 tilfelle størrelsen ikke trenger å være som over så lenge resultatet av gunzip
 blir en standard floppy-størrelse.)
 
-<h2><a class=nolink name="19.35.">19.35. Bruk av aspell til å lage ordlister for vim/look/osv</a></h2>
+<h2><a class=nolink name="19.36.">19.36. Bruk av aspell til å lage ordlister for vim/look/osv</a></h2>
 For å lage en sortert ordliste for norsk:
 <table><tr><td><pre>
 aspell dump master norsk | sort &gt;~/share/dict/norsk
 </pre></table>
 
-<h2><a class=nolink name="19.36.">19.36. Fikse bakgrunnsfarge som henger fra mutt</a></h2>
+<h2><a class=nolink name="19.37.">19.37. Fikse bakgrunnsfarge som henger fra mutt</a></h2>
 Fjern <code>bce</code> fra terminfo:  Kjør først <code>infocmp &gt;xterm.ti</code> for å
 generere en terminfo fil ved navn <code>xterm.ti</code>.  Editér og fjern
 <code>bce</code> dersom det finnes, og kjør <code>tic xterm.ti</code> for å installere
 oppdatert terminfo.  Slett så <code>xterm.ti</code>.
 
-<h2><a class=nolink name="19.37.">19.37. Baklengs VNC</a></h2>
+<h2><a class=nolink name="19.38.">19.38. Baklengs VNC</a></h2>
 Start <code>vncviewer</code> på Linux-boksen med <code>vncviewer -listen</code>.  Dette
 gjør at <code>vncviewer</code> vil lytte på port 5500.  På serversiden, som
 ligger bak en NAT-router, kobler man så til klientens IP-adresse.
 
-<h2><a class=nolink name="19.38.">19.38. Splitting av MKV/Matroska filmer</a></h2>
+<h2><a class=nolink name="19.39.">19.39. Splitting av MKV/Matroska filmer</a></h2>
 For å splitte en MKV-film til under 4 GB, installer <code>mkvtoolnix</code>
 og gjør
 <table><tr><td><pre>
 mkvmerge --split 4050m -o <var>OUTPUT</var>.mkv <var>INPUT</var>.mkv
 </pre></table>
 
-<h2><a class=nolink name="19.39.">19.39. Enkoding med ffmpeg</a></h2>
+<h2><a class=nolink name="19.40.">19.40. Enkoding med ffmpeg</a></h2>
 Enkoding med ffmpeg har følgende syntaks:
 <table><tr><td><pre>
 ffmpeg <var>INPUT-OPTIONS</var> -i <var>INPUT-FILE</var> <var>OUTPUT-OPTIONS</var> <var>OUTPUT-FILE</var>
@@ -1984,7 +1990,7 @@ ffmpeg -i <var>INPUT-FILE</var> -acodec libmp3lame -ab 128kb -vcodec libx264 -vb
 Formatet på <code><var>OUTPUT-FILE</var></code> blir satt av extension.  For å liste forskjellige
 formater for a/v codec og containerstrøm, gjør <code>ffmpeg -formats</code>.
 
-<h2><a class=nolink name="19.40.">19.40. FFmpeg pipelining</a></h2>
+<h2><a class=nolink name="19.41.">19.41. FFmpeg pipelining</a></h2>
 For å sende rå YUV-frames via pipe til x264:
 <table><tr><td><pre>
 ffmpeg -i <var>INPUT-VIDEO</var> -an -f rawvideo - |
@@ -2006,7 +2012,7 @@ ffmpeg -i <var>INPUT-VIDEO</var> -f s16le -vn - |
 faac -X -P -C <var>CHANNELS</var> -R <var>RATE</var> -o <var>AAC-OUTPUT</var> <var>PCM-INPUT</var>
 </pre></table>
 
-<h2><a class=nolink name="19.41.">19.41. Bruke FFmpeg til å segmentere video</a></h2>
+<h2><a class=nolink name="19.42.">19.42. Bruke FFmpeg til å segmentere video</a></h2>
 <table><tr><td><pre>
 <dfn># Til MP4:</dfn>
 ffmpeg -i INPUT -codec copy -f segment -segment_time 1 -segment_format mp4 /tmp/out%05d.mp4
@@ -2015,7 +2021,7 @@ ffmpeg -i INPUT -codec copy -f segment -segment_time 1 -segment_format mp4 /tmp/
 ffmpeg -i INPUT -codec copy -bsf h264_mp4toannexb -f segment -segment_time 1 -segment_list /tmp/out.m3u8 -segment_format mpeg2ts /tmp/out%05d.ts
 </pre></table>
 
-<h2><a class=nolink name="19.42.">19.42. Dumping av rå PCM-lyd med FFmpeg eller mplayer</a></h2>
+<h2><a class=nolink name="19.43.">19.43. Dumping av rå PCM-lyd med FFmpeg eller mplayer</a></h2>
 <table><tr><td><pre>
 <dfn># Alternativ 1: med FFmpeg</dfn>
 ffmpeg -i <var>INPUT-STREAM</var> -f s16le -vn -
@@ -2027,7 +2033,7 @@ Kan teste å spille lyden med
 aplay -f S16_LE -c <var>CHANNELS</var> -r <var>RATE</var> <var>PCMFILE</var>
 </pre></table>
 
-<h2><a class=nolink name="19.43.">19.43. Ekstrahere subsegmenter av video med perfekt A/V sync</a></h2>
+<h2><a class=nolink name="19.44.">19.44. Ekstrahere subsegmenter av video med perfekt A/V sync</a></h2>
 Antar først at lyd og bilde starter likt.  For å velge ut frame
 range, gjør
 <table><tr><td><pre>
@@ -2069,7 +2075,7 @@ ffmpeg -ar <var>RATE</var> -ac <var>CHANNELS</var> -f s16le -i <var>PCMFILE</var
        <var>OUTPUT-VIDEO</var>
 </pre></table>
 
-<h2><a class=nolink name="19.44.">19.44. Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a></h2>
+<h2><a class=nolink name="19.45.">19.45. Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a></h2>
 Installer FFmpeg med libass for brenne inn subtitles i bildet.
 Transkoding av video gjøres slik:
 
@@ -2106,7 +2112,7 @@ Kopier MP4-filene til <code>media_dir</code> og start minidlnad:
 minidlnad -d -R
 </pre></table>
 
-<h2><a class=nolink name="19.45.">19.45. Subtitles brent inn i bildet vha FFmpeg og mplayer</a></h2>
+<h2><a class=nolink name="19.46.">19.46. Subtitles brent inn i bildet vha FFmpeg og mplayer</a></h2>
 <table><tr><td><pre>
 mkfifo /tmp/video.y4m
 mplayer \
@@ -2133,7 +2139,7 @@ ffmpeg \
     <var>OUTPUT</var>.mp4
 </pre></table>
 
-<h2><a class=nolink name="19.46.">19.46. mencoder</a></h2>
+<h2><a class=nolink name="19.47.">19.47. mencoder</a></h2>
 Minimal syntaks er
 <table><tr><td><pre>
 mencoder -force-avi-aspect <var>W/H</var> -oac <var>ACODEC</var> -ovc <var>VCODEC</var> <var>INPUT-FILE</var> -o <var>OUTPUT-FILE</var>
@@ -2145,7 +2151,7 @@ Det vanligste lydformatet er MP3, som kan brukes slik:
 Flaggene i <code>-lameopts</code> betyr gjennomsnittlig bitrate på 128 kbps, og mikset
 ned til mono (<code>mode=3</code>).
 
-<h2><a class=nolink name="19.47.">19.47. Oppsett av DAV med SSL på Apache</a></h2>
+<h2><a class=nolink name="19.48.">19.48. Oppsett av DAV med SSL på Apache</a></h2>
 Lag først nøkler:
 <table><tr><td><pre>
 openssl req -new -x509 -keyout /etc/httpd/conf/server.key -out /etc/httpd/conf/server.crt
@@ -2168,7 +2174,7 @@ htpasswd -c /etc/httpd/conf/webdav-passwd <var>USERNAME</var>
 Merk at <code>-c</code> får htpasswd til å overskrive eksisterende filer.  Dropp <code>-c</code>
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
-<h2><a class=nolink name="19.48.">19.48. Oppsett av vBulletin</a></h2>
+<h2><a class=nolink name="19.49.">19.49. Oppsett av vBulletin</a></h2>
 Pakk ut vBulletin i <code>/var/www/html</code>.  Sett så opp MySQL:
 <table><tr><td><pre>
 <dfn># Opprett root-bruker.</dfn>
@@ -2195,18 +2201,18 @@ $config['MasterServer']['password'] = '<var>PASSWORD</var>'
 $config['MasterServer']['servername'] = 'localhost'
 </pre></table>
 
-<h2><a class=nolink name="19.49.">19.49. Mer SQL</a></h2>
-<h3><a class=nolink name="19.49.1.">19.49.1. Velge database</a></h3>
+<h2><a class=nolink name="19.50.">19.50. Mer SQL</a></h2>
+<h3><a class=nolink name="19.50.1.">19.50.1. Velge database</a></h3>
 To muligheter: <code>mysql -u<var>USER</var> -p<var>PASSWORD</var> <var>DBNAME</var></code> eller
 bare <code>mysql -u<var>USER</var> -p<var>PASSWORD</var></code> og så <code>use <var>DBNAME</var></code>
 i mysql-promptet.
 
-<h3><a class=nolink name="19.49.2.">19.49.2. Beskrive tabell</a></h3>
+<h3><a class=nolink name="19.50.2.">19.50.2. Beskrive tabell</a></h3>
 <table><tr><td><pre>
 mysql> <kbd>describe <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.49.3.">19.49.3. Printe innhold i tabell</a></h3>
+<h3><a class=nolink name="19.50.3.">19.50.3. Printe innhold i tabell</a></h3>
 <table><tr><td><pre>
 <dfn># Utvalgte kolonner</dfn>
 mysql> <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
@@ -2214,12 +2220,12 @@ mysql> <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</k
 mysql> <kbd>select * from <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.49.4.">19.49.4. Slette rad i tabell</a></h3>
+<h3><a class=nolink name="19.50.4.">19.50.4. Slette rad i tabell</a></h3>
 <table><tr><td><pre>
 mysql> <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.49.5.">19.49.5. Brukere</a></h3>
+<h3><a class=nolink name="19.50.5.">19.50.5. Brukere</a></h3>
 Brukere i MySQL ligger i databasen <code>mysql</code> og tabellen <code>user</code>.
 
 <h1><a class=nolink name="20.">20. Problemer spesifikke til enkelte maskiner</a></h1>

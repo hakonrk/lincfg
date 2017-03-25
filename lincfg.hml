@@ -1553,6 +1553,11 @@ xrandr -s ¨WIDTH¨x¨HEIGHT¨
 xrandr -s ¨INDEX¨
 ´
 
+−− Skru på composite mode uten tearing (NVidia)
+´
+sudo nvidia-xconfig --composite --metamodes="$(xrandr | awk -vs=", " '$2=="connected"{printf "%s: nvidia-auto-select { ForceFullCompositionPipeline = On }%s", $1, s; s=""}')"
+´
+
 −− Bruk av HDMI ved spilling av video
 For å klone laptopens LCD-display til HDMI, gjør
 ´
