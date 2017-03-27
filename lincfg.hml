@@ -2470,6 +2470,11 @@ VNC, legg til:
 ´
 Klienter kan da koble til med «vncviewer ¨HOSTNAME¨:5».
 
+−− Teste PXE-boot med qemu
+´
+qemu-system-x86_64 -enable-kvm -m ¨4096¨ -net nic -net user,tftp=¨/path/to/tftp-root¨,bootfile=¨pxelinux.0¨ -hda ¨foo.img¨ -boot n
+´
+
 −− PDF-manipulering vha qpdf
 ´
 ¡# Concatenate all pages:

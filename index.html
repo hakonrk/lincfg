@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <style type="text/css">
       body {
-        background: #f5f5f5;
+        background: #EFEDE2;
         color: #000000;
         font-family: sans-serif;
     }
@@ -32,8 +32,8 @@
         font-weight: normal;
         border: 1px solid #aaaaaa;
         border-radius: 3px 3px;
-        padding: 2px 2px 2px 2px;
-        background: #e5e5e5;
+        padding: 1px 2px 1px 2px;
+        background: #E6DFCE;
         margin: 0 0 0 0;
     }
 
@@ -41,7 +41,7 @@
         border: 1px solid #aaaaaa;
         border-radius: 3px 3px;
         padding: 1ex 1ex 1ex 1ex;
-        background: #e5e5e5;
+        background: #E6DFCE;
         margin: 0 0 0 0;
     }
 
@@ -230,7 +230,8 @@
 <li><a href="#21.11.">Mounting av Android-telefon</a>
 <li><a href="#21.12.">Legge til CA certificates for Firefox/Chrome HTTPS</a>
 <li><a href="#21.13.">QEMU</a>
-<li><a href="#21.14.">PDF-manipulering vha qpdf</a>
+<li><a href="#21.14.">Teste PXE-boot med qemu</a>
+<li><a href="#21.15.">PDF-manipulering vha qpdf</a>
 </ol></ol>
 <h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
 
@@ -2702,7 +2703,12 @@ VNC, legg til:
 </pre></table>
 Klienter kan da koble til med <code>vncviewer <var>HOSTNAME</var>:5</code>.
 
-<h2><a class=nolink name="21.14.">21.14. PDF-manipulering vha qpdf</a></h2>
+<h2><a class=nolink name="21.14.">21.14. Teste PXE-boot med qemu</a></h2>
+<table><tr><td><pre>
+qemu-system-x86_64 -enable-kvm -m <var>4096</var> -net nic -net user,tftp=<var>/path/to/tftp-root</var>,bootfile=<var>pxelinux.0</var> -hda <var>foo.img</var> -boot n
+</pre></table>
+
+<h2><a class=nolink name="21.15.">21.15. PDF-manipulering vha qpdf</a></h2>
 <table><tr><td><pre>
 <dfn># Concatenate all pages:</dfn>
 qpdf --empty --pages <var>INPUT</var>... -- <var>OUTPUT</var>

@@ -83,7 +83,7 @@ EOF
 
 my $theme_light = <<EOF;
     body {
-        background: #f5f5f5;
+        background: #EFEDE2;
         color: #000000;
         font-family: sans-serif;
     }
@@ -111,8 +111,8 @@ my $theme_light = <<EOF;
         font-weight: normal;
         border: 1px solid #aaaaaa;
         border-radius: 3px 3px;
-        padding: 2px 2px 2px 2px;
-        background: #e5e5e5;
+        padding: 1px 2px 1px 2px;
+        background: #E6DFCE;
         margin: 0 0 0 0;
     }
 
@@ -120,7 +120,7 @@ my $theme_light = <<EOF;
         border: 1px solid #aaaaaa;
         border-radius: 3px 3px;
         padding: 1ex 1ex 1ex 1ex;
-        background: #e5e5e5;
+        background: #E6DFCE;
         margin: 0 0 0 0;
     }
 
