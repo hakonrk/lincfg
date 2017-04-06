@@ -27,118 +27,29 @@ $document =~ s#\n((?:·.*\n)+)#\n<ul>\n$1</ul>\n#gm;
 $document =~ s#^·\s*#<li>#gm;
 make_headlines();
 
-my $theme_dark = <<EOF;
-    body {
-        background: #14171f;
-        color: #a0a0a0;
-    }
+my %colortheme_dark = (
+    body_background => '#14171f',
+    body_color => '#a0a0a0',
+    a_link_color => '#667fb8',
+    a_visited_color => '#8873b0',
+    code_background => '#1a1f29',
+    BORDER => '#2a334a',
+    pre_background => '#1a1f29',
+    kbd_color => '#ca2e15',
+    dfn_color => '#80a0ff',
+);
 
-    a:link {
-        color: #667fb8;
-        text-decoration: none;
-    }
-
-    a:visited {
-        color: #8873b0;
-        text-decoration: none;
-    }
-
-    a:active, a:hover {
-        text-decoration: underline;
-    }
-
-    a.nolink {
-        text-decoration: none;
-    }
-
-    code {
-        border: 1px solid #2a334a;
-        border-radius: 0 0;
-        padding: 0 0 0 0;
-        background: #1a1f29;
-        margin: 0 0 0 0;
-    }
-
-    pre {
-        border: 1px solid #2a334a;
-        border-radius: 1ex 1ex;
-        padding: 1ex 1ex 1ex 1ex;
-        background: #1a1f29;
-        margin: 0 0 0 0;
-    }
-
-    table {
-        margin: 1ex 0 1ex 0;
-    }
-
-    kbd {
-        font-style: normal;
-        color: #ca2e15;
-    }
-
-    dfn {
-        color: #80a0ff;
-    }
-EOF
-
-my $theme_light = <<EOF;
-    body {
-        background: #EFEDE2;
-        color: #000000;
-        font-family: sans-serif;
-    }
-
-    a:link {
-        color: #0000ff;
-        text-decoration: none;
-    }
-
-    a:visited {
-        color: #b10040;
-        text-decoration: none;
-    }
-
-    a:active, a:hover {
-        text-decoration: underline;
-    }
-
-    a.nolink {
-        text-decoration: none;
-    }
-
-    code {
-        // font-size: 13px;
-        font-weight: normal;
-        border: 1px solid #aaaaaa;
-        border-radius: 3px 3px;
-        padding: 1px 2px 1px 2px;
-        background: #E6DFCE;
-        margin: 0 0 0 0;
-    }
-
-    pre {
-        border: 1px solid #aaaaaa;
-        border-radius: 3px 3px;
-        padding: 1ex 1ex 1ex 1ex;
-        background: #E6DFCE;
-        margin: 0 0 0 0;
-    }
-
-    table {
-        margin: 1ex 0 1ex 0;
-    }
-
-    kbd {
-        font-style: normal;
-        font-weight: bold;
-        color: #a00000;
-    }
-
-    dfn {
-        font-weight: bold;
-        color: #0000aa;
-    }
-EOF
+my %colortheme_light = (
+    body_background => '#EFEDE2',
+    body_color => '#000000',
+    a_link_color => '#0000ff',
+    a_visited_color => '#b10040',
+    code_background => '#E6DFCE',
+    BORDER => '#aaaaaa',
+    pre_background => '#E6DFCE',
+    kbd_color => '#a00000',
+    dfn_color => '#0000aa',
+);
 
 print <<EOF;
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -146,7 +57,7 @@ print <<EOF;
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <style type="text/css">
-  $theme_light
+  @{[make_css(%colortheme_light)]}
   </style>
   <title>Linux-oppsett</title>
 </head>
@@ -192,4 +103,69 @@ sub make_headlines {
     }
     $level = 0;
     $toc .= '</ol>' x ($last_level - $level);
+}
+
+sub make_css {
+    my %colors = @_;
+
+    return <<EOF;
+    body {
+        background: $colors{body_background};
+        color: $colors{body_color};
+        font-family: sans-serif;
+    }
+
+    a:link {
+        color: $colors{a_link_color};
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: $colors{a_visited_color};
+        text-decoration: none;
+    }
+
+    a:active, a:hover {
+        text-decoration: underline;
+    }
+
+    a.nolink {
+        text-decoration: none;
+    }
+
+    code {
+        font-size: 11pt;
+        font-weight: normal;
+        border: 1px solid $colors{BORDER};
+        border-radius: 3px 3px;
+        padding: 1px 1px 1px 1px;
+        background: $colors{code_background};
+        margin: 0 0 0 0;
+    }
+
+    pre {
+        font-size: 11pt;
+        font-weight: normal;
+        border: 1px solid $colors{BORDER};
+        border-radius: 3px 3px;
+        padding: 3px 3px 3px 3px;
+        background: $colors{pre_background};
+        margin: 0 0 0 0;
+    }
+
+    table {
+        margin: 1ex 0 1ex 0;
+    }
+
+    kbd {
+        font-style: normal;
+        font-weight: bold;
+        color: $colors{kbd_color};
+    }
+
+    dfn {
+        font-weight: bold;
+        color: $colors{dfn_color};
+    }
+EOF
 }
