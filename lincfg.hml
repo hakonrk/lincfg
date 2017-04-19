@@ -2441,6 +2441,9 @@ qemu-img create -f qcow2 IMAGE-FILE 3G
 ¡# Copy-on-write derived image.
 qemu-img create -f qcow2 -b BASE-IMAGE DERIVED-IMAGE
 
+¡# Reduce size of existing image, preserve backing file.
+qemu-img convert -O qcow2 -o backing_file=¨BACKING-FILE¨ ¨IN-IMAGE¨ ¨OUT-IMAGE¨
+
 ¡# Install Windows.
 qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
 ´
