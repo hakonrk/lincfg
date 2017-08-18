@@ -1919,6 +1919,20 @@ Det vanligste lydformatet er MP3, som kan brukes slik:
 Flaggene i ´-lameopts´ betyr gjennomsnittlig bitrate på 128 kbps, og mikset
 ned til mono (´mode=3´).
 
+−− Oppsett av alternativ Apache share
+For å gjøre slik at ´http://localhost/www/´ viser alt innhold i ´/local/www´, og med ingen
+restriksjoner på symlinker, opprett følgende ´/etc/httpd/conf.d/local.conf´:
+´
+Alias /www /local/www
+<Directory "/local/www">
+  Options Indexes FollowSymLinks
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+  Require all granted
+</Directory>
+´
+
 −− Oppsett av DAV med SSL på Apache
 Lag først nøkler:
 ´

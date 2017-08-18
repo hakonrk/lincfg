@@ -202,14 +202,15 @@
 <li><a href="#19.45.">Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a>
 <li><a href="#19.46.">Subtitles brent inn i bildet vha FFmpeg og mplayer</a>
 <li><a href="#19.47.">mencoder</a>
-<li><a href="#19.48.">Oppsett av DAV med SSL på Apache</a>
-<li><a href="#19.49.">Oppsett av vBulletin</a>
-<li><a href="#19.50.">Mer SQL</a>
-<ol><li><a href="#19.50.1.">Velge database</a>
-<li><a href="#19.50.2.">Beskrive tabell</a>
-<li><a href="#19.50.3.">Printe innhold i tabell</a>
-<li><a href="#19.50.4.">Slette rad i tabell</a>
-<li><a href="#19.50.5.">Brukere</a>
+<li><a href="#19.48.">Oppsett av alternativ Apache share</a>
+<li><a href="#19.49.">Oppsett av DAV med SSL på Apache</a>
+<li><a href="#19.50.">Oppsett av vBulletin</a>
+<li><a href="#19.51.">Mer SQL</a>
+<ol><li><a href="#19.51.1.">Velge database</a>
+<li><a href="#19.51.2.">Beskrive tabell</a>
+<li><a href="#19.51.3.">Printe innhold i tabell</a>
+<li><a href="#19.51.4.">Slette rad i tabell</a>
+<li><a href="#19.51.5.">Brukere</a>
 </ol></ol><li><a href="#20.">Problemer spesifikke til enkelte maskiner</a>
 <ol><li><a href="#20.1.">Dell Inspiron 1564</a>
 <ol><li><a href="#20.1.1.">Installasjon</a>
@@ -2154,7 +2155,21 @@ Det vanligste lydformatet er MP3, som kan brukes slik:
 Flaggene i <code>-lameopts</code> betyr gjennomsnittlig bitrate på 128 kbps, og mikset
 ned til mono (<code>mode=3</code>).
 
-<h2><a class=nolink name="19.48.">19.48. Oppsett av DAV med SSL på Apache</a></h2>
+<h2><a class=nolink name="19.48.">19.48. Oppsett av alternativ Apache share</a></h2>
+For å gjøre slik at <code>http://localhost/www/</code> viser alt innhold i <code>/local/www</code>, og med ingen
+restriksjoner på symlinker, opprett følgende <code>/etc/httpd/conf.d/local.conf</code>:
+<table><tr><td><pre>
+Alias /www /local/www
+&lt;Directory "/local/www"&gt;
+  Options Indexes FollowSymLinks
+  AllowOverride None
+  Order allow,deny
+  Allow from all
+  Require all granted
+&lt;/Directory&gt;
+</pre></table>
+
+<h2><a class=nolink name="19.49.">19.49. Oppsett av DAV med SSL på Apache</a></h2>
 Lag først nøkler:
 <table><tr><td><pre>
 openssl req -new -x509 -keyout /etc/httpd/conf/server.key -out /etc/httpd/conf/server.crt
@@ -2177,7 +2192,7 @@ htpasswd -c /etc/httpd/conf/webdav-passwd <var>USERNAME</var>
 Merk at <code>-c</code> får htpasswd til å overskrive eksisterende filer.  Dropp <code>-c</code>
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
-<h2><a class=nolink name="19.49.">19.49. Oppsett av vBulletin</a></h2>
+<h2><a class=nolink name="19.50.">19.50. Oppsett av vBulletin</a></h2>
 Pakk ut vBulletin i <code>/var/www/html</code>.  Sett så opp MySQL:
 <table><tr><td><pre>
 <dfn># Opprett root-bruker.</dfn>
@@ -2204,18 +2219,18 @@ $config['MasterServer']['password'] = '<var>PASSWORD</var>'
 $config['MasterServer']['servername'] = 'localhost'
 </pre></table>
 
-<h2><a class=nolink name="19.50.">19.50. Mer SQL</a></h2>
-<h3><a class=nolink name="19.50.1.">19.50.1. Velge database</a></h3>
+<h2><a class=nolink name="19.51.">19.51. Mer SQL</a></h2>
+<h3><a class=nolink name="19.51.1.">19.51.1. Velge database</a></h3>
 To muligheter: <code>mysql -u<var>USER</var> -p<var>PASSWORD</var> <var>DBNAME</var></code> eller
 bare <code>mysql -u<var>USER</var> -p<var>PASSWORD</var></code> og så <code>use <var>DBNAME</var></code>
 i mysql-promptet.
 
-<h3><a class=nolink name="19.50.2.">19.50.2. Beskrive tabell</a></h3>
+<h3><a class=nolink name="19.51.2.">19.51.2. Beskrive tabell</a></h3>
 <table><tr><td><pre>
 mysql> <kbd>describe <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.50.3.">19.50.3. Printe innhold i tabell</a></h3>
+<h3><a class=nolink name="19.51.3.">19.51.3. Printe innhold i tabell</a></h3>
 <table><tr><td><pre>
 <dfn># Utvalgte kolonner</dfn>
 mysql> <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
@@ -2223,12 +2238,12 @@ mysql> <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</k
 mysql> <kbd>select * from <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.50.4.">19.50.4. Slette rad i tabell</a></h3>
+<h3><a class=nolink name="19.51.4.">19.51.4. Slette rad i tabell</a></h3>
 <table><tr><td><pre>
 mysql> <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.50.5.">19.50.5. Brukere</a></h3>
+<h3><a class=nolink name="19.51.5.">19.51.5. Brukere</a></h3>
 Brukere i MySQL ligger i databasen <code>mysql</code> og tabellen <code>user</code>.
 
 <h1><a class=nolink name="20.">20. Problemer spesifikke til enkelte maskiner</a></h1>
