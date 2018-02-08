@@ -2194,6 +2194,8 @@ ved hjelp av SMTP-serveren ´mail.foo.com´ som lytter på port 587:
 «
 ¡# For ukryptert SMTP:
 $ <kbd>telnet mail.foo.com 587</kbd>
+¡# Kryptert med SSL:
+$ <kbd>openssl s_client -crlf -connect smtp.example.com:465</kbd>
 ¡# Kryptert med STARTTLS:
 $ <kbd>openssl s_client -crlf -connect smtp.example.com:587 -starttls smtp</kbd>
 »
@@ -2465,7 +2467,7 @@ qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
 Starte Windows qemu image:
 ´
 #!/bin/bash
-iface=$(/sbin/ip route get 8.8.8.8 | paste -s | awk '{for(i=1;i!=NF;++i){if($i=="dev"){print$(i+1);exit;}}}')
+iface=$(/sbin/ip route get 8.8.8.8 | awk 'BEGIN{RS=" +"}/^dev$/{getline;print}')
 qemu-system-i386 \
     -enable-kvm \
     -m 512 \
