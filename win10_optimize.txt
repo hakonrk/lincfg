@@ -1,0 +1,10 @@
+run cmd as admin: powercfg -h off
+
+Win+Pause
+Advanced system settings
+Advanced tab
+Settings button
+Advanced tab
+Change button
+unset "Auto manage paging file size for all drives"
+Select "No paging file"
