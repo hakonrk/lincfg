@@ -236,6 +236,7 @@
 <li><a href="#21.13.">QEMU</a>
 <li><a href="#21.14.">Teste PXE-boot med qemu</a>
 <li><a href="#21.15.">PDF-manipulering vha qpdf</a>
+<li><a href="#21.16.">Liste åpne porter og hvilke programmer som har åpnet dem</a>
 </ol></ol>
 <h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
 
@@ -2757,5 +2758,11 @@ qpdf --empty --pages foo.pdf 3 bar.pdf z -- <var>OUTPUT</var>
 
 <dfn># Reverse pages:</dfn>
 qpdf --empty --pages <var>INPUT</var> z-1 -- <var>OUTPUT</var>
+</pre></table>
+
+<h2><a class=nolink name="21.16.">21.16. Liste åpne porter og hvilke programmer som har åpnet dem</a></h2>
+<table><tr><td><pre>
+<dfn># -P gjør at porter vises med tall i stedet for navn.</dfn>
+sudo lsof -iTCP -sTCP:LISTEN -P
 </pre></table>
 </body></html>

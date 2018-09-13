@@ -2521,3 +2521,9 @@ qpdf --empty --pages foo.pdf 3 bar.pdf z -- ¨OUTPUT¨
 ¡# Reverse pages:
 qpdf --empty --pages ¨INPUT¨ z-1 -- ¨OUTPUT¨
 ´
+
+−− Liste åpne porter og hvilke programmer som har åpnet dem
+´
+¡# -P gjør at porter vises med tall i stedet for navn.
+sudo lsof -iTCP -sTCP:LISTEN -P
+´
