@@ -39,6 +39,18 @@ my %colortheme_dark = (
     dfn_color => '#80a0ff',
 );
 
+%colortheme_dark = (
+    body_background => '#151820',
+    body_color => '#a0a0a0',
+    a_link_color => '#5873b0',
+    a_visited_color => '#8873b0',
+    code_background => '#0e1826',
+    BORDER => '#394052',
+    pre_background => '#0e1826',
+    kbd_color => '#ca2e15',
+    dfn_color => '#5873b0',
+);
+
 my %colortheme_light = (
     body_background => '#EFEDE2',
     body_color => '#000000',
@@ -57,7 +69,7 @@ print <<EOF;
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <style type="text/css">
-  @{[make_css(%colortheme_light)]}
+  @{[make_css(%colortheme_dark)]}
   </style>
   <title>Linux-oppsett</title>
 </head>

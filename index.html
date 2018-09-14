@@ -4,18 +4,18 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <style type="text/css">
       body {
-        background: #EFEDE2;
-        color: #000000;
+        background: #151820;
+        color: #a0a0a0;
         font-family: sans-serif;
     }
 
     a:link {
-        color: #0000ff;
+        color: #5873b0;
         text-decoration: none;
     }
 
     a:visited {
-        color: #b10040;
+        color: #8873b0;
         text-decoration: none;
     }
 
@@ -30,20 +30,20 @@
     code {
         font-size: 11pt;
         font-weight: normal;
-        border: 1px solid #aaaaaa;
+        border: 1px solid #394052;
         border-radius: 3px 3px;
         padding: 1px 1px 1px 1px;
-        background: #E6DFCE;
+        background: #0e1826;
         margin: 0 0 0 0;
     }
 
     pre {
         font-size: 11pt;
         font-weight: normal;
-        border: 1px solid #aaaaaa;
+        border: 1px solid #394052;
         border-radius: 3px 3px;
         padding: 3px 3px 3px 3px;
-        background: #E6DFCE;
+        background: #0e1826;
         margin: 0 0 0 0;
     }
 
@@ -54,12 +54,12 @@
     kbd {
         font-style: normal;
         font-weight: bold;
-        color: #a00000;
+        color: #ca2e15;
     }
 
     dfn {
         font-weight: bold;
-        color: #0000aa;
+        color: #5873b0;
     }
 
   </style>
@@ -99,6 +99,7 @@
 <li><a href="#7.4.">Se dine endringer som upstream ikke har merget ennå</a>
 <li><a href="#7.5.">Lage ny branch som også legges på remote repo</a>
 <li><a href="#7.6.">Flytte 'master' noen hakk tilbake, og lage ny branch fra tilsvarende sted</a>
+<li><a href="#7.7.">Bruk av git på /etc</a>
 </ol><li><a href="#8.">Indenting</a>
 <ol><li><a href="#8.1.">astyle</a>
 </ol><li><a href="#9.">IRC</a>
@@ -770,6 +771,7 @@ i <code>.git/config</code> (rett etter <code>[core]</code>-blokken).  De to sist
         merge = refs/heads/master
 </pre></table>
 rett etter <code>[remote "origin"]</code>-blokken.
+
 <h2><a class=nolink name="7.2.">7.2. Alias for å forenkle URL-er</a></h2>
 Legg inn
 <table><tr><td><pre>
@@ -826,6 +828,21 @@ man:
 git branch <var>NEW-BRANCH</var>
 git reset --hard <var>REVISION</var>
 git checkout <var>NEW-BRANCH</var>
+</pre></table>
+
+<h2><a class=nolink name="7.7.">7.7. Bruk av git på /etc</a></h2>
+<table><tr><td><pre>
+<dfn># Create etc patch from old /etc:</dfn>
+cd /etc
+sudo git format-patch LAST-ORIGINAL-REVISION
+
+<dfn># Apply etc patch to new /etc:</dfn>
+cd /etc
+sudo git init
+sudo git commit --allow-empty -m 'first rev'
+sudo git add $(sed -n 's@^--- a/@@p' /path/to/old-etc.patch)
+sudo git commit -m 'original files'
+sudo git am /path/to/old-etc.patch
 </pre></table>
 
 <h1><a class=nolink name="8.">8. Indenting</a></h1>

@@ -531,6 +531,7 @@ i ´.git/config´ (rett etter ´[core]´-blokken).  De to siste linjene
         merge = refs/heads/master
 ´
 rett etter ´[remote "origin"]´-blokken.
+
 −− Alias for å forenkle URL-er
 Legg inn
 ´
@@ -587,6 +588,21 @@ man:
 git branch ¨NEW-BRANCH¨
 git reset --hard ¨REVISION¨
 git checkout ¨NEW-BRANCH¨
+´
+
+−− Bruk av git på /etc
+´
+¡# Create etc patch from old /etc:
+cd /etc
+sudo git format-patch LAST-ORIGINAL-REVISION
+
+¡# Apply etc patch to new /etc:
+cd /etc
+sudo git init
+sudo git commit --allow-empty -m 'first rev'
+sudo git add $(sed -n 's@^--- a/@@p' /path/to/old-etc.patch)
+sudo git commit -m 'original files'
+sudo git am /path/to/old-etc.patch
 ´
 
 − Indenting
