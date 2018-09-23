@@ -11,7 +11,7 @@ Legg følgende i ´~/.emacs´:
 
 −− Terminfo/termcap
 Hent først ut en nogenlunde riktig terminfo entry med kommandoen
-«infocmp -I xterm-color >xterm.ti».  Editer denne filen og
+´infocmp -I xterm-color >xterm.ti´.  Editer denne filen og
 pass på at følgende verdier er satt:
 ´
 kdch1=\177
@@ -23,15 +23,15 @@ khome=\E[1~
 kend=\E[4~
 ´
 Det er <i>ekstremt</i> viktig at ingen andre taster er satt til samme
-verdi som disse.  (Spesielt pleier «kslt» å være satt til samme
-verdi som «kend» skal ha.)  Pass på at «xterm.ti» har beskrivelsen
-«xterm» i headeren.  Kompiler filen med kommandoen
-«tic xterm.ti».  Som vanlig bruker vil de kompilerte filene plasseres
-i ´~/.terminfo/´, og disse har prioritet over «/usr/share/terminfo/».
+verdi som disse.  (Spesielt pleier ´kslt´ å være satt til samme
+verdi som ´kend´ skal ha.)  Pass på at ´xterm.ti´ har beskrivelsen
+´xterm´ i headeren.  Kompiler filen med kommandoen
+´tic xterm.ti´.  Som vanlig bruker vil de kompilerte filene plasseres
+i ´~/.terminfo/´, og disse har prioritet over ´/usr/share/terminfo/´.
 
-Etter at «xterm» entryen er laget, konverter terminfo databasen til
-termcap med kommandoen «infocmp -C -r xterm >xterm.termcap».  Erstatt
-gammel entry i «/etc/termcap» med denne nye utgaven.
+Etter at ´xterm´ entryen er laget, konverter terminfo databasen til
+termcap med kommandoen ´infocmp -C -r xterm >xterm.termcap´.  Erstatt
+gammel entry i ´/etc/termcap´ med denne nye utgaven.
 
 − Firefox
 −− Backspace-oppførsel
@@ -425,29 +425,29 @@ støttes av scanneren.  Dette gjøres med kommandoen ´scanimage -h´
 som vil kommunisere med scanneren for å finne ut egenskapene.
 <p>
 Eksempel på scanning av étt dokument:
-«
+´
 scanimage --mode 'True Gray' --resolution 150 >¨foo.pnm¨
-»
+´
 
 Eksempel på scanning av flere dokumenter:
-«
+´
 scanimage --batch --mode 'True Gray' --resolution 150
-»
+´
 
 − Utskrift
 
 −− CUPS
 Dersom printeren ikke er støttet av standardinstallasjonen, last først ned
 riktig PPD-fil fra <url: http://www.linuxprinting.org/>LinuxPrinting.org</url>
-og kopier denne til «/usr/share/cups/model».  Restart «cups» med
-«/etc/rc.d/rc.cups restart» og logg inn på «http://localhost:631/admin» for å
+og kopier denne til ´/usr/share/cups/model´.  Restart ´cups´ med
+´/etc/rc.d/rc.cups restart´ og logg inn på ´http://localhost:631/admin´ for å
 legge til den nye skriveren.  Kun ¨Name¨-feltet trenger å fylles ut i den
 første dialogen.  Alternativt kan skriveren legges inn fra kommandolinjen.
 Eks. for HL-1250:
 ´
 lpadmin -p HL-1250 -E -v usb://Brother/HL-1250%20series -m Brother-HL-1250-hl1250.ppd
 ´
-Device-navnet kan finnes med «lpinfo -v» dersom man bruker USB-skriver.  For en
+Device-navnet kan finnes med ´lpinfo -v´ dersom man bruker USB-skriver.  For en
 Windows-basert Samba-skriver må man ha device-navnet som følger:
 ´smb://¨USER¨:¨PASSWORD¨@¨SERVER¨/¨SHARENAME¨´.  I tilfellet der skriveren er
 delt for alle brukere skal passordet droppes, og ´¨USER¨´ skal være ´guest´.
@@ -457,7 +457,7 @@ snart skriveren er lagt inn!</b>
 Windows kan bruke skriveren via Samba og driveren ¨MS Publisher Imagesetter¨
 som er listet under produsent ¨Generic¨.  For å fikse problemet med at det
 skrives ut to søppelsider for hver utskrift må man installere
-«foomatic-gswrapper» som et kjørbart script under «/usr/bin».  <url:
+´foomatic-gswrapper´ som et kjørbart script under ´/usr/bin´.  <url:
 http://www.linuxprinting.org/gswrapper.html> gswrapper kan lastes ned
 her.</url>  Mer at denne metoden krever at ´/usr/bin/foomatic-rip´ er
 installert, og denne kommer med ´hpijs´ (´hpijs´ inneholder også støtte for de
@@ -483,8 +483,8 @@ For å få flere sider på ett ark, bruk
 ´
 psnup -2 -pa4 -b0cm -m0cm ¨foo.ps¨ >¨bar.ps¨
 ´
-Her får man ingen rammer, og minst mulig marginer.  «-b»
-gir marginene rundt hver av de krympede sidene, mens «-m»
+Her får man ingen rammer, og minst mulig marginer.  ´-b´
+gir marginene rundt hver av de krympede sidene, mens ´-m´
 er marginene på selve papiret, rundt alle de krympede sidene.
 
 − git
@@ -590,21 +590,6 @@ git reset --hard ¨REVISION¨
 git checkout ¨NEW-BRANCH¨
 ´
 
-−− Bruk av git på /etc
-´
-¡# Create etc patch from old /etc:
-cd /etc
-sudo git format-patch LAST-ORIGINAL-REVISION
-
-¡# Apply etc patch to new /etc:
-cd /etc
-sudo git init
-sudo git commit --allow-empty -m 'first rev'
-sudo git add $(sed -n 's@^--- a/@@p' /path/to/old-etc.patch)
-sudo git commit -m 'original files'
-sudo git am /path/to/old-etc.patch
-´
-
 − Indenting
 
 −− astyle
@@ -617,9 +602,9 @@ astyle -A3
 
 −− Endre nummer på vindu
 For å gi nåværende vindu nummeret ¨N¨, så gjør man:
-«
+´
 /window number ¨N¨
-»
+´
 
 − SSH
 
@@ -642,11 +627,11 @@ Dersom nøkler med passphrase brukes, så kan man likevel slippe
 som ´/bin/sh´, eller f.eks. ´startx´.  Når man er inne i en
 ´ssh-agent´ session, så kan man legge til, slette, og liste nøkler
 med ´ssh-add´:
-«
+´
 ssh-add ~/.ssh/id_rsa           ¡# add key
 ssh-add -d ~/.ssh/id_rsa        ¡# delete key
 ssh-add -l                      ¡# list active keys
-»
+´
 Man må så skrive inn passphrase for nøkkelen, men deretter huskes
 den så lenge man er inne i ´ssh-agent´ session'en.  I forbindelse
 med dette kan det også være nødvendig å angi egne nøkler for
@@ -658,34 +643,34 @@ Host ¨SERVER¨
 
 −− SSH port forwarding
 Det er to typer SSH forwarding:
-«
+´
 ssh -L port:host:hostport remote-host ¡# localhost:port -> remote-host -> host:hostport
 ssh -R port:host:hostport remote-host ¡# remote-host:port -> localhost -> host:hostport
-»
-«-L»-varianten betyr at ssh vil lytte på port nummer «port»
+´
+´-L´-varianten betyr at ssh vil lytte på port nummer ´port´
 på maskinen der kommandoen utføres.  Når noen connecter til denne
-porten vil det videresendes til «remote-host», som videre
-gjør connect til adresse «host:hostport».  Dette kan brukes
-til å få tilgang til maskin «host» som egentlig ikke er tilgjengelig
-fra der ssh kjøres, ved å gå via «remote-host».
+porten vil det videresendes til ´remote-host´, som videre
+gjør connect til adresse ´host:hostport´.  Dette kan brukes
+til å få tilgang til maskin ´host´ som egentlig ikke er tilgjengelig
+fra der ssh kjøres, ved å gå via ´remote-host´.
 
-«-R»-varianten er som «-L», men går andre veien.  Det betyr
-at ssh setter opp en listening socket på port nummer «port» på
-«remote-host».  Når noen connecter til «remote-host:port»,
-så vil dette bli videresendt til maskinen der du utførte «ssh
--R», som igjen vil connecte til «host:hostport» og sende
+´-R´-varianten er som ´-L´, men går andre veien.  Det betyr
+at ssh setter opp en listening socket på port nummer ´port´ på
+´remote-host´.  Når noen connecter til ´remote-host:port´,
+så vil dette bli videresendt til maskinen der du utførte ´ssh
+-R´, som igjen vil connecte til ´host:hostport´ og sende
 alle videre data i denne forbindelsen dit.  Dette kan brukes
 til å lage en vei gjennom en firewall.  Hvis du f.eks. har en
 firewall som blokker alle innkommende forbindelser til maskinen
-du kjørte «ssh -R» på, så vil dette kunne omgå det ved å
+du kjørte ´ssh -R´ på, så vil dette kunne omgå det ved å
 initiere forbindelsen fra innsiden av det avgrensede nettet.
 
 −− Fetchmail via SSH-tunnel
 La ´~/.fetchmailrc´ inneholde følgende:
-«
+´
 poll ¨SERVER¨ via localhost port ¨LOCAL-PORT¨ username ¨USERNAME¨ password "¨PASSWD¨"
   preconnect "ssh -fL ¨LOCAL-PORT¨:¨SERVER¨:110 ¨SERVER¨ sleep 20"
-»
+´
 
 − Exim
 −− Korrekt avsender
@@ -770,15 +755,15 @@ Skriv ´exim -qff´ for å prøve å sende ut alle meldinger i køen.
 − GPG
 −− Signering av filer
 For å lage en ASCII signatur av ´foo´, gjør
-«
+´
 gpg --armor --detach-sig --output ¨foo.asc¨ --local-user ¨SIGNING-KEY-EMAIL-ADDR¨ ¨foo¨
-»
+´
 
 −− Verifisering av filer
 For å verifisere at ´foo´ ved hjelp av ´foo.asc´, gjør
-«
+´
 gpg --verify ¨foo.asc¨
-»
+´
 
 − Samba
 −− Oppsett med brukere
@@ -790,20 +775,20 @@ smbpasswd -a ¨USERNAME¨
 
 −− Mounting av Samba-shares
 Mount med kommandoen
-«
+´
 smbmount //¨SERVER¨/¨SHARENAME MOUNT-POINT¨ -o username=¨USERNAME¨,password=¨PASSWORD¨,rw,fmask=644
-»
+´
 ´/usr/bin/smbmnt´ og ´/usr/bin/smbumount´ må være SUID root for
 å la vanlige brukere mounte.
 
 −− WINS for navneoppslag
-Legg inn «/lib/libnss_wins.so.2» og la «/etc/nsswitch.conf» inneholde
+Legg inn ´/lib/libnss_wins.so.2´ og la ´/etc/nsswitch.conf´ inneholde
 ´
 hosts: files dns wins
 ´
 For å gjøre caching av navn, i stedet for
-broadcast-oppslag hver eneste gang, putt «wins support = yes» i
-«global»-seksjonen i «smb.conf».
+broadcast-oppslag hver eneste gang, putt ´wins support = yes´ i
+´global´-seksjonen i ´smb.conf´.
 
 − Red Hat og Fedora
 −− Nettverksinstallasjon
@@ -921,7 +906,7 @@ failovermethod=priority
 
 −− Korrigering av bold og underlined i XTerm
 For å få ekte bold og underlined tekst i XTerm, editér
-«/usr/X11R6/lib/X11/app-defaults/XTerm» og fiks linjene
+´/usr/X11R6/lib/X11/app-defaults/XTerm´ og fiks linjene
 ´
 !*VT100*colorULMode: on
 !*VT100*underLine: off
@@ -930,7 +915,7 @@ For å få ekte bold og underlined tekst i XTerm, editér
 !*VT100*colorBDMode: on
 ´
 For å forhindre at XTerm-tittelen ser ut som et shell-prompt, unset
-bash-variabelen «PROMPT_COMMAND», som er satt i «/etc/bashrc».
+bash-variabelen ´PROMPT_COMMAND´, som er satt i ´/etc/bashrc´.
 
 −− Fikse treg scrolling i XTerm ved bruk av radeon driver
 Opprett ´/etc/X11/xorg.conf.d/02-radeon.conf´:
@@ -952,8 +937,8 @@ echo 0 >/proc/sys/kernel/core_uses_pid
 Disse blir på Fedora og Red Hat satt via ´/etc/sysctl.conf´.
 
 −− Subpixel AA + bytecode-hinter i FreeType
-Last ned SRPM-filen til FreeType, og gjør «rpm -ivh
-¨SRPM¨».  Dette vil pakke ut filen i «/usr/src/redhat»,
+Last ned SRPM-filen til FreeType, og gjør ´rpm -ivh
+¨SRPM¨´.  Dette vil pakke ut filen i ´/usr/src/redhat´,
 eller i ´%_topdir´ definert i ´~/.rpmmacros´. Bygg pakken
 med
 ´
@@ -970,21 +955,21 @@ Man kan rydde opp etterpå med
 ´
 
 −− RPM som vanlig bruker
-Lag katalogstrukturen for «rpmbuild»:
+Lag katalogstrukturen for ´rpmbuild´:
 ´
 mkdir -p /foo/rpmbuild/{BUILD,SOURCES,SPECS,SRPMS,RPMS/i386}
 ´
-Sett opp «rpm» til å bruke «/foo/rpmbuild»:
+Sett opp ´rpm´ til å bruke ´/foo/rpmbuild´:
 ´
 echo "%_topdir /foo/rpmbuild" >~/.rpmmacros
 ´
 Det er også mulig å overstyre ´~/.rpmmacros´ ved å bruke argumentet
-«--define "_topdir ¨DIRECTORY¨"» på ´rpm´ og ´rpmbuild´.
+´--define "_topdir ¨DIRECTORY¨"´ på ´rpm´ og ´rpmbuild´.
 
 −− Når rpm henger
-Slett «rpm»s lock-filer, dvs. de som begynner på ´__db´ i
-«/var/run/rpm» eller «/var/lib/rpm».  Utfør deretter kommandoen
-«rpm --rebuilddb» for å regenerere filene.
+Slett ´rpm´s lock-filer, dvs. de som begynner på ´__db´ i
+´/var/run/rpm´ eller ´/var/lib/rpm´.  Utfør deretter kommandoen
+´rpm --rebuilddb´ for å regenerere filene.
 
 −− Ekstra RPM repositories
 Pakker som pga. lisens, patent, eller andre grunner ikke kan
@@ -1018,12 +1003,12 @@ tla my-default-archive foo@bar--2005
 Dersom man ønsker å legge inn prosjektet ¨zot¨, som
 er lagret i ´~/src/zot´, i et eksisterende arkiv ´foo@bar--2005´,
 så gjør man følgende:
-«
+´
 cd ~/src/zot
 tla init-tree foo@bar--2005/zot--main--0
 tla add-id ¨fil1 fil2 ...¨
 tla import -S
-»
+´
 Dersom ´foo@bar--2005´ er default archive, så trenger man ikke
 angi dette i ´init-tree´-kommandoen.
 
@@ -1061,15 +1046,15 @@ Det skal også være mulig å be om det som sist var lagret ved å bytte ut ´-p
 
 −− Korrigering av default email på UiO
 Start opp ´bofh´ og gjør noe à la følgende session:
-«
-jbofh> <kbd>person list_user_priorities hakonrk</kbd>
+´
+jbofh> ·person list_user_priorities hakonrk
    Uname Priority Affiliation
  hakonrk        1 STUDENT@150000 (Mat.nat. fakultet)
  hakonrk        6 STUDENT@150400 (Fysisk institutt)
 
-jbofh> <kbd>person set_user_priority hakonrk 6 1</kbd>
+jbofh> ·person set_user_priority hakonrk 6 1
 OK
-»
+´
 Man kan deretter verifisere at operasjonen var vellykket ved
 å se på output fra ´email info hakonrk´.
 
@@ -1128,18 +1113,18 @@ amixer -q set Capture 50% cap
 ´
 
 −− Kernel modules pre-install
-Sett argumentet «INSTALL_MOD_PATH» til temp-prefikset hvor
-«/lib/modules/...» blir installert.  (Tilsvarer «DESTDIR»
+Sett argumentet ´INSTALL_MOD_PATH´ til temp-prefikset hvor
+´/lib/modules/...´ blir installert.  (Tilsvarer ´DESTDIR´
 for vanlige makefiler.)
 
 −− Mozilla-sertifikater
 For å kopiere over Mozillas sertifikater til en ny Mozilla katalog trenger
-man to filer: «cert8.db» og «key3.db».
+man to filer: ´cert8.db´ og ´key3.db´.
 
 −− Tidssone
 La ´/usr/share/zoneinfo/localtime´ peke på ´/etc/localtime´,
 som igjen skal peke på ´/usr/share/zoneinfo/Europe/Oslo´.  Kan også
-bruke programmet «tzselect», som vil vise hva variabelen ´TZ´ skal
+bruke programmet ´tzselect´, som vil vise hva variabelen ´TZ´ skal
 settes til.
 
 −− Xauth
@@ -1147,7 +1132,7 @@ Lag først en tilfeldig 128-bit nøkkel:
 ´
 key=`hexdump -n16 -e '16/1 "%02x"' /dev/random`
 ´
-(Kan også bruke «mcookie» til dette.)  Skriv så følgende:
+(Kan også bruke ´mcookie´ til dette.)  Skriv så følgende:
 ´
 xauth add `hostname -f`:0 . $key
 xauth add `hostname`:0 . $key
@@ -1158,30 +1143,30 @@ exec X :0 -dpi 100 -auth $HOME/.Xauthority
 ´
 
 −− Ramdisk-størrelse
-Sett størrelse med parameter «ramdisk_size=¨SIZE-IN-KB¨» når ramdisk er
-kompilert inn i kjernen, og bruk «rd_size» hvis den er modul.
+Sett størrelse med parameter ´ramdisk_size=¨SIZE-IN-KB¨´ når ramdisk er
+kompilert inn i kjernen, og bruk ´rd_size´ hvis den er modul.
 
 −− CD-brenning med mkisofs + cdrecord
-Kompiler SCSI («CONFIG_SCSI»), SCSI CD-ROM («CONFIG_BLK_DEV_SR»),
-SCSI generic («CONFIG_CHR_DEV_SG»), og SCSI emulation
-(«CONFIG_BLK_DEV_IDESCSI») som moduler.  Last inn modulene i følgende
-rekkefølge:  «scsi_mod.o», «sg.o», «sr_mod.o», «ide-scsi.o».
-Nå skulle IDE CD-spillerene være tilgjengelige som «/dev/sr0»,
-«/dev/sr1», osv.    Lag et ISO-image med kommandoen
-«
+Kompiler SCSI (´CONFIG_SCSI´), SCSI CD-ROM (´CONFIG_BLK_DEV_SR´),
+SCSI generic (´CONFIG_CHR_DEV_SG´), og SCSI emulation
+(´CONFIG_BLK_DEV_IDESCSI´) som moduler.  Last inn modulene i følgende
+rekkefølge:  ´scsi_mod.o´, ´sg.o´, ´sr_mod.o´, ´ide-scsi.o´.
+Nå skulle IDE CD-spillerene være tilgjengelige som ´/dev/sr0´,
+´/dev/sr1´, osv.    Lag et ISO-image med kommandoen
+´
 mkisofs -J -r -o ¨IMAGE-FILE DIRECTORY¨
-»
-hvor «¨DIRECTORY¨» vil bli roten i det nye filsystemet.
+´
+hvor ´¨DIRECTORY¨´ vil bli roten i det nye filsystemet.
 Skriv selve CD-en med kommandoen
-«
+´
 cdrecord -v driveropts=burnfree speed=2 dev=¨SCSIBUS,TARGET,LUN¨ -data ¨IMAGE-FILE¨
-»
-der «¨SCSIBUS,TARGET,LUN¨»-verdiene kan fås med kommandoen ´cdrecord -scanbus´.
-I nyere Linux-kjerner er det mulig å bruke «/dev/hd¨X¨» direkte (når man brenner
+´
+der ´¨SCSIBUS,TARGET,LUN¨´-verdiene kan fås med kommandoen ´cdrecord -scanbus´.
+I nyere Linux-kjerner er det mulig å bruke ´/dev/hd¨X¨´ direkte (når man brenner
 med ATAPI i stedet for SCSI emulation).
 
 Den beste måten å konfigurere dette på hvis man har både ATAPI-leser og brenner
-er å legge følgende i «/etc/modules.conf»:
+er å legge følgende i ´/etc/modules.conf´:
 ´
 options ide-cd        ignore=hdd
 pre-install sg        modprobe ide-scsi
@@ -1189,7 +1174,7 @@ pre-install sr_mod    modprobe ide-scsi
 pre-install ide-scsi  modprobe ide-cd
 ´
 Av en eller annen grunn funker ikke autoloading når man monterer
-cdrecorder som vanlig bruker, via «user» i «/etc/fstab».
+cdrecorder som vanlig bruker, via ´user´ i ´/etc/fstab´.
 
 −− Sletting av CD med cdrecord
 For å slette alt som ligger på CD-en:
@@ -1198,9 +1183,9 @@ cdrecord blank=fast -immed dev=IOCompactDiscServices dev=¨RECORDER-DEVICE¨
 ´
 
 −− Brenning av video DVD
-«
+´
 growisofs -dvd-compat -Z /dev/dvd=¨/path/to/dvd.iso¨
-»
+´
 
 −− CD-dumping med cdrdao
 Følgende kommandoer kan brukes for å dumpe ut CD-er til ISO:
@@ -1223,22 +1208,22 @@ cdrdao write --device /dev/cdrecorder --driver generic-mmc ¨foo.cue¨
 ´
 
 −− Konvertere binære datafiler til objektkode
-For å konvertere filen «foo.bin» til objektfilen «foo.o»,
-så skriver man «ld -s -r -b binary foo.bin -o foo.o».
-Flagget «-s» betyr strip, og «-b binary» betyr at den
+For å konvertere filen ´foo.bin´ til objektfilen ´foo.o´,
+så skriver man ´ld -s -r -b binary foo.bin -o foo.o´.
+Flagget ´-s´ betyr strip, og ´-b binary´ betyr at den
 neste filen på kommandoenlinjen er av dette formatet.  For å få
-normal alignment på «.rodata», så kan man linke inn en
+normal alignment på ´.rodata´, så kan man linke inn en
 vanlig objektfil først, som godt kan være helt tom:
 ´
 touch dummy.c
 gcc -c dummy.c
 ld -s -r dummy.o -b binary foo.bin -o foo.o
 ´
-Merk at «dummy.o» kommer før «-b binary»!  Det er også mulig
+Merk at ´dummy.o´ kommer før ´-b binary´!  Det er også mulig
 å definere symbolnavn selv, ved å lage et linkescript.  I eksempelet
-over lager ld symbolene «_binary_foo_bin_start» og
-«_binary_foo_bin_stop».  Følgende linkescript lager alternativene
-«foo_start» og «foo_end»:
+over lager ld symbolene ´_binary_foo_bin_start´ og
+´_binary_foo_bin_stop´.  Følgende linkescript lager alternativene
+´foo_start´ og ´foo_end´:
 ´
 OUTPUT_FORMAT("elf32-i386")
 OUTPUT_ARCH(i386)
@@ -1252,7 +1237,7 @@ SECTIONS
   }
 }
 ´
-For å bruke scriptet sier man «-T ¨ld-script¨» til ld.
+For å bruke scriptet sier man ´-T ¨ld-script¨´ til ld.
 En enda lettere måte å linke med et vanlig program er:
 ´
 gcc -Wl,-b,binary foo.bin -Wl,-b,elf32-i386 bar.c -o foobar
@@ -1262,15 +1247,15 @@ gcc -Wl,-b,binary foo.bin -Wl,-b,elf32-i386 bar.c -o foobar
 Gjør ´\setlength{\arraycolsep}{2pt}´.
 
 −− IDE/ATA DMA
-For å få maks ytelse av disken, legg følgende i «/etc/rc.d/rc.S»:
+For å få maks ytelse av disken, legg følgende i ´/etc/rc.d/rc.S´:
 ´
 /usr/sbin/hdparm -q -c3 -m16 -d1 -u1 /dev/hda
 ´
-Forklaring: «-q» skrur av output, «-c3» velger 32-bit IDE I/O med sync,
-«-m16» setter sector count til 16 for multiple sector I/O (IDE Block Mode),
-«-d1» skrur på DMA, og «-u1» lar disken unmask'e interrupts under
+Forklaring: ´-q´ skrur av output, ´-c3´ velger 32-bit IDE I/O med sync,
+´-m16´ setter sector count til 16 for multiple sector I/O (IDE Block Mode),
+´-d1´ skrur på DMA, og ´-u1´ lar disken unmask'e interrupts under
 interrupt prosessering.  For å se grenser for hva som kan skrus på, se
-«/proc/ide/hda/settings» og «hdparm -i /dev/hda».
+´/proc/ide/hda/settings´ og ´hdparm -i /dev/hda´.
 
 −− TeX Live
 
@@ -1421,12 +1406,12 @@ Husk å oppdatere ´/etc/fstab´ og muligens også ´grub-install ¨DEVICE¨ --r
 
 −− Bogofilter
 Trening av filteret:
-«
+´
 bogofilter -d ¨DB-DIR¨ [-s | -n] [-M] -B ¨FILENAMES¨...
-»
-der «¨DB-DIR¨» er katalogen hvor orddatabasen skal bli skrevet,
-«-s» tagger mailen som spam og «-n» tagger mailen som non-spam.
-Bruk «-M» for å si at vanlige filer (i «¨FILENAMES¨») er
+´
+der ´¨DB-DIR¨´ er katalogen hvor orddatabasen skal bli skrevet,
+´-s´ tagger mailen som spam og ´-n´ tagger mailen som non-spam.
+Bruk ´-M´ for å si at vanlige filer (i ´¨FILENAMES¨´) er
 mbox'er, ikke enkeltstående mails.
 
 For å bruke bogofilter med procmail, bruk følgende procmail-regel:
@@ -1434,11 +1419,11 @@ For å bruke bogofilter med procmail, bruk følgende procmail-regel:
 :0 fw
 | nice -19 bogofilter -u -e -p
 ´
-Flagget «-u» får bogofilter til å registrere mailens tekst
+Flagget ´-u´ får bogofilter til å registrere mailens tekst
 i databasen etter den er klassifisert som spam/non-spam.
-«-e» betyr at bogofilter skal returnere 0 uansett om meldingen
+´-e´ betyr at bogofilter skal returnere 0 uansett om meldingen
 er spam eller ikke, unntatt når det skjedde noe feil.
-«-p» betyr at bogofilter skal skrive ut en kopi av mailen som
+´-p´ betyr at bogofilter skal skrive ut en kopi av mailen som
 kom på stdin til stdout, men med en X-Bogosity header satt inn.
 
 For å tagge alle meldinger med spam score mindre enn 0.10 som non-spam,
@@ -1447,7 +1432,7 @@ alle mellom 0.10 og 0.95 som usikre, og alle over 0.95 som spam, legg
 ham_cutoff = 0.10
 spam_cutoff = 0.95
 ´
-i «~/.bogofilter.cf» og
+i ´~/.bogofilter.cf´ og
 ´
 :0
 * ^X-Bogosity: (Yes|Spam)
@@ -1461,7 +1446,7 @@ etter bogofilter i procmail-reglene.
 
 −− NTP
 La ´/etc/ntp.conf´ på NTP-serveren inneholde følgende:
-«
+´
 ¡# Permit time synchronization with our time source, but do not
 ¡# permit the source to query or modify the service on this system.
 restrict default nomodify notrap noquery
@@ -1498,7 +1483,7 @@ server ¨SERVER2¨
 driftfile /etc/ntp.drift
 
 logfile /var/log/ntp.log
-»
+´
 For klientmaskinene bruker man samme ´ntp.conf´, men erstatt
 alle ´server´-linjene med én enkelt ´server ¨ADDR¨´ der ´¨ADDR¨´
 er addressen til maskinen som ble satt opp som NTP-server.  Start opp ntpd,
@@ -1698,37 +1683,37 @@ fil, trykk ´Ctrl-A L´.  ´Ctrl-A X´ avslutter minicom.
 −− Bruk av USB flash som erstatning for floppy-boot
 (Antar i det følgende at ´/dev/flash´ refererer til flash-devicet,
 og at ´/dev/flash1´ er flashens første partisjon.)
-«
-# <kbd>parted /dev/flash</kbd>
-(parted) <kbd>mklabel msdos</kbd>
+´
+# ·parted /dev/flash
+(parted) ·mklabel msdos
 Warning: The existing disk label on /dev/sdb will be destroyed and all data on this disk will be lost. Do you want to continue?
-Yes/No? <kbd>y</kbd>
-(parted) <kbd>mkpart primary fat32 0% 100%</kbd>
-(parted) <kbd>set 1 boot on</kbd>
-(parted) <kbd>quit</kbd>
-# <kbd>mkdosfs /dev/flash1</kbd>
-# <kbd>syslinux --install /dev/flash1</kbd>
-# <kbd>dd conv=notrunc if=/usr/share/syslinux/mbr.bin of=/dev/flash</kbd>
-# <kbd>mount /dev/flash1 /media</kbd>
-# <kbd>cp /usr/share/syslinux/memdisk /media</kbd>
-# <kbd>cat &lt;&lt;\EOF &gt;/media/syslinux.cfg
-default dos
-label dos
-  kernel memdisk
-  append initrd=disk.img
-EOF</kbd>
-# <kbd>dd if=/dev/zero of=/media/disk.img bs=1k count=1440</kbd>
-# <kbd>mkdosfs /media/disk.img</kbd>
-# <kbd>mount -o loop /media/disk.img /mnt</kbd>
-¡&lt;copy DOS system files into /mnt&gt;
-# <kbd>umount /mnt</kbd>
-# <kbd>ms-sys -1 -f /media/disk.img</kbd>
-# <kbd>umount /media</kbd>
-»
+Yes/No? ·y
+(parted) ·mkpart primary fat32 0% 100%
+(parted) ·set 1 boot on
+(parted) ·quit
+# ·mkdosfs /dev/flash1
+# ·syslinux --install /dev/flash1
+# ·dd conv=notrunc if=/usr/share/syslinux/mbr.bin of=/dev/flash
+# ·mount /dev/flash1 /media
+# ·cp /usr/share/syslinux/memdisk /media
+# ·cat <<\EOF >/media/syslinux.cfg
+·default dos
+·label dos
+·  kernel memdisk
+·  append initrd=disk.img
+·EOF
+# ·dd if=/dev/zero of=/media/disk.img bs=1k count=1440
+# ·mkdosfs /media/disk.img
+# ·mount -o loop /media/disk.img /mnt
+¡<copy DOS system files into /mnt>
+# ·umount /mnt
+# ·ms-sys -1 -f /media/disk.img
+# ·umount /media
+´
 Hvis man ikke har ´ms-sys´, så skal det holde å gjøre
-«
-# <kbd>dd conv=notrunc if=floppy_bootsector.bin of=/media/disk.img</kbd>
-»
+´
+# ·dd conv=notrunc if=floppy_bootsector.bin of=/media/disk.img
+´
 Last ned bootsectoren her: <url:files/floppy_bootsector.bin>floppy_bootsector.bin</url>.
 
 Merk at ´¨disk.img¨´ skal være rådata fra floppydisken, og <i>må</i> være i en
@@ -1974,21 +1959,21 @@ hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
 −− Oppsett av vBulletin
 Pakk ut vBulletin i ´/var/www/html´.  Sett så opp MySQL:
-«
+´
 ¡# Opprett root-bruker.
 mysqladmin -uroot password ¨ROOT-MYSQL-PASSWORD¨
 
 ¡# Opprett vBulletin-bruker.
 mysql -uroot -p¨ROOT-MYSQL-PASSWORD¨ mysql
-mysql> <kbd>GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON ¨DBNAME¨.* TO ¨USERNAME¨@localhost IDENTIFIED BY '¨PASSWORD¨';</kbd> 
-mysql> <kbd>FLUSH PRIVILEGES;</kbd>
+mysql> ·GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON ¨DBNAME¨.* TO ¨USERNAME¨@localhost IDENTIFIED BY '¨PASSWORD¨'; 
+mysql> ·FLUSH PRIVILEGES;
 
 ¡# Opprett database.
 mysqladmin -u¨USERNAME¨ -p¨PASSWORD¨ create ¨DBNAME¨
 
 ¡# Importer siste database-backup.
-mysql -u¨USERNAME¨ -p¨PASSWORD¨ ¨DBNAME¨ &lt; ¨LAST-BACKUP¨.sql
-»
+mysql -u¨USERNAME¨ -p¨PASSWORD¨ ¨DBNAME¨ < ¨LAST-BACKUP¨.sql
+´
 Når alt dette er gjort kan man editere ´config.php´ i vBulletin-katalogen, og sette
 ´
 $config['Database']['dbname'] = '¨DBNAME¨'
@@ -2006,22 +1991,22 @@ bare ´mysql -u¨USER¨ -p¨PASSWORD¨´ og så ´use ¨DBNAME¨´
 i mysql-promptet.
 
 −−− Beskrive tabell
-«
-mysql> <kbd>describe ¨TABLE¨;</kbd>
-»
+´
+mysql> ·describe ¨TABLE¨;
+´
 
 −−− Printe innhold i tabell
-«
+´
 ¡# Utvalgte kolonner
-mysql> <kbd>select ¨COL1¨,¨COL2¨,... from ¨TABLE¨;</kbd>
+mysql> ·select ¨COL1¨,¨COL2¨,... from ¨TABLE¨;
 ¡# Alle kolonner
-mysql> <kbd>select * from ¨TABLE¨;</kbd>
-»
+mysql> ·select * from ¨TABLE¨;
+´
 
 −−− Slette rad i tabell
-«
-mysql> <kbd>delete from ¨TABLE¨ where ¨COL¨ = "¨foo¨";</kbd>
-»
+´
+mysql> ·delete from ¨TABLE¨ where ¨COL¨ = "¨foo¨";
+´
 
 −−− Brukere
 Brukere i MySQL ligger i databasen ´mysql´ og tabellen ´user´.
@@ -2046,13 +2031,13 @@ EndSection
 −− MSI GP62MVR
 Legg til ´nouveau.modeset=0´ på kernel command line ved installasjonen. Dette
 må gjøres permanent senere ved å legge det inn i ´/etc/default/grub´:
-«
+´
 --- /etc/default/grub.orig      2018-08-07 06:22:33.000000000 -0400
 +++ /etc/default/grub   2018-08-07 06:22:36.496030494 -0400
 @@ -6 +6 @@
-<kbd>-GRUB_CMDLINE_LINUX="rd.luks.uuid=luks-48e28f8b-dfba-4f37-81d7-0a13ccc6c188 selinux=0 rhgb quiet"</kbd>
+·-GRUB_CMDLINE_LINUX="rd.luks.uuid=luks-48e28f8b-dfba-4f37-81d7-0a13ccc6c188 selinux=0 rhgb quiet"
 ¡+GRUB_CMDLINE_LINUX="rd.luks.uuid=luks-48e28f8b-dfba-4f37-81d7-0a13ccc6c188 selinux=0 rhgb quiet nouveau.modeset=0"
-»
+´
 og kjør deretter ´grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg´ for å
 generere nye initrd-filer.
 
@@ -2085,38 +2070,38 @@ Legg deretter inn
 
 −− POP3-debugging
 Eksempel på POP3-sesjon:
-«
+´
 ¡# Dersom vanlig ukryptert POP3:
-$ <kbd>telnet pop.example.com 110</kbd>
+$ ·telnet pop.example.com 110
 ¡# Dersom POP3S på port 995:
-$ <kbd>openssl s_client -crlf -connect pop.example.com:995</kbd>
+$ ·openssl s_client -crlf -connect pop.example.com:995
 ¡# Dersom POP3 + STARTTLS:
-$ <kbd>openssl s_client -crlf -connect pop.example.com:110 -starttls pop3
-»
+$ ·openssl s_client -crlf -connect pop.example.com:110 -starttls pop3
+´
 Når man har koblet til er det følgende likt uansett metode:
-«
+´
 +OK Hello there.
-<kbd>user ¨USERNAME¨</kbd>
+·user ¨USERNAME¨
 +OK Password required.
-<kbd>pass ¨PASSWORD¨</kbd>
+·pass ¨PASSWORD¨
 +OK logged in.
-<kbd>stat</kbd>
+·stat
 +OK 3 42734
-<kbd>list</kbd>
+·list
 +OK POP3 clients that break here, they violate STD53.
 1 14459
 2 25979
 3 2296
 .
-<kbd>retr 3</kbd>
+·retr 3
 +OK 2296 octets follow.
-&lt;...&gt;
+<...>
 .
-<kbd>dele 3</kbd>
+·dele 3
 +OK Deleted.
-<kbd>quit</kbd>
+·quit
 +OK Bye-bye.
-»
+´
 Hvis bruk av POP3S på port 995, koble til med
 ´openssl s_client -connect pop.example.com:995´.
 Dersom bruk av POP3 med STARTTLS, koble til med
@@ -2124,25 +2109,25 @@ Dersom bruk av POP3 med STARTTLS, koble til med
 
 −− IMAP-debugging
 Eksempel på IMAP-sesjon:
-«
+´
 ¡# Dersom vanlig ukryptert IMAP:
-$ <kbd>telnet imap.example.com 143</kbd>
+$ ·telnet imap.example.com 143
 ¡# Dersom IMAPS:
-$ <kbd>openssl s_client -crlf -connect imap.example.com:993</kbd>
-»
+$ ·openssl s_client -crlf -connect imap.example.com:993
+´
 Når man har koblet til er det følgende likt uansett metode:
-«
+´
 * OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS XMAGICTRASH] Courier-IMAP ready. Copyright 1998-2008 Double Precision, Inc.  See COPYING for distribution information.
-<kbd>. login ¨USERNAME¨ ¨PASSWORD¨</kbd>
+·. login ¨USERNAME¨ ¨PASSWORD¨
 . OK LOGIN Ok.
 ¡# Lister alle mailbokser
-<kbd>. list "" *</kbd>
+·. list "" *
 * LIST (\Unmarked \HasChildren) "." "INBOX"
 * LIST (\HasNoChildren) "." "INBOX.Spam"
 * LIST (\HasNoChildren) "." "INBOX.Trash"
 . OK LIST completed
 ¡# Velg mailboks med read-write-tilgang (s/SELECT/EXAMINE/ for read-only)
-<kbd>. select INBOX.Trash</kbd>
+·. select INBOX.Trash
 * FLAGS (\Draft \Answered \Flagged \Deleted \Seen \Recent)
 * OK [PERMANENTFLAGS (\* \Draft \Answered \Flagged \Deleted \Seen)]
 * Limited
@@ -2152,16 +2137,16 @@ Når man har koblet til er det følgende likt uansett metode:
 * OK [MYRIGHTS "acdilrsw"] ACL
 . OK [READ-WRITE] Ok
 ¡# Dump From/Subject/Date headers fra melding nr 1
-<kbd>. fetch 1 (body[header.fields (from subject date)])</kbd>
+·. fetch 1 (body[header.fields (from subject date)])
 * 1 FETCH (BODY[HEADER.FIELDS ("from" "subject" "date")] {115}
 Date: Wed, 11 Feb 2009 14:43:21 +0200
 Subject: hystream rapp
-From: Paul Vigmostad &lt;paul.vigmostad@netview.no&gt;
+From: Paul Vigmostad <paul.vigmostad@netview.no>
 
 )
 . OK FETCH completed.
 ¡# Hent message body
-<kbd>. fetch 1 body[text]</kbd>
+·. fetch 1 body[text]
 * 1 FETCH (BODY[TEXT] {31}
 Hi,
 
@@ -2172,92 +2157,92 @@ Goodbye.
 )
 . OK FETCH completed.
 ¡# Sett "deleted" flagg på alle meldinger [1 .. last]
-<kbd>. store 1:* flags \Deleted</kbd>
+·. store 1:* flags \Deleted
 * 1 FETCH (FLAGS (\Deleted))
 * 2 FETCH (FLAGS (\Deleted))
 * 3 FETCH (FLAGS (\Deleted))
 . OK STORE completed.
 ¡# Slett alle meldinger markert i forrige skritt
-<kbd>. expunge</kbd>
+·. expunge
 * 1 EXPUNGE
 * 1 EXPUNGE
 * 1 EXPUNGE
 * 0 EXISTS
 * 0 RECENT
 . OK EXPUNGE completed
-<kbd>. logout</kbd>
+·. logout
 * BYE Courier-IMAP server shutting down
 . OK LOGOUT completed
-»
+´
 
 −− SMTP-debugging
 
 −−− Standard ikke-autentisert mail
 For å sende mail fra ´my@email.com´ til ´destination@address.com´
 ved hjelp av SMTP-serveren ´mail.foo.com´ som lytter på port 25:
-«
-$ <kbd>telnet mail.foo.com 25</kbd>
+´
+$ ·telnet mail.foo.com 25
 Connected to mail.foo.com
 Escape character is '^]'.
 220 mail.foo.com ESMTP Exim 4.69 Thu, 08 Apr 2010 16:21:09 +0200
-<kbd>helo world</kbd>
+·helo world
 250 mail.foo.com Hello world
-<kbd>mail from:&lt;my@email.com&gt;</kbd>
+·mail from:<my@email.com>
 250 OK
-<kbd>rcpt to:&lt;destination@address.com&gt;</kbd>
+·rcpt to:<destination@address.com>
 250 Accepted
-<kbd>data</kbd>
+·data
 354 Enter message, ending with "." on a line by itself
-<kbd>Subject: hello, world
-
-hello, world
-.</kbd>
+·Subject: hello, world
+·
+·hello, world
+·.
 250 OK id=1Nzsg9-0004UJ-51
-<kbd>quit</kbd>
+·quit
 221 mail.foo.com closing connection
-»
+´
 
 −−− Autentisert mail
 For å sende mail fra ´my-name@my-email-domain.com´ til ´destination@address.com´
 ved hjelp av SMTP-serveren ´mail.foo.com´ som lytter på port 587:
-«
+´
 ¡# For ukryptert SMTP:
-$ <kbd>telnet mail.foo.com 587</kbd>
+$ ·telnet mail.foo.com 587
 ¡# Kryptert med SSL:
-$ <kbd>openssl s_client -crlf -connect smtp.example.com:465</kbd>
+$ ·openssl s_client -crlf -connect smtp.example.com:465
 ¡# Kryptert med STARTTLS:
-$ <kbd>openssl s_client -crlf -connect smtp.example.com:587 -starttls smtp</kbd>
-»
+$ ·openssl s_client -crlf -connect smtp.example.com:587 -starttls smtp
+´
 Når man har koblet til er det følgende likt uansett metode:
-«
+´
 220 mail.foo.com ESMTP Exim 4.69 Thu, 08 Apr 2010 16:21:09 +0200
-<kbd>ehlo my-email-domain.com</kbd>
+·ehlo my-email-domain.com
 250-mail.foom.com Hello bar.example.com [1.2.3.4]
 250-SIZE 157286400
 250-PIPELINING
 250-AUTH PLAIN LOGIN
 250-STARTTLS
 250 HELP
-<kbd>auth login</kbd>
+·auth login
 334 VXNlcm5hbWU6
-¡&lt;fyll ut resultatet av 'echo -n BRUKERNAVN | base64'&gt;
+¡<fyll ut resultatet av 'echo -n BRUKERNAVN | base64'>
 334 UGFzc3dvcmQ6
-¡&lt;fyll ut resultatet av 'echo -n PASSORD | base64'&gt;
+¡<fyll ut resultatet av 'echo -n PASSORD | base64'>
 235 Authentication succeeded
-<kbd>mail from:&lt;my-name@my-email-domain.com&gt;</kbd>
+·mail from:<my-name@my-email-domain.com>
 250 OK
-<kbd>rcpt to:&lt;destination@address.com&gt;</kbd>
+·rcpt to:<destination@address.com>
 250 Accepted
-<kbd>data</kbd>
+·data
 354 Enter message, ending with "." on a line by itself
-<kbd>Subject: hello, world
-
-hello, world
-.</kbd>
+·Subject: hello, world
+·
+·hello, world
+·.
 250 OK id=1Nzsg9-0004UJ-51
-<kbd>quit</kbd>
+·quit
 221 mail.foo.com closing connection
-»
+´
 
 −− PDF-manipulering vha pdftk
 Slå sammen flere PDF-er:
@@ -2275,7 +2260,7 @@ pdftk in.pdf cat 1E 2-end output out.pdf
 ´
 
 −− Kryptering/dekryptering med OpenSSL
-«
+´
 ¡# List ciphers
 openssl -h
 
@@ -2284,7 +2269,7 @@ openssl enc -aes-128-cbc -K ffeeddccbbaa99887766554433221100 -iv 001122334455667
 
 ¡# decrypt
 openssl enc -d -aes-128-cbc -K ffeeddccbbaa99887766554433221100 -iv 00112233445566778899aabbccddeeff -in file.txt.enc
-»
+´
 
 −− Sende POST requests med curl
 Eksempler:
@@ -2385,12 +2370,12 @@ authconfig --enableecryptfs --updateall
 ´
 Ved login skal nå mount passphrase automatisk settes inn i keyring. Dette kan
 verifiseres ved å bruke ´keyctl´, f.eks:
-«
-$ <kbd>keyctl list @u</kbd>
+´
+$ ·keyctl list @u
 2 keys in keyring:
 1052219576: --alswrv   500     0 user: 151c72727ff0c21f
 386276186: --alswrv   500     0 user: ee0581f60fdc6272
-»
+´
 rett etter brukeren logger inn.  NB: Hvis brukeren bytter passord,
 så vil dette IKKE virke, pga. at ´wrapped-passphrase´ vil være
 kryptert med et annet passord enn det brukeren logger inn med. Hvis
@@ -2400,24 +2385,24 @@ mount -i /foo/private
 ´
 uten å måtte oppgi passord.  Dersom det ikke virker automatisk på login kan
 man teste ´wrapped-passphrase´ med:
-«
-$ <kbd>echo -n ¨LOGIN-PASSWORD¨ | ecryptfs-insert-wrapped-passphrase-into-keyring $HOME/.ecryptfs/wrapped-passphrase -</kbd>
+´
+$ ·echo -n ¨LOGIN-PASSWORD¨ | ecryptfs-insert-wrapped-passphrase-into-keyring $HOME/.ecryptfs/wrapped-passphrase -
 ¡'keyctl list @u' should now show the key's signature.
-$ <kbd>echo -n ¨LOGIN-PASSWORD¨ | ecryptfs-unwrap-passphrase $HOME/.ecryptfs/wrapped-passphrase</kbd>
+$ ·echo -n ¨LOGIN-PASSWORD¨ | ecryptfs-unwrap-passphrase $HOME/.ecryptfs/wrapped-passphrase
 ¡Outputs ¨MOUNT-PASSWORD¨ in plaintext
-»
+´
 
 −− eCryptfs på systemer der authconfig ikke setter det opp
 Som et alternativ til ´authconfig --enableecryptfs --updateall´ kan man prøve
 følgende patch på /etc/pam.d:
-«
+´
 diff -ruN etc/pam.d/login /etc/pam.d/login
 --- etc/pam.d/login	2011-05-25 19:04:08.000000000 +0200
 +++ /etc/pam.d/login	2011-11-21 12:43:50.179687805 +0100
 @@ -1,6 +1,7 @@
  #%PAM-1.0
  auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so
-<kbd>-auth       include      system-auth</kbd>
+·-auth       include      system-auth
 ¡+auth       substack     system-auth
 ¡+auth       include      postlogin
  account    required     pam_nologin.so
@@ -2450,13 +2435,13 @@ diff -ruN etc/pam.d/remote /etc/pam.d/remote
 @@ -1,6 +1,7 @@
  #%PAM-1.0
  auth       required     pam_securetty.so
-<kbd>-auth       include      password-auth</kbd>
+·-auth       include      password-auth
 ¡+auth       substack     password-auth
 ¡+auth       include      postlogin
  account    required     pam_nologin.so
  account    include      password-auth
  password   include      password-auth
-»
+´
 
 −− Bridge mode på Nextgentels Thomson TG789vn på Telenor nett (IPoE)
 Få admin-bruker, logg inn på modemet og utfør:
@@ -2516,7 +2501,7 @@ VNC, legg til:
 ´
 -vnc :5
 ´
-Klienter kan da koble til med «vncviewer ¨HOSTNAME¨:5».
+Klienter kan da koble til med ´vncviewer ¨HOSTNAME¨:5´.
 
 −− Teste PXE-boot med qemu
 ´

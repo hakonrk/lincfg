@@ -23,6 +23,7 @@ $document =~ s#^´(\n.+?)´#'<table><tr><td><pre>'.escape_meta($1).'</pre></tabl
 $document =~ s#´(.+?)´#'<code>'.escape_meta($1).'</code>'#egs;
 $document =~ s#¨(.+?)¨#<var>$1</var>#g;
 $document =~ s#¡(.*)#<dfn>$1</dfn>#g;
+$document =~ s#·(.*)#<kbd>$1</kbd>#g;
 $document =~ s#\n((?:·.*\n)+)#\n<ul>\n$1</ul>\n#gm;
 $document =~ s#^·\s*#<li>#gm;
 make_headlines();

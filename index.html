@@ -99,7 +99,6 @@
 <li><a href="#7.4.">Se dine endringer som upstream ikke har merget ennå</a>
 <li><a href="#7.5.">Lage ny branch som også legges på remote repo</a>
 <li><a href="#7.6.">Flytte 'master' noen hakk tilbake, og lage ny branch fra tilsvarende sted</a>
-<li><a href="#7.7.">Bruk av git på /etc</a>
 </ol><li><a href="#8.">Indenting</a>
 <ol><li><a href="#8.1.">astyle</a>
 </ol><li><a href="#9.">IRC</a>
@@ -252,7 +251,7 @@ Legg følgende i <code>~/.emacs</code>:
 
 <h2><a class=nolink name="1.2.">1.2. Terminfo/termcap</a></h2>
 Hent først ut en nogenlunde riktig terminfo entry med kommandoen
-<code>infocmp -I xterm-color >xterm.ti</code>.  Editer denne filen og
+<code>infocmp -I xterm-color &gt;xterm.ti</code>.  Editer denne filen og
 pass på at følgende verdier er satt:
 <table><tr><td><pre>
 kdch1=\177
@@ -271,7 +270,7 @@ verdi som <code>kend</code> skal ha.)  Pass på at <code>xterm.ti</code> har bes
 i <code>~/.terminfo/</code>, og disse har prioritet over <code>/usr/share/terminfo/</code>.
 
 Etter at <code>xterm</code> entryen er laget, konverter terminfo databasen til
-termcap med kommandoen <code>infocmp -C -r xterm >xterm.termcap</code>.  Erstatt
+termcap med kommandoen <code>infocmp -C -r xterm &gt;xterm.termcap</code>.  Erstatt
 gammel entry i <code>/etc/termcap</code> med denne nye utgaven.
 
 <h1><a class=nolink name="2.">2. Firefox</a></h1>
@@ -667,7 +666,7 @@ som vil kommunisere med scanneren for å finne ut egenskapene.
 <p>
 Eksempel på scanning av étt dokument:
 <table><tr><td><pre>
-scanimage --mode 'True Gray' --resolution 150 ><var>foo.pnm</var>
+scanimage --mode 'True Gray' --resolution 150 &gt;<var>foo.pnm</var>
 </pre></table>
 
 Eksempel på scanning av flere dokumenter:
@@ -830,21 +829,6 @@ git reset --hard <var>REVISION</var>
 git checkout <var>NEW-BRANCH</var>
 </pre></table>
 
-<h2><a class=nolink name="7.7.">7.7. Bruk av git på /etc</a></h2>
-<table><tr><td><pre>
-<dfn># Create etc patch from old /etc:</dfn>
-cd /etc
-sudo git format-patch LAST-ORIGINAL-REVISION
-
-<dfn># Apply etc patch to new /etc:</dfn>
-cd /etc
-sudo git init
-sudo git commit --allow-empty -m 'first rev'
-sudo git add $(sed -n 's@^--- a/@@p' /path/to/old-etc.patch)
-sudo git commit -m 'original files'
-sudo git am /path/to/old-etc.patch
-</pre></table>
-
 <h1><a class=nolink name="8.">8. Indenting</a></h1>
 
 <h2><a class=nolink name="8.1.">8.1. astyle</a></h2>
@@ -899,8 +883,8 @@ Host <var>SERVER</var>
 <h2><a class=nolink name="10.3.">10.3. SSH port forwarding</a></h2>
 Det er to typer SSH forwarding:
 <table><tr><td><pre>
-ssh -L port:host:hostport remote-host <dfn># localhost:port -> remote-host -> host:hostport</dfn>
-ssh -R port:host:hostport remote-host <dfn># remote-host:port -> localhost -> host:hostport</dfn>
+ssh -L port:host:hostport remote-host <dfn># localhost:port -&gt; remote-host -&gt; host:hostport</dfn>
+ssh -R port:host:hostport remote-host <dfn># remote-host:port -&gt; localhost -&gt; host:hostport</dfn>
 </pre></table>
 <code>-L</code>-varianten betyr at ssh vil lytte på port nummer <code>port</code>
 på maskinen der kommandoen utføres.  Når noen connecter til denne
@@ -1302,12 +1286,12 @@ Det skal også være mulig å be om det som sist var lagret ved å bytte ut <cod
 <h2><a class=nolink name="17.2.">17.2. Korrigering av default email på UiO</a></h2>
 Start opp <code>bofh</code> og gjør noe à la følgende session:
 <table><tr><td><pre>
-jbofh> <kbd>person list_user_priorities hakonrk</kbd>
+jbofh&gt; <kbd>person list_user_priorities hakonrk</kbd>
    Uname Priority Affiliation
  hakonrk        1 STUDENT@150000 (Mat.nat. fakultet)
  hakonrk        6 STUDENT@150400 (Fysisk institutt)
 
-jbofh> <kbd>person set_user_priority hakonrk 6 1</kbd>
+jbofh&gt; <kbd>person set_user_priority hakonrk 6 1</kbd>
 OK
 </pre></table>
 Man kan deretter verifisere at operasjonen var vellykket ved
@@ -1950,12 +1934,12 @@ Yes/No? <kbd>y</kbd>
 # <kbd>dd conv=notrunc if=/usr/share/syslinux/mbr.bin of=/dev/flash</kbd>
 # <kbd>mount /dev/flash1 /media</kbd>
 # <kbd>cp /usr/share/syslinux/memdisk /media</kbd>
-# <kbd>cat &lt;&lt;\EOF &gt;/media/syslinux.cfg
-default dos
-label dos
-  kernel memdisk
-  append initrd=disk.img
-EOF</kbd>
+# <kbd>cat &lt;&lt;\EOF &gt;/media/syslinux.cfg</kbd>
+<kbd>default dos</kbd>
+<kbd>label dos</kbd>
+<kbd>  kernel memdisk</kbd>
+<kbd>  append initrd=disk.img</kbd>
+<kbd>EOF</kbd>
 # <kbd>dd if=/dev/zero of=/media/disk.img bs=1k count=1440</kbd>
 # <kbd>mkdosfs /media/disk.img</kbd>
 # <kbd>mount -o loop /media/disk.img /mnt</kbd>
@@ -2219,8 +2203,8 @@ mysqladmin -uroot password <var>ROOT-MYSQL-PASSWORD</var>
 
 <dfn># Opprett vBulletin-bruker.</dfn>
 mysql -uroot -p<var>ROOT-MYSQL-PASSWORD</var> mysql
-mysql> <kbd>GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON <var>DBNAME</var>.* TO <var>USERNAME</var>@localhost IDENTIFIED BY '<var>PASSWORD</var>';</kbd> 
-mysql> <kbd>FLUSH PRIVILEGES;</kbd>
+mysql&gt; <kbd>GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON <var>DBNAME</var>.* TO <var>USERNAME</var>@localhost IDENTIFIED BY '<var>PASSWORD</var>'; </kbd>
+mysql&gt; <kbd>FLUSH PRIVILEGES;</kbd>
 
 <dfn># Opprett database.</dfn>
 mysqladmin -u<var>USERNAME</var> -p<var>PASSWORD</var> create <var>DBNAME</var>
@@ -2246,20 +2230,20 @@ i mysql-promptet.
 
 <h3><a class=nolink name="19.51.2.">19.51.2. Beskrive tabell</a></h3>
 <table><tr><td><pre>
-mysql> <kbd>describe <var>TABLE</var>;</kbd>
+mysql&gt; <kbd>describe <var>TABLE</var>;</kbd>
 </pre></table>
 
 <h3><a class=nolink name="19.51.3.">19.51.3. Printe innhold i tabell</a></h3>
 <table><tr><td><pre>
 <dfn># Utvalgte kolonner</dfn>
-mysql> <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
+mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
 <dfn># Alle kolonner</dfn>
-mysql> <kbd>select * from <var>TABLE</var>;</kbd>
+mysql&gt; <kbd>select * from <var>TABLE</var>;</kbd>
 </pre></table>
 
 <h3><a class=nolink name="19.51.4.">19.51.4. Slette rad i tabell</a></h3>
 <table><tr><td><pre>
-mysql> <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
+mysql&gt; <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
 </pre></table>
 
 <h3><a class=nolink name="19.51.5.">19.51.5. Brukere</a></h3>
@@ -2330,7 +2314,7 @@ $ <kbd>telnet pop.example.com 110</kbd>
 <dfn># Dersom POP3S på port 995:</dfn>
 $ <kbd>openssl s_client -crlf -connect pop.example.com:995</kbd>
 <dfn># Dersom POP3 + STARTTLS:</dfn>
-$ <kbd>openssl s_client -crlf -connect pop.example.com:110 -starttls pop3
+$ <kbd>openssl s_client -crlf -connect pop.example.com:110 -starttls pop3</kbd>
 </pre></table>
 Når man har koblet til er det følgende likt uansett metode:
 <table><tr><td><pre>
@@ -2447,10 +2431,10 @@ Escape character is '^]'.
 250 Accepted
 <kbd>data</kbd>
 354 Enter message, ending with "." on a line by itself
-<kbd>Subject: hello, world
-
-hello, world
-.</kbd>
+<kbd>Subject: hello, world</kbd>
+<kbd></kbd>
+<kbd>hello, world</kbd>
+<kbd>.</kbd>
 250 OK id=1Nzsg9-0004UJ-51
 <kbd>quit</kbd>
 221 mail.foo.com closing connection
@@ -2489,10 +2473,10 @@ Når man har koblet til er det følgende likt uansett metode:
 250 Accepted
 <kbd>data</kbd>
 354 Enter message, ending with "." on a line by itself
-<kbd>Subject: hello, world
-
-hello, world
-.</kbd>
+<kbd>Subject: hello, world</kbd>
+<kbd></kbd>
+<kbd>hello, world</kbd>
+<kbd>.</kbd>
 250 OK id=1Nzsg9-0004UJ-51
 <kbd>quit</kbd>
 221 mail.foo.com closing connection
