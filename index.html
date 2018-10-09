@@ -198,19 +198,16 @@
 <li><a href="#19.41.">FFmpeg pipelining</a>
 <li><a href="#19.42.">Bruke FFmpeg til å segmentere video</a>
 <li><a href="#19.43.">Dumping av rå PCM-lyd med FFmpeg eller mplayer</a>
-<li><a href="#19.44.">Ekstrahere subsegmenter av video med perfekt A/V sync</a>
-<li><a href="#19.45.">Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a>
-<li><a href="#19.46.">Subtitles brent inn i bildet vha FFmpeg og mplayer</a>
-<li><a href="#19.47.">mencoder</a>
-<li><a href="#19.48.">Oppsett av alternativ Apache share</a>
-<li><a href="#19.49.">Oppsett av DAV med SSL på Apache</a>
-<li><a href="#19.50.">Oppsett av vBulletin</a>
-<li><a href="#19.51.">Mer SQL</a>
-<ol><li><a href="#19.51.1.">Velge database</a>
-<li><a href="#19.51.2.">Beskrive tabell</a>
-<li><a href="#19.51.3.">Printe innhold i tabell</a>
-<li><a href="#19.51.4.">Slette rad i tabell</a>
-<li><a href="#19.51.5.">Brukere</a>
+<li><a href="#19.44.">Subtitles brent inn i bildet vha FFmpeg m/libass</a>
+<li><a href="#19.45.">Oppsett av alternativ Apache share</a>
+<li><a href="#19.46.">Oppsett av DAV med SSL på Apache</a>
+<li><a href="#19.47.">Oppsett av vBulletin</a>
+<li><a href="#19.48.">Mer SQL</a>
+<ol><li><a href="#19.48.1.">Velge database</a>
+<li><a href="#19.48.2.">Beskrive tabell</a>
+<li><a href="#19.48.3.">Printe innhold i tabell</a>
+<li><a href="#19.48.4.">Slette rad i tabell</a>
+<li><a href="#19.48.5.">Brukere</a>
 </ol></ol><li><a href="#20.">Problemer spesifikke til enkelte maskiner</a>
 <ol><li><a href="#20.1.">Dell Inspiron 1564</a>
 <ol><li><a href="#20.1.1.">Installasjon</a>
@@ -1992,7 +1989,7 @@ ffmpeg <var>INPUT-OPTIONS</var> -i <var>INPUT-FILE</var> <var>OUTPUT-OPTIONS</va
 Rekkefølgende på <code><var>INPUT-OPTIONS</var></code> og <code><var>OUTPUT-OPTIONS</var></code> er
 <i>ekstremt</i> viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
 <table><tr><td><pre>
-ffmpeg -i <var>INPUT-FILE</var> -acodec libmp3lame -ab 128kb -vcodec libx264 -vb 1000kb <var>OUTPUT-FILE</var>
+ffmpeg -i <var>INPUT-FILE</var> -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000k <var>OUTPUT-FILE</var>
 </pre></table>
 Formatet på <code><var>OUTPUT-FILE</var></code> blir satt av extension.  For å liste forskjellige
 formater for a/v codec og containerstrøm, gjør <code>ffmpeg -formats</code>.
@@ -2032,59 +2029,15 @@ ffmpeg -i INPUT -codec copy -bsf h264_mp4toannexb -f segment -segment_time 1 -se
 <table><tr><td><pre>
 <dfn># Alternativ 1: med FFmpeg</dfn>
 ffmpeg -i <var>INPUT-STREAM</var> -f s16le -vn -
-<dfn># Alternativ 2: med mplayer</dfn>
-mplayer -ao pcm:fast:nowaveheader:file=/dev/stdout -vo null <var>INPUT-STREAM</var>
 </pre></table>
 Kan teste å spille lyden med
 <table><tr><td><pre>
 aplay -f S16_LE -c <var>CHANNELS</var> -r <var>RATE</var> <var>PCMFILE</var>
 </pre></table>
 
-<h2><a class=nolink name="19.44.">19.44. Ekstrahere subsegmenter av video med perfekt A/V sync</a></h2>
-Antar først at lyd og bilde starter likt.  For å velge ut frame
-range, gjør
-<table><tr><td><pre>
-mplayer -nosound -vo jpeg:quality=20 -benchmark <var>INPUT-VIDEO</var>
-</pre></table>
-og kikk på JPEG-filene som blir produsert for å finne passende snutter.
-Når snuttene er valgt må tilhørende lyd også hentes ut.  Regn først ut
-antall bytes lyd per video frame:
-<table><tr><td><pre>
-BYTES_PER_FRAME = 2 × <var>CHANNELS</var> × <var>SAMPLE-RATE</var> / <var>FPS</var>
-</pre></table>
-Kall <code>bytes_per_frame</code> en lydblokk.
-Dvs. at dersom første ønskede video frame er <code>A</code>, så er det <code><var>Q</var>=A - 1</code>
-lydblokker som må skippes, og antall lydblokker som skal brukes er
-naturligvis lik antall video frames <code>N</code>.  For å hente ut lyden,
-gjør
-<table><tr><td><pre>
-ffmpeg -i <var>INPUT-VIDEO</var> -f s16le -vn - | 
-dd iflag=fullblock bs=<var>BYTES_PER_FRAME</var> skip=<var>Q</var> count=<var>N</var> of=<var>PCMFILE</var>
-</pre></table>
-Dump så ut videodelen i rå YUV-data:
-<table><tr><td><pre>
-ffmpeg -i <var>INPUT-VIDEO</var> -s <var>NEWW</var>x<var>NEWH</var> -an -f rawvideo - |
-dd iflag=fullblock bs=$((<var>NEWW</var>×<var>NEWH</var>×12/8)) skip=<var>Q</var> count=<var>N</var> of=<var>YUVFILE</var>
-</pre></table>
-For testing kan <code><var>PCMFILE</var></code> og <code><var>YUVFILE</var></code> spilles sammen med
-<table><tr><td><pre>
-mplayer \
- -audio-demuxer rawaudio \
- -rawaudio channels=<var>C</var>:rate=<var>R</var>:samplesize=2 -audiofile <var>PCMFILE</var> \
- -demuxer rawvideo \
- -rawvideo fps=<var>FPS</var>:w=<var>NEWW</var>:h=<var>NEWH</var>:i420 <var>YUVFILE</var>
-</pre></table>
-For å enkode disse, gjør
-<table><tr><td><pre>
-ffmpeg -ar <var>RATE</var> -ac <var>CHANNELS</var> -f s16le -i <var>PCMFILE</var> \
-       -s <var>NEWW</var>x<var>NEWH</var> -r <var>FPS</var> -pix_fmt yuv420p -f rawvideo -i <var>YUVFILE</var> \
-       <var>&lt;-acodec/-vcodec parametre&gt;</var> \
-       <var>OUTPUT-VIDEO</var>
-</pre></table>
-
-<h2><a class=nolink name="19.45.">19.45. Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)</a></h2>
-Installer FFmpeg med libass for brenne inn subtitles i bildet.
-Transkoding av video gjøres slik:
+<h2><a class=nolink name="19.44.">19.44. Subtitles brent inn i bildet vha FFmpeg m/libass</a></h2>
+Installer FFmpeg med libass for brenne inn subtitles i bildet.  Transkoding av
+video gjøres slik:
 
 <table><tr><td><pre>
 ffmpeg -i <var>INPUT-VIDEO</var> \
@@ -2094,71 +2047,7 @@ ffmpeg -i <var>INPUT-VIDEO</var> \
   <var>OUTPUT-VIDEO</var>.mp4
 </pre></table>
 
-Installer MiniDLNA og gjør følgende endringer i <code>/etc/minidlna.conf</code>:
-
-<table><tr><td><pre>
---- /etc/minidlna.conf.orig     2014-09-14 16:39:59.000000000 +0200
-+++ /etc/minidlna.conf  2014-11-27 20:34:48.622085035 +0100
-@@ -5 +5 @@
--#network_interface=eth0
-+network_interface=p4p2
-@@ -18 +18 @@
--media_dir=/opt
-+media_dir=/local/video/dlna
-@@ -25 +25 @@
--#friendly_name=My DLNA Server
-+friendly_name=snowbird
-@@ -28 +28 @@
--#db_dir=/var/cache/minidlna
-+db_dir=/local/video/dlna/DB
-</pre></table>
-
-Kopier MP4-filene til <code>media_dir</code> og start minidlnad:
-
-<table><tr><td><pre>
-minidlnad -d -R
-</pre></table>
-
-<h2><a class=nolink name="19.46.">19.46. Subtitles brent inn i bildet vha FFmpeg og mplayer</a></h2>
-<table><tr><td><pre>
-mkfifo /tmp/video.y4m
-mplayer \
-    -nosound \
-    -benchmark \
-    -vo yuv4mpeg:file=/tmp/video.y4m \
-    -sid 0 \
-    -subfont ~/share/fonts/ttf/arial.ttf \
-    -subfont-text-scale 25 \
-    -subfont-autoscale 0 \
-    -subpos 96 \
-    -spualign 2 \
-    <var>SRC-STREAM</var> &amp;&gt;/dev/null &amp;
-ffmpeg \
-    -i /tmp/video.y4m \
-    -i <var>SRC-STREAM</var> \
-    -map 0:0 \ <dfn># first stream from first file (video.y4m)</dfn>
-    -map 1:<var>N</var> \ <dfn># Nth stream (audio) from second file (<var>SRC-STREAM</var>)</dfn>
-    -acodec ac3 \
-    -ab 640k \
-    -vcodec libx264 \
-    -vb <var>VIDEO-BITRATE</var> \
-    -level 41 \
-    <var>OUTPUT</var>.mp4
-</pre></table>
-
-<h2><a class=nolink name="19.47.">19.47. mencoder</a></h2>
-Minimal syntaks er
-<table><tr><td><pre>
-mencoder -force-avi-aspect <var>W/H</var> -oac <var>ACODEC</var> -ovc <var>VCODEC</var> <var>INPUT-FILE</var> -o <var>OUTPUT-FILE</var>
-</pre></table>
-Det vanligste lydformatet er MP3, som kan brukes slik:
-<table><tr><td><pre>
--oac mp3lame -lameopts abr:br=128:mode=3
-</pre></table>
-Flaggene i <code>-lameopts</code> betyr gjennomsnittlig bitrate på 128 kbps, og mikset
-ned til mono (<code>mode=3</code>).
-
-<h2><a class=nolink name="19.48.">19.48. Oppsett av alternativ Apache share</a></h2>
+<h2><a class=nolink name="19.45.">19.45. Oppsett av alternativ Apache share</a></h2>
 For å gjøre slik at <code>http://localhost/www/</code> viser alt innhold i <code>/local/www</code>, og med ingen
 restriksjoner på symlinker, opprett følgende <code>/etc/httpd/conf.d/local.conf</code>:
 <table><tr><td><pre>
@@ -2172,7 +2061,7 @@ Alias /www /local/www
 &lt;/Directory&gt;
 </pre></table>
 
-<h2><a class=nolink name="19.49.">19.49. Oppsett av DAV med SSL på Apache</a></h2>
+<h2><a class=nolink name="19.46.">19.46. Oppsett av DAV med SSL på Apache</a></h2>
 Lag først nøkler:
 <table><tr><td><pre>
 openssl req -new -x509 -keyout /etc/httpd/conf/server.key -out /etc/httpd/conf/server.crt
@@ -2195,7 +2084,7 @@ htpasswd -c /etc/httpd/conf/webdav-passwd <var>USERNAME</var>
 Merk at <code>-c</code> får htpasswd til å overskrive eksisterende filer.  Dropp <code>-c</code>
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
-<h2><a class=nolink name="19.50.">19.50. Oppsett av vBulletin</a></h2>
+<h2><a class=nolink name="19.47.">19.47. Oppsett av vBulletin</a></h2>
 Pakk ut vBulletin i <code>/var/www/html</code>.  Sett så opp MySQL:
 <table><tr><td><pre>
 <dfn># Opprett root-bruker.</dfn>
@@ -2222,18 +2111,18 @@ $config['MasterServer']['password'] = '<var>PASSWORD</var>'
 $config['MasterServer']['servername'] = 'localhost'
 </pre></table>
 
-<h2><a class=nolink name="19.51.">19.51. Mer SQL</a></h2>
-<h3><a class=nolink name="19.51.1.">19.51.1. Velge database</a></h3>
+<h2><a class=nolink name="19.48.">19.48. Mer SQL</a></h2>
+<h3><a class=nolink name="19.48.1.">19.48.1. Velge database</a></h3>
 To muligheter: <code>mysql -u<var>USER</var> -p<var>PASSWORD</var> <var>DBNAME</var></code> eller
 bare <code>mysql -u<var>USER</var> -p<var>PASSWORD</var></code> og så <code>use <var>DBNAME</var></code>
 i mysql-promptet.
 
-<h3><a class=nolink name="19.51.2.">19.51.2. Beskrive tabell</a></h3>
+<h3><a class=nolink name="19.48.2.">19.48.2. Beskrive tabell</a></h3>
 <table><tr><td><pre>
 mysql&gt; <kbd>describe <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.51.3.">19.51.3. Printe innhold i tabell</a></h3>
+<h3><a class=nolink name="19.48.3.">19.48.3. Printe innhold i tabell</a></h3>
 <table><tr><td><pre>
 <dfn># Utvalgte kolonner</dfn>
 mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
@@ -2241,12 +2130,12 @@ mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;
 mysql&gt; <kbd>select * from <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.51.4.">19.51.4. Slette rad i tabell</a></h3>
+<h3><a class=nolink name="19.48.4.">19.48.4. Slette rad i tabell</a></h3>
 <table><tr><td><pre>
 mysql&gt; <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.51.5.">19.51.5. Brukere</a></h3>
+<h3><a class=nolink name="19.48.5.">19.48.5. Brukere</a></h3>
 Brukere i MySQL ligger i databasen <code>mysql</code> og tabellen <code>user</code>.
 
 <h1><a class=nolink name="20.">20. Problemer spesifikke til enkelte maskiner</a></h1>

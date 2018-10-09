@@ -1754,7 +1754,7 @@ ffmpeg ¨INPUT-OPTIONS¨ -i ¨INPUT-FILE¨ ¨OUTPUT-OPTIONS¨ ¨OUTPUT-FILE¨
 Rekkefølgende på ´¨INPUT-OPTIONS¨´ og ´¨OUTPUT-OPTIONS¨´ er
 <i>ekstremt</i> viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
 ´
-ffmpeg -i ¨INPUT-FILE¨ -acodec libmp3lame -ab 128kb -vcodec libx264 -vb 1000kb ¨OUTPUT-FILE¨
+ffmpeg -i ¨INPUT-FILE¨ -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000k ¨OUTPUT-FILE¨
 ´
 Formatet på ´¨OUTPUT-FILE¨´ blir satt av extension.  For å liste forskjellige
 formater for a/v codec og containerstrøm, gjør ´ffmpeg -formats´.
@@ -1794,59 +1794,15 @@ ffmpeg -i INPUT -codec copy -bsf h264_mp4toannexb -f segment -segment_time 1 -se
 ´
 ¡# Alternativ 1: med FFmpeg
 ffmpeg -i ¨INPUT-STREAM¨ -f s16le -vn -
-¡# Alternativ 2: med mplayer
-mplayer -ao pcm:fast:nowaveheader:file=/dev/stdout -vo null ¨INPUT-STREAM¨
 ´
 Kan teste å spille lyden med
 ´
 aplay -f S16_LE -c ¨CHANNELS¨ -r ¨RATE¨ ¨PCMFILE¨
 ´
 
-−− Ekstrahere subsegmenter av video med perfekt A/V sync
-Antar først at lyd og bilde starter likt.  For å velge ut frame
-range, gjør
-´
-mplayer -nosound -vo jpeg:quality=20 -benchmark ¨INPUT-VIDEO¨
-´
-og kikk på JPEG-filene som blir produsert for å finne passende snutter.
-Når snuttene er valgt må tilhørende lyd også hentes ut.  Regn først ut
-antall bytes lyd per video frame:
-´
-BYTES_PER_FRAME = 2 × ¨CHANNELS¨ × ¨SAMPLE-RATE¨ / ¨FPS¨
-´
-Kall ´bytes_per_frame´ en lydblokk.
-Dvs. at dersom første ønskede video frame er ´A´, så er det ´¨Q¨=A - 1´
-lydblokker som må skippes, og antall lydblokker som skal brukes er
-naturligvis lik antall video frames ´N´.  For å hente ut lyden,
-gjør
-´
-ffmpeg -i ¨INPUT-VIDEO¨ -f s16le -vn - | 
-dd iflag=fullblock bs=¨BYTES_PER_FRAME¨ skip=¨Q¨ count=¨N¨ of=¨PCMFILE¨
-´
-Dump så ut videodelen i rå YUV-data:
-´
-ffmpeg -i ¨INPUT-VIDEO¨ -s ¨NEWW¨x¨NEWH¨ -an -f rawvideo - |
-dd iflag=fullblock bs=$((¨NEWW¨×¨NEWH¨×12/8)) skip=¨Q¨ count=¨N¨ of=¨YUVFILE¨
-´
-For testing kan ´¨PCMFILE¨´ og ´¨YUVFILE¨´ spilles sammen med
-´
-mplayer \
- -audio-demuxer rawaudio \
- -rawaudio channels=¨C¨:rate=¨R¨:samplesize=2 -audiofile ¨PCMFILE¨ \
- -demuxer rawvideo \
- -rawvideo fps=¨FPS¨:w=¨NEWW¨:h=¨NEWH¨:i420 ¨YUVFILE¨
-´
-For å enkode disse, gjør
-´
-ffmpeg -ar ¨RATE¨ -ac ¨CHANNELS¨ -f s16le -i ¨PCMFILE¨ \
-       -s ¨NEWW¨x¨NEWH¨ -r ¨FPS¨ -pix_fmt yuv420p -f rawvideo -i ¨YUVFILE¨ \
-       ¨<-acodec/-vcodec parametre>¨ \
-       ¨OUTPUT-VIDEO¨
-´
-
-−− Subtitles brent inn i bildet vha FFmpeg m/libass (for PS3 playback)
-Installer FFmpeg med libass for brenne inn subtitles i bildet.
-Transkoding av video gjøres slik:
+−− Subtitles brent inn i bildet vha FFmpeg m/libass
+Installer FFmpeg med libass for brenne inn subtitles i bildet.  Transkoding av
+video gjøres slik:
 
 ´
 ffmpeg -i ¨INPUT-VIDEO¨ \
@@ -1855,70 +1811,6 @@ ffmpeg -i ¨INPUT-VIDEO¨ \
   -vf subtitles=SRT-FILE \
   ¨OUTPUT-VIDEO¨.mp4
 ´
-
-Installer MiniDLNA og gjør følgende endringer i ´/etc/minidlna.conf´:
-
-´
---- /etc/minidlna.conf.orig     2014-09-14 16:39:59.000000000 +0200
-+++ /etc/minidlna.conf  2014-11-27 20:34:48.622085035 +0100
-@@ -5 +5 @@
--#network_interface=eth0
-+network_interface=p4p2
-@@ -18 +18 @@
--media_dir=/opt
-+media_dir=/local/video/dlna
-@@ -25 +25 @@
--#friendly_name=My DLNA Server
-+friendly_name=snowbird
-@@ -28 +28 @@
--#db_dir=/var/cache/minidlna
-+db_dir=/local/video/dlna/DB
-´
-
-Kopier MP4-filene til ´media_dir´ og start minidlnad:
-
-´
-minidlnad -d -R
-´
-
-−− Subtitles brent inn i bildet vha FFmpeg og mplayer
-´
-mkfifo /tmp/video.y4m
-mplayer \
-    -nosound \
-    -benchmark \
-    -vo yuv4mpeg:file=/tmp/video.y4m \
-    -sid 0 \
-    -subfont ~/share/fonts/ttf/arial.ttf \
-    -subfont-text-scale 25 \
-    -subfont-autoscale 0 \
-    -subpos 96 \
-    -spualign 2 \
-    ¨SRC-STREAM¨ &>/dev/null &
-ffmpeg \
-    -i /tmp/video.y4m \
-    -i ¨SRC-STREAM¨ \
-    -map 0:0 \ ¡# first stream from first file (video.y4m)
-    -map 1:¨N¨ \ ¡# Nth stream (audio) from second file (¨SRC-STREAM¨)
-    -acodec ac3 \
-    -ab 640k \
-    -vcodec libx264 \
-    -vb ¨VIDEO-BITRATE¨ \
-    -level 41 \
-    ¨OUTPUT¨.mp4
-´
-
-−− mencoder
-Minimal syntaks er
-´
-mencoder -force-avi-aspect ¨W/H¨ -oac ¨ACODEC¨ -ovc ¨VCODEC¨ ¨INPUT-FILE¨ -o ¨OUTPUT-FILE¨
-´
-Det vanligste lydformatet er MP3, som kan brukes slik:
-´
--oac mp3lame -lameopts abr:br=128:mode=3
-´
-Flaggene i ´-lameopts´ betyr gjennomsnittlig bitrate på 128 kbps, og mikset
-ned til mono (´mode=3´).
 
 −− Oppsett av alternativ Apache share
 For å gjøre slik at ´http://localhost/www/´ viser alt innhold i ´/local/www´, og med ingen
