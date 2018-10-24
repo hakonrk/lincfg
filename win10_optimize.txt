@@ -1,10 +1,19 @@
-run cmd as admin: powercfg -h off
+Disable hibernation:
+    run cmd as admin: powercfg -h off
 
-Win+Pause
-Advanced system settings
-Advanced tab
-Settings button
-Advanced tab
-Change button
-unset "Auto manage paging file size for all drives"
-Select "No paging file"
+Disable page file:
+    Win+Pause
+    Advanced system settings
+    Advanced tab
+    Settings button
+    Advanced tab
+    Change button
+    unset "Auto manage paging file size for all drives"
+    Select "No paging file"
+
+Disable system restore:
+    System properties → System protection
+    Set Protection = off for all drives
+    Do this by clicking Configure,
+    then Disable system protection,
+    then Delete all restore points for this drive

@@ -1759,6 +1759,21 @@ ffmpeg -i ¨INPUT-FILE¨ -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000k ¨OUT
 Formatet på ´¨OUTPUT-FILE¨´ blir satt av extension.  For å liste forskjellige
 formater for a/v codec og containerstrøm, gjør ´ffmpeg -formats´.
 
+−− Måle varighet med ffmpeg
+´
+ffmpeg -v error -show_entries format=duration ¨INPUT-VIDEO¨ -of csv
+´
+
+−− Kopiere lyd fra INPUT1 og video fra INPUT2 med ffmpeg
+´
+ffmpeg -i ¨INPUT1¨ -i ¨INPUT2¨ -map 0:a -map 1:v -c:v copy -c:a copy ¨OUTPUT¨
+´
+
+−− Normalisere volumn under ffmpeg encoding
+´
+ffmpeg -i ¨INPUT¨ -c:v copy -c:a libmp3lame -filter:a loudnorm ¨OUTPUT¨
+´
+
 −− FFmpeg pipelining
 For å sende rå YUV-frames via pipe til x264:
 ´

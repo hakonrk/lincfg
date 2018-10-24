@@ -195,19 +195,22 @@
 <li><a href="#19.38.">Baklengs VNC</a>
 <li><a href="#19.39.">Splitting av MKV/Matroska filmer</a>
 <li><a href="#19.40.">Enkoding med ffmpeg</a>
-<li><a href="#19.41.">FFmpeg pipelining</a>
-<li><a href="#19.42.">Bruke FFmpeg til å segmentere video</a>
-<li><a href="#19.43.">Dumping av rå PCM-lyd med FFmpeg eller mplayer</a>
-<li><a href="#19.44.">Subtitles brent inn i bildet vha FFmpeg m/libass</a>
-<li><a href="#19.45.">Oppsett av alternativ Apache share</a>
-<li><a href="#19.46.">Oppsett av DAV med SSL på Apache</a>
-<li><a href="#19.47.">Oppsett av vBulletin</a>
-<li><a href="#19.48.">Mer SQL</a>
-<ol><li><a href="#19.48.1.">Velge database</a>
-<li><a href="#19.48.2.">Beskrive tabell</a>
-<li><a href="#19.48.3.">Printe innhold i tabell</a>
-<li><a href="#19.48.4.">Slette rad i tabell</a>
-<li><a href="#19.48.5.">Brukere</a>
+<li><a href="#19.41.">Måle varighet med ffmpeg</a>
+<li><a href="#19.42.">Kopiere lyd fra INPUT1 og video fra INPUT2 med ffmpeg</a>
+<li><a href="#19.43.">Normalisere volumn under ffmpeg encoding</a>
+<li><a href="#19.44.">FFmpeg pipelining</a>
+<li><a href="#19.45.">Bruke FFmpeg til å segmentere video</a>
+<li><a href="#19.46.">Dumping av rå PCM-lyd med FFmpeg eller mplayer</a>
+<li><a href="#19.47.">Subtitles brent inn i bildet vha FFmpeg m/libass</a>
+<li><a href="#19.48.">Oppsett av alternativ Apache share</a>
+<li><a href="#19.49.">Oppsett av DAV med SSL på Apache</a>
+<li><a href="#19.50.">Oppsett av vBulletin</a>
+<li><a href="#19.51.">Mer SQL</a>
+<ol><li><a href="#19.51.1.">Velge database</a>
+<li><a href="#19.51.2.">Beskrive tabell</a>
+<li><a href="#19.51.3.">Printe innhold i tabell</a>
+<li><a href="#19.51.4.">Slette rad i tabell</a>
+<li><a href="#19.51.5.">Brukere</a>
 </ol></ol><li><a href="#20.">Problemer spesifikke til enkelte maskiner</a>
 <ol><li><a href="#20.1.">Dell Inspiron 1564</a>
 <ol><li><a href="#20.1.1.">Installasjon</a>
@@ -1994,7 +1997,22 @@ ffmpeg -i <var>INPUT-FILE</var> -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000
 Formatet på <code><var>OUTPUT-FILE</var></code> blir satt av extension.  For å liste forskjellige
 formater for a/v codec og containerstrøm, gjør <code>ffmpeg -formats</code>.
 
-<h2><a class=nolink name="19.41.">19.41. FFmpeg pipelining</a></h2>
+<h2><a class=nolink name="19.41.">19.41. Måle varighet med ffmpeg</a></h2>
+<table><tr><td><pre>
+ffmpeg -v error -show_entries format=duration <var>INPUT-VIDEO</var> -of csv
+</pre></table>
+
+<h2><a class=nolink name="19.42.">19.42. Kopiere lyd fra INPUT1 og video fra INPUT2 med ffmpeg</a></h2>
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT1</var> -i <var>INPUT2</var> -map 0:a -map 1:v -c:v copy -c:a copy <var>OUTPUT</var>
+</pre></table>
+
+<h2><a class=nolink name="19.43.">19.43. Normalisere volumn under ffmpeg encoding</a></h2>
+<table><tr><td><pre>
+ffmpeg -i <var>INPUT</var> -c:v copy -c:a libmp3lame -filter:a loudnorm <var>OUTPUT</var>
+</pre></table>
+
+<h2><a class=nolink name="19.44.">19.44. FFmpeg pipelining</a></h2>
 For å sende rå YUV-frames via pipe til x264:
 <table><tr><td><pre>
 ffmpeg -i <var>INPUT-VIDEO</var> -an -f rawvideo - |
@@ -2016,7 +2034,7 @@ ffmpeg -i <var>INPUT-VIDEO</var> -f s16le -vn - |
 faac -X -P -C <var>CHANNELS</var> -R <var>RATE</var> -o <var>AAC-OUTPUT</var> <var>PCM-INPUT</var>
 </pre></table>
 
-<h2><a class=nolink name="19.42.">19.42. Bruke FFmpeg til å segmentere video</a></h2>
+<h2><a class=nolink name="19.45.">19.45. Bruke FFmpeg til å segmentere video</a></h2>
 <table><tr><td><pre>
 <dfn># Til MP4:</dfn>
 ffmpeg -i INPUT -codec copy -f segment -segment_time 1 -segment_format mp4 /tmp/out%05d.mp4
@@ -2025,7 +2043,7 @@ ffmpeg -i INPUT -codec copy -f segment -segment_time 1 -segment_format mp4 /tmp/
 ffmpeg -i INPUT -codec copy -bsf h264_mp4toannexb -f segment -segment_time 1 -segment_list /tmp/out.m3u8 -segment_format mpeg2ts /tmp/out%05d.ts
 </pre></table>
 
-<h2><a class=nolink name="19.43.">19.43. Dumping av rå PCM-lyd med FFmpeg eller mplayer</a></h2>
+<h2><a class=nolink name="19.46.">19.46. Dumping av rå PCM-lyd med FFmpeg eller mplayer</a></h2>
 <table><tr><td><pre>
 <dfn># Alternativ 1: med FFmpeg</dfn>
 ffmpeg -i <var>INPUT-STREAM</var> -f s16le -vn -
@@ -2035,7 +2053,7 @@ Kan teste å spille lyden med
 aplay -f S16_LE -c <var>CHANNELS</var> -r <var>RATE</var> <var>PCMFILE</var>
 </pre></table>
 
-<h2><a class=nolink name="19.44.">19.44. Subtitles brent inn i bildet vha FFmpeg m/libass</a></h2>
+<h2><a class=nolink name="19.47.">19.47. Subtitles brent inn i bildet vha FFmpeg m/libass</a></h2>
 Installer FFmpeg med libass for brenne inn subtitles i bildet.  Transkoding av
 video gjøres slik:
 
@@ -2047,7 +2065,7 @@ ffmpeg -i <var>INPUT-VIDEO</var> \
   <var>OUTPUT-VIDEO</var>.mp4
 </pre></table>
 
-<h2><a class=nolink name="19.45.">19.45. Oppsett av alternativ Apache share</a></h2>
+<h2><a class=nolink name="19.48.">19.48. Oppsett av alternativ Apache share</a></h2>
 For å gjøre slik at <code>http://localhost/www/</code> viser alt innhold i <code>/local/www</code>, og med ingen
 restriksjoner på symlinker, opprett følgende <code>/etc/httpd/conf.d/local.conf</code>:
 <table><tr><td><pre>
@@ -2061,7 +2079,7 @@ Alias /www /local/www
 &lt;/Directory&gt;
 </pre></table>
 
-<h2><a class=nolink name="19.46.">19.46. Oppsett av DAV med SSL på Apache</a></h2>
+<h2><a class=nolink name="19.49.">19.49. Oppsett av DAV med SSL på Apache</a></h2>
 Lag først nøkler:
 <table><tr><td><pre>
 openssl req -new -x509 -keyout /etc/httpd/conf/server.key -out /etc/httpd/conf/server.crt
@@ -2084,7 +2102,7 @@ htpasswd -c /etc/httpd/conf/webdav-passwd <var>USERNAME</var>
 Merk at <code>-c</code> får htpasswd til å overskrive eksisterende filer.  Dropp <code>-c</code>
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
-<h2><a class=nolink name="19.47.">19.47. Oppsett av vBulletin</a></h2>
+<h2><a class=nolink name="19.50.">19.50. Oppsett av vBulletin</a></h2>
 Pakk ut vBulletin i <code>/var/www/html</code>.  Sett så opp MySQL:
 <table><tr><td><pre>
 <dfn># Opprett root-bruker.</dfn>
@@ -2111,18 +2129,18 @@ $config['MasterServer']['password'] = '<var>PASSWORD</var>'
 $config['MasterServer']['servername'] = 'localhost'
 </pre></table>
 
-<h2><a class=nolink name="19.48.">19.48. Mer SQL</a></h2>
-<h3><a class=nolink name="19.48.1.">19.48.1. Velge database</a></h3>
+<h2><a class=nolink name="19.51.">19.51. Mer SQL</a></h2>
+<h3><a class=nolink name="19.51.1.">19.51.1. Velge database</a></h3>
 To muligheter: <code>mysql -u<var>USER</var> -p<var>PASSWORD</var> <var>DBNAME</var></code> eller
 bare <code>mysql -u<var>USER</var> -p<var>PASSWORD</var></code> og så <code>use <var>DBNAME</var></code>
 i mysql-promptet.
 
-<h3><a class=nolink name="19.48.2.">19.48.2. Beskrive tabell</a></h3>
+<h3><a class=nolink name="19.51.2.">19.51.2. Beskrive tabell</a></h3>
 <table><tr><td><pre>
 mysql&gt; <kbd>describe <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.48.3.">19.48.3. Printe innhold i tabell</a></h3>
+<h3><a class=nolink name="19.51.3.">19.51.3. Printe innhold i tabell</a></h3>
 <table><tr><td><pre>
 <dfn># Utvalgte kolonner</dfn>
 mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
@@ -2130,12 +2148,12 @@ mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;
 mysql&gt; <kbd>select * from <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.48.4.">19.48.4. Slette rad i tabell</a></h3>
+<h3><a class=nolink name="19.51.4.">19.51.4. Slette rad i tabell</a></h3>
 <table><tr><td><pre>
 mysql&gt; <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
 </pre></table>
 
-<h3><a class=nolink name="19.48.5.">19.48.5. Brukere</a></h3>
+<h3><a class=nolink name="19.51.5.">19.51.5. Brukere</a></h3>
 Brukere i MySQL ligger i databasen <code>mysql</code> og tabellen <code>user</code>.
 
 <h1><a class=nolink name="20.">20. Problemer spesifikke til enkelte maskiner</a></h1>
