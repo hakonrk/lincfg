@@ -16,12 +16,11 @@ sub escape_meta {
     return $chunk;
 }
 
-$document =~ s#<url:\s*([^>]+)>\s*(.+?)</url>#<a target="_blank" href="$1">$2</a>#gs;
-$document =~ s#^«(\n.+?)»#<table><tr><td><pre>$1</pre></table>#msg;
-$document =~ s#«(.+?)»#<code>$1</code>#gs;
+$document =~ s#«\s*(.+?)\s*−\s*(.+?)»#<a target="_blank" href="$2">$1</a>#gs;
 $document =~ s#^´(\n.+?)´#'<table><tr><td><pre>'.escape_meta($1).'</pre></table>'#mesg;
 $document =~ s#´(.+?)´#'<code>'.escape_meta($1).'</code>'#egs;
-$document =~ s#¨(.+?)¨#<var>$1</var>#g;
+$document =~ s#“(.+?)”#<var>$1</var>#g;
+$document =~ s#‗(.+?)‗#<em>$1</em>#g;
 $document =~ s#¡(.*)#<dfn>$1</dfn>#g;
 $document =~ s#·(.*)#<kbd>$1</kbd>#g;
 $document =~ s#\n((?:·.*\n)+)#\n<ul>\n$1</ul>\n#gm;

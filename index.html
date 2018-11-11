@@ -237,7 +237,12 @@
 <li><a href="#21.14.">Teste PXE-boot med qemu</a>
 <li><a href="#21.15.">PDF-manipulering vha qpdf</a>
 <li><a href="#21.16.">Liste åpne porter og hvilke programmer som har åpnet dem</a>
-</ol></ol>
+<li><a href="#21.17.">Dark themes</a>
+<ol><li><a href="#21.17.1.">GTK 3.x</a>
+<li><a href="#21.17.2.">GTK 2.x</a>
+<li><a href="#21.17.3.">QT5</a>
+<li><a href="#21.17.4.">QT4</a>
+</ol></ol></ol>
 <h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
 
 <h2><a class=nolink name="1.1.">1.1. Norske tegn i Emacs</a></h2>
@@ -262,7 +267,7 @@ kf4=\EOS
 khome=\E[1~
 kend=\E[4~
 </pre></table>
-Det er <i>ekstremt</i> viktig at ingen andre taster er satt til samme
+Det er <em>ekstremt</em> viktig at ingen andre taster er satt til samme
 verdi som disse.  (Spesielt pleier <code>kslt</code> å være satt til samme
 verdi som <code>kend</code> skal ha.)  Pass på at <code>xterm.ti</code> har beskrivelsen
 <code>xterm</code> i headeren.  Kompiler filen med kommandoen
@@ -697,8 +702,9 @@ snart skriveren er lagt inn!</b>
 Windows kan bruke skriveren via Samba og driveren <var>MS Publisher Imagesetter</var>
 som er listet under produsent <var>Generic</var>.  For å fikse problemet med at det
 skrives ut to søppelsider for hver utskrift må man installere
-<code>foomatic-gswrapper</code> som et kjørbart script under <code>/usr/bin</code>.  <a target="_blank" href="http://www.linuxprinting.org/gswrapper.html">gswrapper kan lastes ned
-her.</a>  Mer at denne metoden krever at <code>/usr/bin/foomatic-rip</code> er
+<code>foomatic-gswrapper</code> som et kjørbart script under <code>/usr/bin</code>.  <url:
+http://www.linuxprinting.org/gswrapper.html> gswrapper kan lastes ned
+her.</url>  Mer at denne metoden krever at <code>/usr/bin/foomatic-rip</code> er
 installert, og denne kommer med <code>hpijs</code> (<code>hpijs</code> inneholder også støtte for de
 fleste av HPs blekkskrivere).
 <p>
@@ -1212,9 +1218,8 @@ Slett <code>rpm</code>s lock-filer, dvs. de som begynner på <code>__db</code> i
 
 <h2><a class=nolink name="14.15.">14.15. Ekstra RPM repositories</a></h2>
 Pakker som pga. lisens, patent, eller andre grunner ikke kan
-aksepteres av Fedora kan ofte fås hos
-<a target="_blank" href="http://rpm.livna.org/rlowiki/">Livna</a>.  Legg
-inn deres GPG-nøkkel med
+aksepteres av Fedora kan ofte fås hos <a target="_blank" href="http://rpm.livna.org/rlowiki/">Livna</a>.
+Legg inn deres GPG-nøkkel med
 <code>rpm --import http://rpm.livna.org/RPM-LIVNA-GPG-KEY</code> før
 repo'et tas i bruk.
 
@@ -1222,7 +1227,7 @@ repo'et tas i bruk.
 <h2><a class=nolink name="15.1.">15.1. Nytt arkiv</a></h2>
 For å lage ett nytt arkiv ved navn <code>foo@bar--2005</code> i katalogen
 <code>/qux/2005</code>, pass først på at katalogen <code>/qux</code> eksisterer, og at
-underkatalogen <code>2005</code> <i>ikke</i> eksisterer.  Opprett arkivet
+underkatalogen <code>2005</code> <em>ikke</em> eksisterer.  Opprett arkivet
 med kommandoen
 <table><tr><td><pre>
 tla make-archive -l foo@bar--2005 /qux/2005
@@ -1305,9 +1310,9 @@ Start et spill med følgende kommando:
 x64 -joydev1 0 -logfile /dev/null <var>DISK/TAPE/CART</var>
 </pre></table>
 Når spillet starter, høyreklikk i vinduet og velg
-<i>Joystick settings | Joystick device in port 1 | Analog Joystick 0</i>.
+<em>Joystick settings | Joystick device in port 1 | Analog Joystick 0</em>.
 Trykk <code>Alt-J</code> for å få joysticken til å virke.  Video mode settes via
-<i>VIC II</i>-menyen; bruk <code>Alt-D</code> for å gå til fullscreen.
+<em>VIC II</em>-menyen; bruk <code>Alt-D</code> for å gå til fullscreen.
 
 <h1><a class=nolink name="19.">19. Diverse</a></h1>
 
@@ -1586,10 +1591,10 @@ Følgende viser et eksempel på hvordan man kan sette
 opp et RAID5-array bestående av fire disker, <code>/dev/sda</code>
 t.o.m. <code>/dev/sdd</code>.  Begynn med å partisjonere opp diskene
 slik at de inneholder én partisjon som dekker hele disken.
-Dette fordi man da kan sette partisjonstypen til <i>Linux raid
-autodetect</i> (hexverdi <i>fd</i>), som gjør at mdadm klarer å
+Dette fordi man da kan sette partisjonstypen til ‗Linux raid
+autodetect<em> (hexverdi </em>fd‗), som gjør at mdadm klarer å
 auto-gjenoppbygge RAID-devicet, uten å måtte fortelles hvordan
-det skal gjøres.  (Dersom man <i>ikke</i> brukte partisjoner av
+det skal gjøres.  (Dersom man <em>ikke</em> brukte partisjoner av
 denne typen, men hele disker, så måtte man eksplisitt sette opp
 arrayen i <code>/etc/rc.d/rc.local</code> e.l. vha. <code>mdadm -A <var>MD-DEVICE</var>
 <var>DISK-DEVICES</var></code>.)  Når diskene er ferdig partisjonert, kan man
@@ -1613,7 +1618,7 @@ mkfs.ext3 -b 4096 -E stride=16 /dev/md0
 
 <h2><a class=nolink name="19.20.">19.20. Tuning for SSD</a></h2>
 Legg til <code>noatime,discard</code> på mount options i <code>/etc/fstab</code> for å fjerne access
-time updates og skru på TRIM.  <i>IKKE</i> skru av journaling, for da virker ikke
+time updates og skru på TRIM.  <em>IKKE</em> skru av journaling, for da virker ikke
 <code>discard</code> (auto-TRIM).  Trim kan utføres manuelt med
 <table><tr><td><pre>
 fstrim -v /
@@ -1726,7 +1731,7 @@ logfile /var/log/ntp.log
 For klientmaskinene bruker man samme <code>ntp.conf</code>, men erstatt
 alle <code>server</code>-linjene med én enkelt <code>server <var>ADDR</var></code> der <code><var>ADDR</var></code>
 er addressen til maskinen som ble satt opp som NTP-server.  Start opp ntpd,
-men merk at det kan ta <i>lang</i> tid (over 20 minutter) før klientene
+men merk at det kan ta <em>lang</em> tid (over 20 minutter) før klientene
 klarer å bruke NTP-serveren, pga. at serveren ikke slipper til klienter
 før den har synkronisert seg ordentlig mot sine eksterne servere.
 (Det vil sannsynligvis dukke opp en linje i NTP-loggen som sier
@@ -1859,7 +1864,8 @@ EndSection
 </pre></table>
 
 <h2><a class=nolink name="19.31.">19.31. Wireless-radio på CL56-laptop</a></h2>
-Radioen må skrus på med <a target="_blank" href="http://www.informatik.hu-berlin.de/~tauber/acerhk/">Acer Hotkey driver</a>.  Last inn denne driveren, og gjør
+Radioen må skrus på med <url: http://www.informatik.hu-berlin.de/~tauber/acerhk/>
+Acer Hotkey driver</url>.  Last inn denne driveren, og gjør
 <code>echo 1 &gt;/proc/driver/acerhk/wirelessled</code> for å skru på radioen.
 
 <h2><a class=nolink name="19.32.">19.32. Trådløs WEP-oppkobling</a></h2>
@@ -1954,7 +1960,7 @@ Hvis man ikke har <code>ms-sys</code>, så skal det holde å gjøre
 </pre></table>
 Last ned bootsectoren her: <a target="_blank" href="files/floppy_bootsector.bin">floppy_bootsector.bin</a>.
 
-Merk at <code><var>disk.img</var></code> skal være rådata fra floppydisken, og <i>må</i> være i en
+Merk at <code><var>disk.img</var></code> skal være rådata fra floppydisken, og <em>må</em> være i en
 av de standard floppy-størrelsene (360K, 720K, 1200K, 1440K, 1680K, 1722K,
 eller 2880K). (<code><var>disk.img</var></code> kan være et gzippet floppy-image, i hvilket
 tilfelle størrelsen ikke trenger å være som over så lenge resultatet av gunzip
@@ -1990,7 +1996,7 @@ Enkoding med ffmpeg har følgende syntaks:
 ffmpeg <var>INPUT-OPTIONS</var> -i <var>INPUT-FILE</var> <var>OUTPUT-OPTIONS</var> <var>OUTPUT-FILE</var>
 </pre></table>
 Rekkefølgende på <code><var>INPUT-OPTIONS</var></code> og <code><var>OUTPUT-OPTIONS</var></code> er
-<i>ekstremt</i> viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
+<em>ekstremt</em> viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
 <table><tr><td><pre>
 ffmpeg -i <var>INPUT-FILE</var> -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000k <var>OUTPUT-FILE</var>
 </pre></table>
@@ -2672,5 +2678,33 @@ qpdf --empty --pages <var>INPUT</var> z-1 -- <var>OUTPUT</var>
 <table><tr><td><pre>
 <dfn># -P gjør at porter vises med tall i stedet for navn.</dfn>
 sudo lsof -iTCP -sTCP:LISTEN -P
+</pre></table>
+
+<h2><a class=nolink name="21.17.">21.17. Dark themes</a></h2>
+Last ned <a target="_blank" href="https://www.xfce-look.org/p/1246387/">Ultimate-Dark-Blue</a> og pakk den ut under <code>~/.themes/</code>.
+<h3><a class=nolink name="21.17.1.">21.17.1. GTK 3.x</a></h3>
+La <code>~/.config/gtk-3.0/settings.ini</code> inneholde:
+<table><tr><td><pre>
+[Settings]
+gtk-theme-name = Ultimate-Dark-Blue
+</pre></table>
+
+<h3><a class=nolink name="21.17.2.">21.17.2. GTK 2.x</a></h3>
+La <code>~/.gtkrc-2.0</code> inneholde:
+<table><tr><td><pre>
+gtk-theme-name = "Ultimate-Dark-Blue"
+</pre></table>
+
+<h3><a class=nolink name="21.17.3.">21.17.3. QT5</a></h3>
+Pass på at <code>qt5-qtstyleplugins</code> og <code>gtk-murrine-engine</code> er installert. Deretter:
+<table><tr><td><pre>
+export QT_QPA_PLATFORMTHEME=gtk2
+</pre></table>
+
+<h3><a class=nolink name="21.17.4.">21.17.4. QT4</a></h3>
+La <code>~/.config/Trolltech.conf</code> inneholde:
+<table><tr><td><pre>
+[Qt]
+style=GTK+
 </pre></table>
 </body></html>

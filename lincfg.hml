@@ -22,7 +22,7 @@ kf4=\EOS
 khome=\E[1~
 kend=\E[4~
 ´
-Det er <i>ekstremt</i> viktig at ingen andre taster er satt til samme
+Det er ‗ekstremt‗ viktig at ingen andre taster er satt til samme
 verdi som disse.  (Spesielt pleier ´kslt´ å være satt til samme
 verdi som ´kend´ skal ha.)  Pass på at ´xterm.ti´ har beskrivelsen
 ´xterm´ i headeren.  Kompiler filen med kommandoen
@@ -49,7 +49,7 @@ extensions.checkUpdateSecurity = false
 
 −− Zoom-oppførsel
 For å få Firefox 3 sin zoom funksjon til å virke som Firefox 2, sett følgende
-verdier i <url:about:config>about:config</url>:
+verdier i «about:config − about:config»:
 ´
 mousewheel.withcontrolkey.action  = 3
 mousewheel.withcontrolkey.numlines = -1
@@ -67,7 +67,7 @@ mousewheel.horizscroll.withnokey.sysnumlines = false
 −− Cache-plassering
 For å endre Firefox's cache katalog, sett
 ´browser.cache.disk.parent_directory´ til f.eks. ´/tmp´
-i <url:about:config>about:config</url>.
+i «about:config − about:config».
 
 − ImageMagick
 −− Liste formater
@@ -81,36 +81,36 @@ uten marginer, og vi ønsker å ignorere aspect ratio for å få dem til
 ´
 montage -resize '512x288!' -geometry 512x288+0+0 -tile 3x3 ?.jpg montage.jpg
 ´
-Andre aktuelle flagg er ´-quality ¨Q¨´, ´-background ¨COLOR¨´.
+Andre aktuelle flagg er ´-quality “Q”´, ´-background “COLOR”´.
 
 −− Konvertere RAW YUV til vanlige bilder (uten extension)
 Normalt vil
 ´
-convert -size ¨W¨x¨H¨ yuv:¨RAWYUV-FILE¨ ¨OUTPUT-IMAGE¨
+convert -size “W”x“H” yuv:“RAWYUV-FILE” “OUTPUT-IMAGE”
 ´
 Bruk ´-depth´ dersom det ikke er vanlig 12 bits per pixel YUV.
 
 −− Resizing
-<url:http://www.imagemagick.org/script/command-line-options.php#resize>Resize</url>-operasjonen
+«Resize − http://www.imagemagick.org/script/command-line-options.php#resize»-operasjonen
 støtter bl.a. følgende funksjonalitet:
 ´
 convert -resize 50%  ¡# Halverer i begge dimensjoner
-convert -resize ¨W¨x¨H¨  ¡# W og H er maksverdier; behold aspect ratio
-convert -resize ¨W¨x¨H¨! ¡# Resize til eksakt W x H og ignorer aspect ratio
+convert -resize “W”x“H”  ¡# W og H er maksverdier; behold aspect ratio
+convert -resize “W”x“H”! ¡# Resize til eksakt W x H og ignorer aspect ratio
 ´
-Resizing-metode kan spesifiseres med <url:http://www.imagemagick.org/script/command-line-options.php#filter>-filter</url> opsjonen.
+Resizing-metode kan spesifiseres med «-filter − http://www.imagemagick.org/script/command-line-options.php#filter» opsjonen.
 
 −− Cropping/clipping
-<url:http://www.imagemagick.org/script/command-line-options.php#crop>Crop</url>-operasjonen
+«Crop − http://www.imagemagick.org/script/command-line-options.php#crop»-operasjonen
 klipper ut et rektangulært område av bildet:
 ´
-convert -crop 50% ¨FROM¨ ¨TO¨ ¡# Lager fire bilder (to-[0-3]); ett per kvadrant
-convert -crop ¨W¨x¨H¨+¨x¨+¨y¨     ¡# Lager ett bilde i W x H på (x, y); (0,0) = top-left
+convert -crop 50% “FROM” “TO” ¡# Lager fire bilder (to-[0-3]); ett per kvadrant
+convert -crop “W”x“H”+“x”+“y”     ¡# Lager ett bilde i W x H på (x, y); (0,0) = top-left
 ´
 
 −− Colorspace / type
 For å konvertere colorspace bruker man
-<url:http://www.imagemagick.org/script/command-line-options.php#type>-type</url>
+«-type − http://www.imagemagick.org/script/command-line-options.php#type»
 flagget.  F.eks. bruker man
 ´
 convert -type Grayscale
@@ -426,7 +426,7 @@ som vil kommunisere med scanneren for å finne ut egenskapene.
 <p>
 Eksempel på scanning av étt dokument:
 ´
-scanimage --mode 'True Gray' --resolution 150 >¨foo.pnm¨
+scanimage --mode 'True Gray' --resolution 150 >“foo.pnm”
 ´
 
 Eksempel på scanning av flere dokumenter:
@@ -438,10 +438,10 @@ scanimage --batch --mode 'True Gray' --resolution 150
 
 −− CUPS
 Dersom printeren ikke er støttet av standardinstallasjonen, last først ned
-riktig PPD-fil fra <url: http://www.linuxprinting.org/>LinuxPrinting.org</url>
+riktig PPD-fil fra «LinuxPrinting.org −  http://www.linuxprinting.org/»
 og kopier denne til ´/usr/share/cups/model´.  Restart ´cups´ med
 ´/etc/rc.d/rc.cups restart´ og logg inn på ´http://localhost:631/admin´ for å
-legge til den nye skriveren.  Kun ¨Name¨-feltet trenger å fylles ut i den
+legge til den nye skriveren.  Kun “Name”-feltet trenger å fylles ut i den
 første dialogen.  Alternativt kan skriveren legges inn fra kommandolinjen.
 Eks. for HL-1250:
 ´
@@ -449,13 +449,13 @@ lpadmin -p HL-1250 -E -v usb://Brother/HL-1250%20series -m Brother-HL-1250-hl125
 ´
 Device-navnet kan finnes med ´lpinfo -v´ dersom man bruker USB-skriver.  For en
 Windows-basert Samba-skriver må man ha device-navnet som følger:
-´smb://¨USER¨:¨PASSWORD¨@¨SERVER¨/¨SHARENAME¨´.  I tilfellet der skriveren er
-delt for alle brukere skal passordet droppes, og ´¨USER¨´ skal være ´guest´.
+´smb://“USER”:“PASSWORD”@“SERVER”/“SHARENAME”´.  I tilfellet der skriveren er
+delt for alle brukere skal passordet droppes, og ´“USER”´ skal være ´guest´.
 <b>Husk å konfigurere skriveren for papirsstørrelse osv. via web-interfacet så
 snart skriveren er lagt inn!</b>
 <p>
-Windows kan bruke skriveren via Samba og driveren ¨MS Publisher Imagesetter¨
-som er listet under produsent ¨Generic¨.  For å fikse problemet med at det
+Windows kan bruke skriveren via Samba og driveren “MS Publisher Imagesetter”
+som er listet under produsent “Generic”.  For å fikse problemet med at det
 skrives ut to søppelsider for hver utskrift må man installere
 ´foomatic-gswrapper´ som et kjørbart script under ´/usr/bin´.  <url:
 http://www.linuxprinting.org/gswrapper.html> gswrapper kan lastes ned
@@ -465,7 +465,7 @@ fleste av HPs blekkskrivere).
 <p>
 Det kan skje at CUPS setter printeren som inaktiv dersom man prøver
 å ta en utskrift før printeren er klar (f.eks. mens den varmer opp).
-Dette kan man fikse ved å gjøre ´enable ¨NAME¨´, der ´¨NAME¨´ er
+Dette kan man fikse ved å gjøre ´enable “NAME”´, der ´“NAME”´ er
 navnet på skriveren (´HL-1250´ i eksempelet over).  Navnet kan ellers
 finnes med f.eks. ´lpc status´.
 <p>
@@ -481,7 +481,7 @@ http://10.0.0.4:631/printers/HL-1250
 −− Psutils
 For å få flere sider på ett ark, bruk
 ´
-psnup -2 -pa4 -b0cm -m0cm ¨foo.ps¨ >¨bar.ps¨
+psnup -2 -pa4 -b0cm -m0cm “foo.ps” >“bar.ps”
 ´
 Her får man ingen rammer, og minst mulig marginer.  ´-b´
 gir marginene rundt hver av de krympede sidene, mens ´-m´
@@ -544,13 +544,13 @@ for å kunne bruke ´fred:´ i stedet for
 −− Jobbe på egen branch avledet av upstream
 Gå til eget remote git repository, og gjør
 ´
-git clone --bare ¨UPSTREAM-REPO-URL¨ ¨LOCAL-REPO-NAME¨
+git clone --bare “UPSTREAM-REPO-URL” “LOCAL-REPO-NAME”
 ´
 Denne kan må så klone og bruke på vanlig måte på arbeidsstasjonen.
 Når man skal hente endringer fra upstream anbefales det at man først
 gjør
 ´
-git remote add upstream ¨UPSTREAM-REPO-URL¨
+git remote add upstream “UPSTREAM-REPO-URL”
 ´
 Deretter funker det å gjøre
 ´
@@ -566,28 +566,28 @@ upstream ennå ikke har merget.
 −− Lage ny branch som også legges på remote repo
 Lag først ny branch med
 ´
-git checkout -b ¨MY-BRANCH¨
+git checkout -b “MY-BRANCH”
 ´
 Gjør endringer, og commit disse.  Rediger så ´.git/config´ og
 legg til
 ´
-[branch "¨MY-BRANCH¨"]
+[branch "“MY-BRANCH”"]
         remote = origin
-        merge = refs/heads/¨MY-BRANCH¨
+        merge = refs/heads/“MY-BRANCH”
 ´
-Gjør til slutt ´git push origin ¨MY-BRANCH¨´.  Deretter vil ny
+Gjør til slutt ´git push origin “MY-BRANCH”´.  Deretter vil ny
 branch være tilgjengelig for andre som sjekker ut fra remote.
-De kan ta ´git checkout ¨MY-BRANCH¨´ etter ´git pull´ for å komme
+De kan ta ´git checkout “MY-BRANCH”´ etter ´git pull´ for å komme
 inn på samme branch.
 
 −− Flytte 'master' noen hakk tilbake, og lage ny branch fra tilsvarende sted
 Dersom man har gjort X antall commits på master branch, og ønsker at alle
-commits etter ´¨REVISION¨´ (SHA1 hash) skal tilhøre ´¨NEW-BRANCH¨´, så gjør
+commits etter ´“REVISION”´ (SHA1 hash) skal tilhøre ´“NEW-BRANCH”´, så gjør
 man:
 ´
-git branch ¨NEW-BRANCH¨
-git reset --hard ¨REVISION¨
-git checkout ¨NEW-BRANCH¨
+git branch “NEW-BRANCH”
+git reset --hard “REVISION”
+git checkout “NEW-BRANCH”
 ´
 
 − Indenting
@@ -601,9 +601,9 @@ astyle -A3
 − IRC
 
 −− Endre nummer på vindu
-For å gi nåværende vindu nummeret ¨N¨, så gjør man:
+For å gi nåværende vindu nummeret “N”, så gjør man:
 ´
-/window number ¨N¨
+/window number “N”
 ´
 
 − SSH
@@ -623,7 +623,7 @@ for SSH2.) ´cat´ deretter innholdet av klientes ´~/.ssh/*.pub´ til
 Dersom nøkler med passphrase brukes, så kan man likevel slippe
 å skrive passphrase ved hver login dersom man oppretter en
 ´ssh-agent´ session.  Dette kan f.eks. gjøres med
-´ssh-agent ¨SHELL¨´, der ´¨SHELL¨´ kan være et vanlig shell,
+´ssh-agent “SHELL”´, der ´“SHELL”´ kan være et vanlig shell,
 som ´/bin/sh´, eller f.eks. ´startx´.  Når man er inne i en
 ´ssh-agent´ session, så kan man legge til, slette, og liste nøkler
 med ´ssh-add´:
@@ -637,8 +637,8 @@ den så lenge man er inne i ´ssh-agent´ session'en.  I forbindelse
 med dette kan det også være nødvendig å angi egne nøkler for
 spesielle SSH-servere.  Dette gjøres i ´~/.ssh/config´:
 ´
-Host ¨SERVER¨
- IdentityFile ~/.ssh/id_rsa-¨SERVER¨
+Host “SERVER”
+ IdentityFile ~/.ssh/id_rsa-“SERVER”
 ´
 
 −− SSH port forwarding
@@ -668,13 +668,13 @@ initiere forbindelsen fra innsiden av det avgrensede nettet.
 −− Fetchmail via SSH-tunnel
 La ´~/.fetchmailrc´ inneholde følgende:
 ´
-poll ¨SERVER¨ via localhost port ¨LOCAL-PORT¨ username ¨USERNAME¨ password "¨PASSWD¨"
-  preconnect "ssh -fL ¨LOCAL-PORT¨:¨SERVER¨:110 ¨SERVER¨ sleep 20"
+poll “SERVER” via localhost port “LOCAL-PORT” username “USERNAME” password "“PASSWD”"
+  preconnect "ssh -fL “LOCAL-PORT”:“SERVER”:110 “SERVER” sleep 20"
 ´
 
 − Exim
 −− Korrekt avsender
-Fjern først ´¨Sender:¨´ ved å sette
+Fjern først ´“Sender:”´ ved å sette
 ´
 local_from_check = false
 ´
@@ -692,7 +692,7 @@ Første kolonne er lokalt brukernavn, og andre kolonne er den faktiske
 epost-adressen for denne brukeren.
 
 −− Bruk sammen med fetchmail
-Fetchmail leverer til ´¨USERNAME¨@localhost´, så det er svært viktig at Exim
+Fetchmail leverer til ´“USERNAME”@localhost´, så det er svært viktig at Exim
 vet at ´localhost´-domenet er en lokal adresse.  Dette gjøres ved å editere
 Exims konfigurasjonsfil slik at ´domainlist local_domains´ er satt som følger:
 ´
@@ -746,7 +746,7 @@ Rett under ´begin authenticators´ skal man ha følgende:
 fixed_plain:
   driver = plaintext
   public_name = PLAIN
-  client_send = ^¨USERNAME¨^¨PASSWORD¨
+  client_send = ^“USERNAME”^“PASSWORD”
 ´
 
 −− Flushe køen
@@ -756,13 +756,13 @@ Skriv ´exim -qff´ for å prøve å sende ut alle meldinger i køen.
 −− Signering av filer
 For å lage en ASCII signatur av ´foo´, gjør
 ´
-gpg --armor --detach-sig --output ¨foo.asc¨ --local-user ¨SIGNING-KEY-EMAIL-ADDR¨ ¨foo¨
+gpg --armor --detach-sig --output “foo.asc” --local-user “SIGNING-KEY-EMAIL-ADDR” “foo”
 ´
 
 −− Verifisering av filer
 For å verifisere at ´foo´ ved hjelp av ´foo.asc´, gjør
 ´
-gpg --verify ¨foo.asc¨
+gpg --verify “foo.asc”
 ´
 
 − Samba
@@ -770,13 +770,13 @@ gpg --verify ¨foo.asc¨
 La ´/etc/samba/smb.conf´ inneholde ´security = user´ (eller ingenting,
 da dette er default setting).  Legg til ny bruker med ´smbpasswd´:
 ´
-smbpasswd -a ¨USERNAME¨
+smbpasswd -a “USERNAME”
 ´
 
 −− Mounting av Samba-shares
 Mount med kommandoen
 ´
-smbmount //¨SERVER¨/¨SHARENAME MOUNT-POINT¨ -o username=¨USERNAME¨,password=¨PASSWORD¨,rw,fmask=644
+smbmount //“SERVER”/“SHARENAME MOUNT-POINT” -o username=“USERNAME”,password=“PASSWORD”,rw,fmask=644
 ´
 ´/usr/bin/smbmnt´ og ´/usr/bin/smbumount´ må være SUID root for
 å la vanlige brukere mounte.
@@ -807,7 +807,7 @@ default.  Evt. kan dette gjøres i ´/etc/selinux/config´ ved å sette
 
 For å slette SELinux attributter i filsystemet, gjør
 ´
-find ¨ROOT¨ -print0 | xargs -0 setfattr -x security.selinux
+find “ROOT” -print0 | xargs -0 setfattr -x security.selinux
 ´
 
 −− Installere på ReiserFS
@@ -817,39 +817,39 @@ for å muliggjøre installasjon til ReiserFS.
 −− Flytting til annen disk
 Opprett partisjoner på ny disk for data og swap.  Boot fra rescue
 CD e.l., og kopier over alle data til ny disk.  Sett opp swap med
-´mkswap ¨DEVICE¨´.  Oppdater UUID på alle partisjoner i
+´mkswap “DEVICE”´.  Oppdater UUID på alle partisjoner i
 ´/etc/fstab´ og ´/etc/grub.conf´.  UUID kan leses ut med
-´blkid /dev/¨PARTITION¨´, ´/lib/udev/vol_id /dev/¨PARTITION¨´,
-eller ´sudo dumpe2fs -h /dev/¨PARTISJON¨ | grep UUID´ for ext2/ext3.
+´blkid /dev/“PARTITION”´, ´/lib/udev/vol_id /dev/“PARTITION”´,
+eller ´sudo dumpe2fs -h /dev/“PARTISJON” | grep UUID´ for ext2/ext3.
 (Hvis det ble brukt labels i stedet for UUID, så sett opp labels
 på partisjonene som matcher det gamle oppsettet med
-´/sbin/e2label ¨PARTITION-DEVICE¨ ¨LABEL¨´.)
+´/sbin/e2label “PARTITION-DEVICE” “LABEL”´.)
 
 Reinstaller grub med:
 ´
-cp -a /dev/null /dev/sd¨X¨* ¨MOUNT-POINT¨/dev
-chroot ¨MOUNT-POINT¨
-grub-install /dev/sd¨X¨
+cp -a /dev/null /dev/sd“X”* “MOUNT-POINT”/dev
+chroot “MOUNT-POINT”
+grub-install /dev/sd“X”
 ´
-der ´¨MOUNT-POINT¨´ er katalogen der den nye root-partisjonen
-er mountet, og ´/dev/sd¨X¨´ er disk (ikke partisjon) device'et for
+der ´“MOUNT-POINT”´ er katalogen der den nye root-partisjonen
+er mountet, og ´/dev/sd“X”´ er disk (ikke partisjon) device'et for
 den nye disken.  Helt til slutt må også initrd settes opp på nytt.
 Det skal funke å gjøre
 ´
-mount ¨NEW-BOOT-PARTITION¨ ¨MOUNT-POINT¨/boot
-chroot ¨MOUNT-POINT¨
-mv /boot/initrd-¨KERNEL-VERSION¨.img{,.orig}
-mkinitrd /boot/initrd-¨KERNEL-VERSION¨.img ¨KERNEL-VERSION¨
+mount “NEW-BOOT-PARTITION” “MOUNT-POINT”/boot
+chroot “MOUNT-POINT”
+mv /boot/initrd-“KERNEL-VERSION”.img{,.orig}
+mkinitrd /boot/initrd-“KERNEL-VERSION”.img “KERNEL-VERSION”
 ´
-der ´¨NEW-BOOT-PARTITION¨´ er ´/boot´ på den nye disken, og
-´¨KERNEL-VERSION¨´ er ´uname -r´ fra OS-et som flyttes.
+der ´“NEW-BOOT-PARTITION”´ er ´/boot´ på den nye disken, og
+´“KERNEL-VERSION”´ er ´uname -r´ fra OS-et som flyttes.
 Hvis ikke mkinitrd funker, så kan man modifisere den gamle direkte:
 ´
 mkdir tmp-initrd
 cd tmp-initrd
-zcat ¨OLD-INITRD¨.img | cpio -ivd
+zcat “OLD-INITRD”.img | cpio -ivd
 ¡# Update the labels/UUID values in the init script
-find . | cpio -co >¨NEW-INITRD¨.img
+find . | cpio -co >“NEW-INITRD”.img
 ´
 
 −− Listing av pakker m/størrelse
@@ -876,12 +876,12 @@ filene i ´/usr/share/doc/fedora-release-?/RPM-GPG-KEY*´.  I denne
 katalogen ligger mange forskjellige nøkler, så for å finne den riktige
 filen er det nødvendig å vise dens nøkkel-ID med kommandoen
 ´
-gpg -n --import ¨KEYFILE¨
+gpg -n --import “KEYFILE”
 ´
 For at nøkkelen skal kunne brukes av RPM, så er det nødvendig å importere
 den med rpm:
 ´
-rpm --import ¨KEYFILE¨
+rpm --import “KEYFILE”
 ´
 RPM har ingen mekanisme for å detektere om samme nøkkel er importert allerede,
 så man risikerer å få den importert mange ganger.  Skjekk dette med
@@ -890,19 +890,19 @@ rpm -qa gpg-pubkey | sort | uniq -c
 ´
 Dupliserte nøkler må slettes med
 ´
-rpm -e --allmatches gpg-pubkey-¨XXXXXXXX¨-¨YYYYYYYY¨
+rpm -e --allmatches gpg-pubkey-“XXXXXXXX”-“YYYYYYYY”
 ´
 
 −− Spesifisering av mirrors i yum
 Editér ´.repo´-filene under ´/etc/yum.repos.d/´ og sett
 ´
-baseurl=¨URL1¨
-        ¨URL2¨
-        ¨...¨
+baseurl=“URL1”
+        “URL2”
+        “...”
 failovermethod=priority
 ´
-´failovermethod=priority´ vil si at ´¨URL1¨´ prøves først, deretter
-´¨URL2¨´, osv.
+´failovermethod=priority´ vil si at ´“URL1”´ prøves først, deretter
+´“URL2”´, osv.
 
 −− Korrigering av bold og underlined i XTerm
 For å få ekte bold og underlined tekst i XTerm, editér
@@ -938,20 +938,20 @@ Disse blir på Fedora og Red Hat satt via ´/etc/sysctl.conf´.
 
 −− Subpixel AA + bytecode-hinter i FreeType
 Last ned SRPM-filen til FreeType, og gjør ´rpm -ivh
-¨SRPM¨´.  Dette vil pakke ut filen i ´/usr/src/redhat´,
+“SRPM”´.  Dette vil pakke ut filen i ´/usr/src/redhat´,
 eller i ´%_topdir´ definert i ´~/.rpmmacros´. Bygg pakken
 med
 ´
-rpmbuild --with bytecode_interpreter --with subpixel_rendering --rebuild -bp ¨PATH-TO-SRC-RPM¨
+rpmbuild --with bytecode_interpreter --with subpixel_rendering --rebuild -bp “PATH-TO-SRC-RPM”
 ´
 For å bygge 32-bit versjonen på et 64-bit system, gjør
 ´
-/usr/bin/mock -r ¨SYSTEM¨ --with bytecode_interpreter --with subpixel_rendering --rebuild ¨PATH-TO-SRC-RPM¨
+/usr/bin/mock -r “SYSTEM” --with bytecode_interpreter --with subpixel_rendering --rebuild “PATH-TO-SRC-RPM”
 ´
-der ´¨SYSTEM¨´ er basename av navnene i ´/etc/mock/*.cfg´ (dvs. minus ´/etc/mock/´ prefix og ´.cfg´ suffix).
+der ´“SYSTEM”´ er basename av navnene i ´/etc/mock/*.cfg´ (dvs. minus ´/etc/mock/´ prefix og ´.cfg´ suffix).
 Man kan rydde opp etterpå med
 ´
-/usr/bin/mock -r ¨SYSTEM¨ --scrub=all
+/usr/bin/mock -r “SYSTEM” --scrub=all
 ´
 
 −− RPM som vanlig bruker
@@ -964,7 +964,7 @@ Sett opp ´rpm´ til å bruke ´/foo/rpmbuild´:
 echo "%_topdir /foo/rpmbuild" >~/.rpmmacros
 ´
 Det er også mulig å overstyre ´~/.rpmmacros´ ved å bruke argumentet
-´--define "_topdir ¨DIRECTORY¨"´ på ´rpm´ og ´rpmbuild´.
+´--define "_topdir “DIRECTORY”"´ på ´rpm´ og ´rpmbuild´.
 
 −− Når rpm henger
 Slett ´rpm´s lock-filer, dvs. de som begynner på ´__db´ i
@@ -973,9 +973,8 @@ Slett ´rpm´s lock-filer, dvs. de som begynner på ´__db´ i
 
 −− Ekstra RPM repositories
 Pakker som pga. lisens, patent, eller andre grunner ikke kan
-aksepteres av Fedora kan ofte fås hos
-<url: http://rpm.livna.org/rlowiki/>Livna</url>.  Legg
-inn deres GPG-nøkkel med
+aksepteres av Fedora kan ofte fås hos «Livna − http://rpm.livna.org/rlowiki/».
+Legg inn deres GPG-nøkkel med
 ´rpm --import http://rpm.livna.org/RPM-LIVNA-GPG-KEY´ før
 repo'et tas i bruk.
 
@@ -983,7 +982,7 @@ repo'et tas i bruk.
 −− Nytt arkiv
 For å lage ett nytt arkiv ved navn ´foo@bar--2005´ i katalogen
 ´/qux/2005´, pass først på at katalogen ´/qux´ eksisterer, og at
-underkatalogen ´2005´ <i>ikke</i> eksisterer.  Opprett arkivet
+underkatalogen ´2005´ ‗ikke‗ eksisterer.  Opprett arkivet
 med kommandoen
 ´
 tla make-archive -l foo@bar--2005 /qux/2005
@@ -1000,13 +999,13 @@ tla my-default-archive foo@bar--2005
 ´
 
 −− Nytt prosjekt
-Dersom man ønsker å legge inn prosjektet ¨zot¨, som
+Dersom man ønsker å legge inn prosjektet “zot”, som
 er lagret i ´~/src/zot´, i et eksisterende arkiv ´foo@bar--2005´,
 så gjør man følgende:
 ´
 cd ~/src/zot
 tla init-tree foo@bar--2005/zot--main--0
-tla add-id ¨fil1 fil2 ...¨
+tla add-id “fil1 fil2 ...”
 tla import -S
 ´
 Dersom ´foo@bar--2005´ er default archive, så trenger man ikke
@@ -1019,7 +1018,7 @@ En virtuell installasjon av Python gjør det mulig for en vanlig bruker å
 administrere sine egne moduler o.l.  uten å måtte sette ´PYTHONPATH´.
 Dette kan settes opp som følgende:
 ´
-pythonprefix=¨/local/opt/python¨
+pythonprefix=“/local/opt/python”
 mkdir -p $pythonprefix
 wget -P /tmp http://peak.telecommunity.com/dist/virtual-python.py
 python /tmp/virtual-python.py --prefix=$pythonprefix
@@ -1063,12 +1062,12 @@ Man kan deretter verifisere at operasjonen var vellykket ved
 −− C64 (vice)
 Start et spill med følgende kommando:
 ´
-x64 -joydev1 0 -logfile /dev/null ¨DISK/TAPE/CART¨
+x64 -joydev1 0 -logfile /dev/null “DISK/TAPE/CART”
 ´
 Når spillet starter, høyreklikk i vinduet og velg
-<i>Joystick settings | Joystick device in port 1 | Analog Joystick 0</i>.
+‗Joystick settings | Joystick device in port 1 | Analog Joystick 0‗.
 Trykk ´Alt-J´ for å få joysticken til å virke.  Video mode settes via
-<i>VIC II</i>-menyen; bruk ´Alt-D´ for å gå til fullscreen.
+‗VIC II‗-menyen; bruk ´Alt-D´ for å gå til fullscreen.
 
 − Diverse
 
@@ -1093,10 +1092,10 @@ amixer -q set PCM 71% unmute
 ´
 Hele mixeroppsettet kan lagres/gjenopprettes med ´alsactl´:
 ´
-alsactl store [-f ¨STATE-FILE¨]
-alsactl restore [-f ¨STATE-FILE¨]
+alsactl store [-f “STATE-FILE”]
+alsactl restore [-f “STATE-FILE”]
 ´
-Hvis ikke ´-f ¨STATE-FILE¨´ er angitt, så vil programmet bruke
+Hvis ikke ´-f “STATE-FILE”´ er angitt, så vil programmet bruke
 ´/etc/asound.state´.
 
 −− Oppsett for lydopptak
@@ -1143,7 +1142,7 @@ exec X :0 -dpi 100 -auth $HOME/.Xauthority
 ´
 
 −− Ramdisk-størrelse
-Sett størrelse med parameter ´ramdisk_size=¨SIZE-IN-KB¨´ når ramdisk er
+Sett størrelse med parameter ´ramdisk_size=“SIZE-IN-KB”´ når ramdisk er
 kompilert inn i kjernen, og bruk ´rd_size´ hvis den er modul.
 
 −− CD-brenning med mkisofs + cdrecord
@@ -1154,15 +1153,15 @@ rekkefølge:  ´scsi_mod.o´, ´sg.o´, ´sr_mod.o´, ´ide-scsi.o´.
 Nå skulle IDE CD-spillerene være tilgjengelige som ´/dev/sr0´,
 ´/dev/sr1´, osv.    Lag et ISO-image med kommandoen
 ´
-mkisofs -J -r -o ¨IMAGE-FILE DIRECTORY¨
+mkisofs -J -r -o “IMAGE-FILE DIRECTORY”
 ´
-hvor ´¨DIRECTORY¨´ vil bli roten i det nye filsystemet.
+hvor ´“DIRECTORY”´ vil bli roten i det nye filsystemet.
 Skriv selve CD-en med kommandoen
 ´
-cdrecord -v driveropts=burnfree speed=2 dev=¨SCSIBUS,TARGET,LUN¨ -data ¨IMAGE-FILE¨
+cdrecord -v driveropts=burnfree speed=2 dev=“SCSIBUS,TARGET,LUN” -data “IMAGE-FILE”
 ´
-der ´¨SCSIBUS,TARGET,LUN¨´-verdiene kan fås med kommandoen ´cdrecord -scanbus´.
-I nyere Linux-kjerner er det mulig å bruke ´/dev/hd¨X¨´ direkte (når man brenner
+der ´“SCSIBUS,TARGET,LUN”´-verdiene kan fås med kommandoen ´cdrecord -scanbus´.
+I nyere Linux-kjerner er det mulig å bruke ´/dev/hd“X”´ direkte (når man brenner
 med ATAPI i stedet for SCSI emulation).
 
 Den beste måten å konfigurere dette på hvis man har både ATAPI-leser og brenner
@@ -1179,32 +1178,32 @@ cdrecorder som vanlig bruker, via ´user´ i ´/etc/fstab´.
 −− Sletting av CD med cdrecord
 For å slette alt som ligger på CD-en:
 ´
-cdrecord blank=fast -immed dev=IOCompactDiscServices dev=¨RECORDER-DEVICE¨
+cdrecord blank=fast -immed dev=IOCompactDiscServices dev=“RECORDER-DEVICE”
 ´
 
 −− Brenning av video DVD
 ´
-growisofs -dvd-compat -Z /dev/dvd=¨/path/to/dvd.iso¨
+growisofs -dvd-compat -Z /dev/dvd=“/path/to/dvd.iso”
 ´
 
 −− CD-dumping med cdrdao
 Følgende kommandoer kan brukes for å dumpe ut CD-er til ISO:
 ´
-cdrdao read-cd --device ¨/dev/cdrecorder¨ --datafile ¨foo.iso¨ /tmp/foo.toc
+cdrdao read-cd --device “/dev/cdrecorder” --datafile “foo.iso” /tmp/foo.toc
 ´
 I dette tilfellet kan ´/tmp/foo.toc´ slettes siden filen ikke er
 nødvendig for rene ISO-filer.  For CDRWINs BIN/CUE format kan følgende
 metode brukes:
 ´
-cdrdao read-cd --read-raw --device ¨/dev/cdrecorder¨ --datafile ¨foo.bin¨ ¨foo.toc¨
-toc2cue ¨foo.toc¨ ¨foo.cue¨
-rm -f ¨foo.toc¨
+cdrdao read-cd --read-raw --device “/dev/cdrecorder” --datafile “foo.bin” “foo.toc”
+toc2cue “foo.toc” “foo.cue”
+rm -f “foo.toc”
 ´
 
 −− CD-brenning med cdrdao
 Følgende kommandoer kan brukes for å brenne f.eks. BIN/CUE-filer med cdrdao:
 ´
-cdrdao write --device /dev/cdrecorder --driver generic-mmc ¨foo.cue¨
+cdrdao write --device /dev/cdrecorder --driver generic-mmc “foo.cue”
 ´
 
 −− Konvertere binære datafiler til objektkode
@@ -1237,7 +1236,7 @@ SECTIONS
   }
 }
 ´
-For å bruke scriptet sier man ´-T ¨ld-script¨´ til ld.
+For å bruke scriptet sier man ´-T “ld-script”´ til ld.
 En enda lettere måte å linke med et vanlig program er:
 ´
 gcc -Wl,-b,binary foo.bin -Wl,-b,elf32-i386 bar.c -o foobar
@@ -1261,8 +1260,8 @@ interrupt prosessering.  For å se grenser for hva som kan skrus på, se
 
 −−− Installasjon
 
-Gå til <url: http://www.tug.org/texlive/acquire-netinstall.html>Tex Live</url>
-og last ned <url: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz>install-tl-unx.tar.gz</url>.
+Gå til «Tex Live −  http://www.tug.org/texlive/acquire-netinstall.html»
+og last ned «install-tl-unx.tar.gz −  http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz».
 Installer ´perl-Tk´ for å kjøre GUI-versjonen av installasjonsprogrammet.
 ´
 ./install-tl -gui=perltk
@@ -1281,57 +1280,57 @@ Start med å opprette en partisjon på hver disk som dekker hele disken.
 Gjør så:
 ´
 pvcreate /dev/sda1 /dev/sdb1
-vgcreate ¨vgname¨ /dev/sda1 /dev/sdb1
-lvcreate -n ¨lv00¨ -i 2 -I 64 -l '100%FREE' ¨vgname¨
+vgcreate “vgname” /dev/sda1 /dev/sdb1
+lvcreate -n “lv00” -i 2 -I 64 -l '100%FREE' “vgname”
 ´
 Dersom ´pvcreate´ (eller noe annet) gir feilmeldinger om at disken
 er i bruk, og den ikke er mountet, så er trolig feilen at software
 RAID driveren har stjålet disken.  Det vil evt. stå i ´/proc/mdstat´.
-Dette kan fikses med ´mdadm --stop ¨MD-DEVICE¨´.
+Dette kan fikses med ´mdadm --stop “MD-DEVICE”´.
 
 Dersom filsystemet på volumet skal være ext2 eller ext3, pass på
 å spesifisere stride.  Hvis f.eks. filsystemets block size
 er 4 KiB og LVM stripe size er 64 KiB, så er stride lik 64/4 = 16:
 ´
-mkfs.ext3 -b 4096 -E stride=16 /dev/¨vgname¨/¨lv00¨
+mkfs.ext3 -b 4096 -E stride=16 /dev/“vgname”/“lv00”
 ´
 Dersom man har glemt stripe size på volumet, kan den vises med
 ´
-lvs --units b -o stripesize /dev/¨vgname¨/¨lv00¨
+lvs --units b -o stripesize /dev/“vgname”/“lv00”
 ´
 
 −−− Gjenoppretting av tidligere oppsett
 For å hente fram og sette opp et tidligere LVM-oppsett, kjør ´vgscan´ for å
 finne gruppene, og deretter
 ´
-vgchange -ay ¨VG-NAME¨
+vgchange -ay “VG-NAME”
 ´
 
 −−− Legge til ekstra partisjon
-For å legge til ´/dev/sdq3´ i volume group ´¨VG-NAME¨´, gjør:
+For å legge til ´/dev/sdq3´ i volume group ´“VG-NAME”´, gjør:
 ´
 pvcreate /dev/sdq3
-vgextend ¨VG-NAME¨ /dev/sdq3
-lvextend -l +100%Free /dev/¨VG-NAME¨/¨LV-NAME¨
-resize2fs /dev/¨VG-NAME¨/¨LV-NAME¨
+vgextend “VG-NAME” /dev/sdq3
+lvextend -l +100%Free /dev/“VG-NAME”/“LV-NAME”
+resize2fs /dev/“VG-NAME”/“LV-NAME”
 ´
 
 −−− Krympe volum
 Reduser filsystemet til minimum:
 ´
-resize2fs -M /dev/¨VOLGROUP¨/¨LVNAME¨
+resize2fs -M /dev/“VOLGROUP”/“LVNAME”
 ´
-Reduser volum til ønsket størrelse, men ¨IKKE¨ mindre enn størrelsen
+Reduser volum til ønsket størrelse, men “IKKE” mindre enn størrelsen
 som filsystemet ble satt til ovenfor:
 ´
-lvresize -l ¨NUM_EXTENTS¨ /dev/¨VOLGROUP¨/¨LVNAME¨
+lvresize -l “NUM_EXTENTS” /dev/“VOLGROUP”/“LVNAME”
 ´
-For å regne ut minimum ´¨NUM_EXTENTS¨´, gjør:
+For å regne ut minimum ´“NUM_EXTENTS”´, gjør:
 ´
-block_count=$(dumpe2fs -h /dev/¨VOLGROUP¨/¨LVNAME¨ 2>/dev/null | sed -n 's/^Block count://p')
-block_size=$(dumpe2fs -h /dev/¨VOLGROUP¨/¨LVNAME¨ 2>/dev/null | sed -n 's/^Block size://p')
+block_count=$(dumpe2fs -h /dev/“VOLGROUP”/“LVNAME” 2>/dev/null | sed -n 's/^Block count://p')
+block_size=$(dumpe2fs -h /dev/“VOLGROUP”/“LVNAME” 2>/dev/null | sed -n 's/^Block size://p')
 fs_size=$(echo "$block_size * $block_count" | bc -l)
-extent_size=$(vgs --noheadings --nosuffix --units b -o vg_extent_size ¨VOLGROUP¨)
+extent_size=$(vgs --noheadings --nosuffix --units b -o vg_extent_size “VOLGROUP”)
 ¡# Antall extents som eksakt tilsvarer filsystemets størrelse.
 ¡# Rund dette opp til nærmeste heltall.
 echo $fs_size / $extent_size | bc -l
@@ -1339,7 +1338,7 @@ echo $fs_size / $extent_size | bc -l
 Når volumet er resizet til ønsket antall extents, la filsystemet vokse til
 å fylle volumet:
 ´
-resize2fs /dev/¨VOLGROUP¨/¨LVNAME¨
+resize2fs /dev/“VOLGROUP”/“LVNAME”
 ´
 
 −− RAID5 med mdadm
@@ -1347,13 +1346,13 @@ Følgende viser et eksempel på hvordan man kan sette
 opp et RAID5-array bestående av fire disker, ´/dev/sda´
 t.o.m. ´/dev/sdd´.  Begynn med å partisjonere opp diskene
 slik at de inneholder én partisjon som dekker hele disken.
-Dette fordi man da kan sette partisjonstypen til <i>Linux raid
-autodetect</i> (hexverdi <i>fd</i>), som gjør at mdadm klarer å
+Dette fordi man da kan sette partisjonstypen til ‗Linux raid
+autodetect‗ (hexverdi ‗fd‗), som gjør at mdadm klarer å
 auto-gjenoppbygge RAID-devicet, uten å måtte fortelles hvordan
-det skal gjøres.  (Dersom man <i>ikke</i> brukte partisjoner av
+det skal gjøres.  (Dersom man ‗ikke‗ brukte partisjoner av
 denne typen, men hele disker, så måtte man eksplisitt sette opp
-arrayen i ´/etc/rc.d/rc.local´ e.l. vha. ´mdadm -A ¨MD-DEVICE¨
-¨DISK-DEVICES¨´.)  Når diskene er ferdig partisjonert, kan man
+arrayen i ´/etc/rc.d/rc.local´ e.l. vha. ´mdadm -A “MD-DEVICE”
+“DISK-DEVICES”´.)  Når diskene er ferdig partisjonert, kan man
 opprette RAID-arrayet med følgende kommando:
 ´
 mdadm -Cv /dev/md0 -l5 -n4 /dev/sd[a-d]1
@@ -1374,7 +1373,7 @@ mkfs.ext3 -b 4096 -E stride=16 /dev/md0
 
 −− Tuning for SSD
 Legg til ´noatime,discard´ på mount options i ´/etc/fstab´ for å fjerne access
-time updates og skru på TRIM.  <i>IKKE</i> skru av journaling, for da virker ikke
+time updates og skru på TRIM.  ‗IKKE‗ skru av journaling, for da virker ikke
 ´discard´ (auto-TRIM).  Trim kan utføres manuelt med
 ´
 fstrim -v /
@@ -1393,25 +1392,25 @@ ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue
 ´
 Verifiser at riktig scheduler brukes med
 ´
-cat /sys/block/¨DEVICE¨/queue/scheduler
+cat /sys/block/“DEVICE”/queue/scheduler
 ´
 
 −− Konvertere ext2 til ext4
-Unmount ´¨PARTITION¨´ og gjør:
+Unmount ´“PARTITION”´ og gjør:
 ´
-tune2fs -O extents,uninit_bg,dir_index,has_journal ¨PARTITION¨
-fsck.ext4 -y ¨PARTITION¨
+tune2fs -O extents,uninit_bg,dir_index,has_journal “PARTITION”
+fsck.ext4 -y “PARTITION”
 ´
-Husk å oppdatere ´/etc/fstab´ og muligens også ´grub-install ¨DEVICE¨ --recheck´.
+Husk å oppdatere ´/etc/fstab´ og muligens også ´grub-install “DEVICE” --recheck´.
 
 −− Bogofilter
 Trening av filteret:
 ´
-bogofilter -d ¨DB-DIR¨ [-s | -n] [-M] -B ¨FILENAMES¨...
+bogofilter -d “DB-DIR” [-s | -n] [-M] -B “FILENAMES”...
 ´
-der ´¨DB-DIR¨´ er katalogen hvor orddatabasen skal bli skrevet,
+der ´“DB-DIR”´ er katalogen hvor orddatabasen skal bli skrevet,
 ´-s´ tagger mailen som spam og ´-n´ tagger mailen som non-spam.
-Bruk ´-M´ for å si at vanlige filer (i ´¨FILENAMES¨´) er
+Bruk ´-M´ for å si at vanlige filer (i ´“FILENAMES”´) er
 mbox'er, ikke enkeltstående mails.
 
 For å bruke bogofilter med procmail, bruk følgende procmail-regel:
@@ -1473,8 +1472,8 @@ server 127.127.1.0
 fudge 127.127.1.0 stratum 10
 
 ¡# The real NTP servers.
-server ¨SERVER1¨
-server ¨SERVER2¨
+server “SERVER1”
+server “SERVER2”
 ...
 
 ¡# Log the intrinsic frequency error on the local clock.  This
@@ -1485,9 +1484,9 @@ driftfile /etc/ntp.drift
 logfile /var/log/ntp.log
 ´
 For klientmaskinene bruker man samme ´ntp.conf´, men erstatt
-alle ´server´-linjene med én enkelt ´server ¨ADDR¨´ der ´¨ADDR¨´
+alle ´server´-linjene med én enkelt ´server “ADDR”´ der ´“ADDR”´
 er addressen til maskinen som ble satt opp som NTP-server.  Start opp ntpd,
-men merk at det kan ta <i>lang</i> tid (over 20 minutter) før klientene
+men merk at det kan ta ‗lang‗ tid (over 20 minutter) før klientene
 klarer å bruke NTP-serveren, pga. at serveren ikke slipper til klienter
 før den har synkronisert seg ordentlig mot sine eksterne servere.
 (Det vil sannsynligvis dukke opp en linje i NTP-loggen som sier
@@ -1504,7 +1503,7 @@ chkconfig rlogin on
 service xinetd restart
 ´
 For å tillate login uten passord fra en bestemt maskin til en
-bestemt bruker, gjør ´echo ¨IP-ADDRESS¨ >~¨USER¨/.rhosts´.
+bestemt bruker, gjør ´echo “IP-ADDRESS” >~“USER”/.rhosts´.
 
 −− Starte nytt prosjekt med bzr
 For å lage et nytt repository i katalog ´/path/to/bzrrepo´:
@@ -1518,7 +1517,7 @@ bzr init /path/to/bzrrepo/foo
 Dette prosjektet kan så sjekkes ut med ´bzr co´.  Dersom man skal
 sjekke ut fra en annen maskin over SFTP, så kan følgende syntaks brukes:
 ´
-bzr co sftp://¨SERVER¨/path/to/bzrrepo/foo
+bzr co sftp://“SERVER”/path/to/bzrrepo/foo
 ´
 Man kan videre gjøre en såkalt "light checkout" av denne for å slippe
 å ha masse søppel i prosjektets ´.bzr´ katalog, men likevel ha fordelen
@@ -1530,17 +1529,17 @@ bzr co --lightweight /path/to/full/checkout/foo foo
 −− Starte nytt prosjekt med CVS
 For å lage et nytt repository på ekstern server i katalog ´/path/to/cvsroot´:
 ´
-cvs -d :ext:¨SERVER¨:/path/to/cvsroot init
+cvs -d :ext:“SERVER”:/path/to/cvsroot init
 ´
 Deretter kan man begynne å bruke repository'et ved å gjøre:
 ´
-cvs -d :ext:¨SERVER¨:/path/to/cvsroot import -m 'imported sources' ¨PROJECT-DIRECTORY¨ vendor release
+cvs -d :ext:“SERVER”:/path/to/cvsroot import -m 'imported sources' “PROJECT-DIRECTORY” vendor release
 ´
 
 −− LCD-tweaking for laptop
 For å manuelt dimme backlight, bruk
 ´
-xbacklight -set ¨PERCENT¨
+xbacklight -set “PERCENT”
 ´
 For å klone laptopens LCD-display til VGA, gjør
 ´
@@ -1549,9 +1548,9 @@ xrandr --output LVDS --auto --output VGA --auto --same-as LVDS
 For å sette oppløsning:
 ´
 ¡# Oppløsning spesifisert direkte
-xrandr -s ¨WIDTH¨x¨HEIGHT¨
+xrandr -s “WIDTH”x“HEIGHT”
 ¡# Ved indeks
-xrandr -s ¨INDEX¨
+xrandr -s “INDEX”
 ´
 
 −− Skru på composite mode uten tearing (NVidia)
@@ -1565,7 +1564,7 @@ For å klone laptopens LCD-display til HDMI, gjør
 xrandr --output LVDS1 --auto --output HDMI1 --auto --same-as LVDS1
 ´
 Alternativt, dersom ´--auto´ ikke gir gode resultater, kan man
-prøve å skalere ved å legge til ´--scale ¨X¨x¨Y¨´. En tredje mulighet
+prøve å skalere ved å legge til ´--scale “X”x“Y”´. En tredje mulighet
 er å lage en egen mode. Eksempel:
 ´
 xrandr --newmode "custom1024x768" 63.50 1024 1072 1176 1328 768 771 775 798 -hsync +vsync
@@ -1581,7 +1580,7 @@ aplay -l
 ´
 Man kan så bruke mplayer til å spille video på HDMI:
 ´
-mplayer -ao alsa:device=hw=¨X¨.¨Y¨ ...
+mplayer -ao alsa:device=hw=“X”.“Y” ...
 ´
 For å skru av HDMI1, gjør
 ´
@@ -1628,7 +1627,7 @@ Acer Hotkey driver</url>.  Last inn denne driveren, og gjør
 For å konfigurere mot et aksesspunkt som bruker WEP-kryptering, gjør
 følgende:
 ´
-iwconfig eth1 essid ¨NAME¨ mode managed channel ¨CHANNEL¨ key ¨KEY¨
+iwconfig eth1 essid “NAME” mode managed channel “CHANNEL” key “KEY”
 while iwconfig eth1 | grep -q 00:00:00:00:00:00; do
     echo 'Access point not found... retrying in 1 second.' 2>&1
     sleep 1
@@ -1639,7 +1638,7 @@ legge til ´restricted´ eller ´open´ etter ´key´.
 For å sette adresse kan man så kjøre ´dhclient eth1´ eller sette
 adresse manuelt:
 ´
-ifconfig eth1 ¨IP-ADDRESS¨
+ifconfig eth1 “IP-ADDRESS”
 route add default gw 10.0.0.1 eth1
 ´
 
@@ -1651,8 +1650,8 @@ ctrl_interface=/var/run/wpa_supplicant
 ctrl_interface_group=wheel
 
 network={
-        ssid="¨NAME-OF-ACCESS-POINT¨"
-        psk="¨PASSWORD¨"
+        ssid="“NAME-OF-ACCESS-POINT”"
+        psk="“PASSWORD”"
         scan_ssid=1
 }
 
@@ -1663,9 +1662,9 @@ network={
 ´
 Start så ´wpa_supplicant´ med kommandoen
 ´
-sudo wpa_supplicant -B -i¨WIRELESS-NETWORK-INTERFACE¨ -c¨/path/to/wpa_supplicant.conf¨
+sudo wpa_supplicant -B -i“WIRELESS-NETWORK-INTERFACE” -c“/path/to/wpa_supplicant.conf”
 ´
-der ´¨WIRELESS-NETWORK-INTERFACE¨´ er f.eks. ´eth1´.
+der ´“WIRELESS-NETWORK-INTERFACE”´ er f.eks. ´eth1´.
 
 −− Seriell-konsoll
 For å få Linux-konsollen sendt over seriell nullmodem-kabel, legger
@@ -1714,11 +1713,11 @@ Hvis man ikke har ´ms-sys´, så skal det holde å gjøre
 ´
 # ·dd conv=notrunc if=floppy_bootsector.bin of=/media/disk.img
 ´
-Last ned bootsectoren her: <url:files/floppy_bootsector.bin>floppy_bootsector.bin</url>.
+Last ned bootsectoren her: «floppy_bootsector.bin − files/floppy_bootsector.bin».
 
-Merk at ´¨disk.img¨´ skal være rådata fra floppydisken, og <i>må</i> være i en
+Merk at ´“disk.img”´ skal være rådata fra floppydisken, og ‗må‗ være i en
 av de standard floppy-størrelsene (360K, 720K, 1200K, 1440K, 1680K, 1722K,
-eller 2880K). (´¨disk.img¨´ kan være et gzippet floppy-image, i hvilket
+eller 2880K). (´“disk.img”´ kan være et gzippet floppy-image, i hvilket
 tilfelle størrelsen ikke trenger å være som over så lenge resultatet av gunzip
 blir en standard floppy-størrelse.)
 
@@ -1743,57 +1742,57 @@ ligger bak en NAT-router, kobler man så til klientens IP-adresse.
 For å splitte en MKV-film til under 4 GB, installer ´mkvtoolnix´
 og gjør
 ´
-mkvmerge --split 4050m -o ¨OUTPUT¨.mkv ¨INPUT¨.mkv
+mkvmerge --split 4050m -o “OUTPUT”.mkv “INPUT”.mkv
 ´
 
 −− Enkoding med ffmpeg
 Enkoding med ffmpeg har følgende syntaks:
 ´
-ffmpeg ¨INPUT-OPTIONS¨ -i ¨INPUT-FILE¨ ¨OUTPUT-OPTIONS¨ ¨OUTPUT-FILE¨
+ffmpeg “INPUT-OPTIONS” -i “INPUT-FILE” “OUTPUT-OPTIONS” “OUTPUT-FILE”
 ´
-Rekkefølgende på ´¨INPUT-OPTIONS¨´ og ´¨OUTPUT-OPTIONS¨´ er
-<i>ekstremt</i> viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
+Rekkefølgende på ´“INPUT-OPTIONS”´ og ´“OUTPUT-OPTIONS”´ er
+‗ekstremt‗ viktig!  Eks. for å kode noe til 1 Mbps H.264 med 128 kbps MP3-lyd:
 ´
-ffmpeg -i ¨INPUT-FILE¨ -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000k ¨OUTPUT-FILE¨
+ffmpeg -i “INPUT-FILE” -c:a libmp3lame -b:a 128k -c:v libx264 -b:v 1000k “OUTPUT-FILE”
 ´
-Formatet på ´¨OUTPUT-FILE¨´ blir satt av extension.  For å liste forskjellige
+Formatet på ´“OUTPUT-FILE”´ blir satt av extension.  For å liste forskjellige
 formater for a/v codec og containerstrøm, gjør ´ffmpeg -formats´.
 
 −− Måle varighet med ffmpeg
 ´
-ffmpeg -v error -show_entries format=duration ¨INPUT-VIDEO¨ -of csv
+ffmpeg -v error -show_entries format=duration “INPUT-VIDEO” -of csv
 ´
 
 −− Kopiere lyd fra INPUT1 og video fra INPUT2 med ffmpeg
 ´
-ffmpeg -i ¨INPUT1¨ -i ¨INPUT2¨ -map 0:a -map 1:v -c:v copy -c:a copy ¨OUTPUT¨
+ffmpeg -i “INPUT1” -i “INPUT2” -map 0:a -map 1:v -c:v copy -c:a copy “OUTPUT”
 ´
 
 −− Normalisere volumn under ffmpeg encoding
 ´
-ffmpeg -i ¨INPUT¨ -c:v copy -c:a libmp3lame -filter:a loudnorm ¨OUTPUT¨
+ffmpeg -i “INPUT” -c:v copy -c:a libmp3lame -filter:a loudnorm “OUTPUT”
 ´
 
 −− FFmpeg pipelining
 For å sende rå YUV-frames via pipe til x264:
 ´
-ffmpeg -i ¨INPUT-VIDEO¨ -an -f rawvideo - |
-  x264 --threads auto -B ¨BITRATE¨ --fps ¨FPS¨ -o ¨OUTPUT-VIDEO¨ - ¨WIDTH¨x¨HEIGHT¨
+ffmpeg -i “INPUT-VIDEO” -an -f rawvideo - |
+  x264 --threads auto -B “BITRATE” --fps “FPS” -o “OUTPUT-VIDEO” - “WIDTH”x“HEIGHT”
 ´
 For å sende YUV-frames i YUV4MPEG-format til x264:
 ´
-ffmpeg -i ¨INPUT-VIDEO¨ -an -f yuv4mpegpipe - |
-  x264 -B ¨BITRATE¨ -o ¨H264-OUTPUT¨ --demuxer y4m -
+ffmpeg -i “INPUT-VIDEO” -an -f yuv4mpegpipe - |
+  x264 -B “BITRATE” -o “H264-OUTPUT” --demuxer y4m -
 ´
 For å sende lyd i WAV-format til faac:
 ´
-ffmpeg -i ¨INPUT-STREAM¨ -f wav -vn - |
-  faac [¨QUALITY-OPTIONS¨] -o ¨AAC-OUTPUT¨ -
+ffmpeg -i “INPUT-STREAM” -f wav -vn - |
+  faac [“QUALITY-OPTIONS”] -o “AAC-OUTPUT” -
 ´
 For å sende lyd i rå PCM-data:
 ´
-ffmpeg -i ¨INPUT-VIDEO¨ -f s16le -vn - |
-faac -X -P -C ¨CHANNELS¨ -R ¨RATE¨ -o ¨AAC-OUTPUT¨ ¨PCM-INPUT¨
+ffmpeg -i “INPUT-VIDEO” -f s16le -vn - |
+faac -X -P -C “CHANNELS” -R “RATE” -o “AAC-OUTPUT” “PCM-INPUT”
 ´
 
 −− Bruke FFmpeg til å segmentere video
@@ -1808,11 +1807,11 @@ ffmpeg -i INPUT -codec copy -bsf h264_mp4toannexb -f segment -segment_time 1 -se
 −− Dumping av rå PCM-lyd med FFmpeg eller mplayer
 ´
 ¡# Alternativ 1: med FFmpeg
-ffmpeg -i ¨INPUT-STREAM¨ -f s16le -vn -
+ffmpeg -i “INPUT-STREAM” -f s16le -vn -
 ´
 Kan teste å spille lyden med
 ´
-aplay -f S16_LE -c ¨CHANNELS¨ -r ¨RATE¨ ¨PCMFILE¨
+aplay -f S16_LE -c “CHANNELS” -r “RATE” “PCMFILE”
 ´
 
 −− Subtitles brent inn i bildet vha FFmpeg m/libass
@@ -1820,11 +1819,11 @@ Installer FFmpeg med libass for brenne inn subtitles i bildet.  Transkoding av
 video gjøres slik:
 
 ´
-ffmpeg -i ¨INPUT-VIDEO¨ \
+ffmpeg -i “INPUT-VIDEO” \
   -c:a ac3 -b:a 448k \
   -c:v libx264 -crf 16 \
   -vf subtitles=SRT-FILE \
-  ¨OUTPUT-VIDEO¨.mp4
+  “OUTPUT-VIDEO”.mp4
 ´
 
 −− Oppsett av alternativ Apache share
@@ -1859,7 +1858,7 @@ SSLCertificateKeyFile /etc/httpd/conf/server.key
 ´
 Lag så en passord-fil for DAV-brukere:
 ´
-htpasswd -c /etc/httpd/conf/webdav-passwd ¨USERNAME¨
+htpasswd -c /etc/httpd/conf/webdav-passwd “USERNAME”
 ´
 Merk at ´-c´ får htpasswd til å overskrive eksisterende filer.  Dropp ´-c´
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
@@ -1868,51 +1867,51 @@ hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 Pakk ut vBulletin i ´/var/www/html´.  Sett så opp MySQL:
 ´
 ¡# Opprett root-bruker.
-mysqladmin -uroot password ¨ROOT-MYSQL-PASSWORD¨
+mysqladmin -uroot password “ROOT-MYSQL-PASSWORD”
 
 ¡# Opprett vBulletin-bruker.
-mysql -uroot -p¨ROOT-MYSQL-PASSWORD¨ mysql
-mysql> ·GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON ¨DBNAME¨.* TO ¨USERNAME¨@localhost IDENTIFIED BY '¨PASSWORD¨'; 
+mysql -uroot -p“ROOT-MYSQL-PASSWORD” mysql
+mysql> ·GRANT SELECT,CREATE,INSERT,ALTER,UPDATE,DROP,DELETE,LOCKTABLES,INDEX,REFERENCES,CREATE,TEMPORARY TABLES ON “DBNAME”.* TO “USERNAME”@localhost IDENTIFIED BY '“PASSWORD”'; 
 mysql> ·FLUSH PRIVILEGES;
 
 ¡# Opprett database.
-mysqladmin -u¨USERNAME¨ -p¨PASSWORD¨ create ¨DBNAME¨
+mysqladmin -u“USERNAME” -p“PASSWORD” create “DBNAME”
 
 ¡# Importer siste database-backup.
-mysql -u¨USERNAME¨ -p¨PASSWORD¨ ¨DBNAME¨ < ¨LAST-BACKUP¨.sql
+mysql -u“USERNAME” -p“PASSWORD” “DBNAME” < “LAST-BACKUP”.sql
 ´
 Når alt dette er gjort kan man editere ´config.php´ i vBulletin-katalogen, og sette
 ´
-$config['Database']['dbname'] = '¨DBNAME¨'
-$config['Database']['technicalemail'] = '¨ADMIN-EMAIL-ADDRESS¨'
-$config['MasterServer']['username'] = '¨USERNAME¨'
-$config['MasterServer']['password'] = '¨PASSWORD¨'
+$config['Database']['dbname'] = '“DBNAME”'
+$config['Database']['technicalemail'] = '“ADMIN-EMAIL-ADDRESS”'
+$config['MasterServer']['username'] = '“USERNAME”'
+$config['MasterServer']['password'] = '“PASSWORD”'
 ¡# Trenger normalt ikke endres:
 $config['MasterServer']['servername'] = 'localhost'
 ´
 
 −− Mer SQL
 −−− Velge database
-To muligheter: ´mysql -u¨USER¨ -p¨PASSWORD¨ ¨DBNAME¨´ eller
-bare ´mysql -u¨USER¨ -p¨PASSWORD¨´ og så ´use ¨DBNAME¨´
+To muligheter: ´mysql -u“USER” -p“PASSWORD” “DBNAME”´ eller
+bare ´mysql -u“USER” -p“PASSWORD”´ og så ´use “DBNAME”´
 i mysql-promptet.
 
 −−− Beskrive tabell
 ´
-mysql> ·describe ¨TABLE¨;
+mysql> ·describe “TABLE”;
 ´
 
 −−− Printe innhold i tabell
 ´
 ¡# Utvalgte kolonner
-mysql> ·select ¨COL1¨,¨COL2¨,... from ¨TABLE¨;
+mysql> ·select “COL1”,“COL2”,... from “TABLE”;
 ¡# Alle kolonner
-mysql> ·select * from ¨TABLE¨;
+mysql> ·select * from “TABLE”;
 ´
 
 −−− Slette rad i tabell
 ´
-mysql> ·delete from ¨TABLE¨ where ¨COL¨ = "¨foo¨";
+mysql> ·delete from “TABLE” where “COL” = "“foo”";
 ´
 
 −−− Brukere
@@ -1949,7 +1948,7 @@ og kjør deretter ´grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg´ for å
 generere nye initrd-filer.
 
 −−− Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver
-Last ned <url:http://downloads.openwrt.org/sources/broadcom-wl-4.178.10.4.tar.bz2>Broadcom's firmware</url>,
+Last ned «Broadcom's firmware − http://downloads.openwrt.org/sources/broadcom-wl-4.178.10.4.tar.bz2»,
 og installer denne som følger:
 ´
 tar xjf broadcom-wl-4.178.10.4.tar.bz2
@@ -1971,7 +1970,7 @@ blacklist ssb
 blacklist b43
 ´
 Legg deretter inn
-<url: http://www.broadcom.com/support/802.11/linux_sta.php>Broadcoms proprietære driver</url>.
+«Broadcoms proprietære driver −  http://www.broadcom.com/support/802.11/linux_sta.php».
 
 − Annet
 
@@ -1988,9 +1987,9 @@ $ ·openssl s_client -crlf -connect pop.example.com:110 -starttls pop3
 Når man har koblet til er det følgende likt uansett metode:
 ´
 +OK Hello there.
-·user ¨USERNAME¨
+·user “USERNAME”
 +OK Password required.
-·pass ¨PASSWORD¨
+·pass “PASSWORD”
 +OK logged in.
 ·stat
 +OK 3 42734
@@ -2025,7 +2024,7 @@ $ ·openssl s_client -crlf -connect imap.example.com:993
 Når man har koblet til er det følgende likt uansett metode:
 ´
 * OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA IDLE ACL ACL2=UNION STARTTLS XMAGICTRASH] Courier-IMAP ready. Copyright 1998-2008 Double Precision, Inc.  See COPYING for distribution information.
-·. login ¨USERNAME¨ ¨PASSWORD¨
+·. login “USERNAME” “PASSWORD”
 . OK LOGIN Ok.
 ¡# Lister alle mailbokser
 ·. list "" *
@@ -2160,8 +2159,8 @@ Ekstrahere utvalgte sider fra flere PDF-er inn i étt nytt dokument:
 ´
 pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf
 ´
-Rotere første siden av en PDF (´¨E¨´ = 90° med klokken, ´¨L¨´ =
-90° mot klokken, ´¨S¨´ er 180°):
+Rotere første siden av en PDF (´“E”´ = 90° med klokken, ´“L”´ =
+90° mot klokken, ´“S”´ er 180°):
 ´
 pdftk in.pdf cat 1E 2-end output out.pdf
 ´
@@ -2185,15 +2184,15 @@ Eksempler:
 curl \
  -c session-cookies.txt \
  -d 'username=Fred&password=1234' \
- -o ¨OUTPUT¨ \
- ¨URL¨
+ -o “OUTPUT” \
+ “URL”
 
 ¡# As above, but POST body stored in postbody.xml and set Content-Type to XML.
 curl \
  -H 'Content-Type: text/xml' \
  -d @postbody.xml \
- -o ¨OUTPUT¨ \
- ¨URL¨
+ -o “OUTPUT” \
+ “URL”
 ´
 
 −− Ubuntu VM
@@ -2240,7 +2239,7 @@ Restart nettet i guest med
 ´
 Guest OS kan startes uten GUI med
 ´
-vboxmanage startvm --type headless ¨VM-NAME¨
+vboxmanage startvm --type headless “VM-NAME”
 ´
 Evt. med minimalt GUI ved å bytte ut "headless" med "sdl".
 
@@ -2266,10 +2265,10 @@ touch $HOME/.ecryptfs/auto-mount
 ´
 I tillegg må man lage ´wrapped-passphrase´ med følgende metode:
 ´
-ecryptfs-wrap-passphrase $HOME/.ecryptfs/wrapped-passphrase ¨MOUNT-PASSPHRASE¨ ¨LOGIN-PASSWORD¨
+ecryptfs-wrap-passphrase $HOME/.ecryptfs/wrapped-passphrase “MOUNT-PASSPHRASE” “LOGIN-PASSWORD”
 ´
-Her er ´¨MOUNT-PASSPHRASE¨´ samme passphrase som ble brukt i først
-mount-kommandoen ovenfor, mens ´¨LOGIN-PASSWORD¨´ er det vanlige passordet
+Her er ´“MOUNT-PASSPHRASE”´ samme passphrase som ble brukt i først
+mount-kommandoen ovenfor, mens ´“LOGIN-PASSWORD”´ er det vanlige passordet
 brukeren logger inn med.  NB: Pass på at root kan lese ´wrapped-passphrase´!
 Helt til slutt gjør man (som root):
 ´
@@ -2293,10 +2292,10 @@ mount -i /foo/private
 uten å måtte oppgi passord.  Dersom det ikke virker automatisk på login kan
 man teste ´wrapped-passphrase´ med:
 ´
-$ ·echo -n ¨LOGIN-PASSWORD¨ | ecryptfs-insert-wrapped-passphrase-into-keyring $HOME/.ecryptfs/wrapped-passphrase -
+$ ·echo -n “LOGIN-PASSWORD” | ecryptfs-insert-wrapped-passphrase-into-keyring $HOME/.ecryptfs/wrapped-passphrase -
 ¡'keyctl list @u' should now show the key's signature.
-$ ·echo -n ¨LOGIN-PASSWORD¨ | ecryptfs-unwrap-passphrase $HOME/.ecryptfs/wrapped-passphrase
-¡Outputs ¨MOUNT-PASSWORD¨ in plaintext
+$ ·echo -n “LOGIN-PASSWORD” | ecryptfs-unwrap-passphrase $HOME/.ecryptfs/wrapped-passphrase
+¡Outputs “MOUNT-PASSWORD” in plaintext
 ´
 
 −− eCryptfs på systemer der authconfig ikke setter det opp
@@ -2379,7 +2378,7 @@ qemu-img create -f qcow2 IMAGE-FILE 3G
 qemu-img create -f qcow2 -b BASE-IMAGE DERIVED-IMAGE
 
 ¡# Reduce size of existing image, preserve backing file.
-qemu-img convert -O qcow2 -o backing_file=¨BACKING-FILE¨ ¨IN-IMAGE¨ ¨OUT-IMAGE¨
+qemu-img convert -O qcow2 -o backing_file=“BACKING-FILE” “IN-IMAGE” “OUT-IMAGE”
 
 ¡# Install Windows.
 qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
@@ -2408,30 +2407,58 @@ VNC, legg til:
 ´
 -vnc :5
 ´
-Klienter kan da koble til med ´vncviewer ¨HOSTNAME¨:5´.
+Klienter kan da koble til med ´vncviewer “HOSTNAME”:5´.
 
 −− Teste PXE-boot med qemu
 ´
-qemu-system-x86_64 -enable-kvm -m ¨4096¨ -net nic -net user,tftp=¨/path/to/tftp-root¨,bootfile=¨pxelinux.0¨ -hda ¨foo.img¨ -boot n
+qemu-system-x86_64 -enable-kvm -m “4096” -net nic -net user,tftp=“/path/to/tftp-root”,bootfile=“pxelinux.0” -hda “foo.img” -boot n
 ´
 
 −− PDF-manipulering vha qpdf
 ´
 ¡# Concatenate all pages:
-qpdf --empty --pages ¨INPUT¨... -- ¨OUTPUT¨
+qpdf --empty --pages “INPUT”... -- “OUTPUT”
 
 ¡# Extract pages 1, 3 through 5, and all pages from 10 to the end of the document:
-qpdf --empty --pages ¨INPUT¨ 1,3-5,10-z -- ¨OUTPUT¨
+qpdf --empty --pages “INPUT” 1,3-5,10-z -- “OUTPUT”
 
 ¡# Extract page 3 from foo.pdf and the last page from bar.pdf:
-qpdf --empty --pages foo.pdf 3 bar.pdf z -- ¨OUTPUT¨
+qpdf --empty --pages foo.pdf 3 bar.pdf z -- “OUTPUT”
 
 ¡# Reverse pages:
-qpdf --empty --pages ¨INPUT¨ z-1 -- ¨OUTPUT¨
+qpdf --empty --pages “INPUT” z-1 -- “OUTPUT”
 ´
 
 −− Liste åpne porter og hvilke programmer som har åpnet dem
 ´
 ¡# -P gjør at porter vises med tall i stedet for navn.
 sudo lsof -iTCP -sTCP:LISTEN -P
+´
+
+−− Dark themes
+Last ned «Ultimate-Dark-Blue − https://www.xfce-look.org/p/1246387/» og pakk den ut under ´~/.themes/´.
+−−− GTK 3.x
+La ´~/.config/gtk-3.0/settings.ini´ inneholde:
+´
+[Settings]
+gtk-theme-name = Ultimate-Dark-Blue
+´
+
+−−− GTK 2.x
+La ´~/.gtkrc-2.0´ inneholde:
+´
+gtk-theme-name = "Ultimate-Dark-Blue"
+´
+
+−−− QT5
+Pass på at ´qt5-qtstyleplugins´ og ´gtk-murrine-engine´ er installert. Deretter:
+´
+export QT_QPA_PLATFORMTHEME=gtk2
+´
+
+−−− QT4
+La ´~/.config/Trolltech.conf´ inneholde:
+´
+[Qt]
+style=GTK+
 ´
