@@ -40,13 +40,13 @@ my %colortheme_dark = (
 );
 
 %colortheme_dark = (
-    body_background => '#151820',
+    body_background => '#181818',
     body_color => '#a0a0a0',
     a_link_color => '#5873b0',
     a_visited_color => '#8873b0',
-    code_background => '#0e1826',
-    BORDER => '#394052',
-    pre_background => '#0e1826',
+    code_background => '#121212',
+    BORDER => '#2a2a2a',
+    pre_background => '#121212',
     kbd_color => '#ca2e15',
     dfn_color => '#5873b0',
 );
