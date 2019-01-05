@@ -1934,7 +1934,7 @@ Section "Device"
 EndSection
 ´
 
-−− MSI GP62MVR
+−− Oppsett av X på laptop med NVIDIA-kort
 Legg til ´nouveau.modeset=0´ på kernel command line ved installasjonen. Dette
 må gjøres permanent senere ved å legge det inn i ´/etc/default/grub´:
 ´
@@ -1944,7 +1944,7 @@ må gjøres permanent senere ved å legge det inn i ´/etc/default/grub´:
 ·-GRUB_CMDLINE_LINUX="rd.luks.uuid=luks-48e28f8b-dfba-4f37-81d7-0a13ccc6c188 selinux=0 rhgb quiet"
 ¡+GRUB_CMDLINE_LINUX="rd.luks.uuid=luks-48e28f8b-dfba-4f37-81d7-0a13ccc6c188 selinux=0 rhgb quiet nouveau.modeset=0"
 ´
-og kjør deretter ´grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg´ for å
+Kjør deretter ´grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg´ for å
 generere nye initrd-filer.
 
 −−− Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver
@@ -2242,6 +2242,21 @@ Guest OS kan startes uten GUI med
 vboxmanage startvm --type headless “VM-NAME”
 ´
 Evt. med minimalt GUI ved å bytte ut "headless" med "sdl".
+
+−− Mounte LUKS-kryptert partisjon manuelt
+For å mounte:
+´
+device=“luks-encrypted-partition”
+name=“volume-name”
+sudo cryptsetup open --type luks $device $name
+sudo mount /dev/mapper/$name /mnt
+´
+
+For å fjerne dette igjen:
+´
+sudo umount /mnt
+sudo cryptsetup close $name
+´
 
 −− eCryptfs med passord fra login
 For å få /foo/private ferdig mountet med ecryptfs ved login
