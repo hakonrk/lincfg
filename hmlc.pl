@@ -71,6 +71,7 @@ print <<EOF;
   <style type="text/css">
   @{[make_css(%colortheme_dark)]}
   </style>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Linux-oppsett</title>
 </head>
 <body>
