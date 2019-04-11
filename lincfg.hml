@@ -33,6 +33,30 @@ Etter at ´xterm´ entryen er laget, konverter terminfo databasen til
 termcap med kommandoen ´infocmp -C -r xterm >xterm.termcap´.  Erstatt
 gammel entry i ´/etc/termcap´ med denne nye utgaven.
 
+− VIM
+−− YouCompleteMe
+´
+cd /path/to/vim/plugins
+git clone https://github.com/Valloric/YouCompleteMe
+cd YouCompleteMe
+python3.7 ./install.py --clang-completer --system-libclang
+cd ~/.vim/pack/hakonrk/start
+ln -s /path/to/vim/plugins/YouCompleteMe
+´
+Legg så følgende først i ´~/.vimrc´:
+´
+let g:ycm_use_clangd = 0
+let g:ycm_global_ycm_extra_conf = "~/src/misc/etc/ycm_extra_conf.py"
+´
+Opprett ´~/src/misc/etc/ycm_extra_conf.py´:
+´
+def FlagsForFile( filename ):
+  return {
+    'flags': ['-w', '-isystem', '/usr/include'],
+    'do_cache': True
+  }
+´
+
 − Firefox
 −− Backspace-oppførsel
 Gå til ´about:config´ og sett
