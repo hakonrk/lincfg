@@ -211,9 +211,10 @@
 <ol><li><a href="#28.1.">Dell Inspiron 1564</a>
 <ol><li><a href="#28.1.1.">Installasjon</a>
 <li><a href="#28.1.2.">Display i X.org</a>
-</ol><li><a href="#28.2.">Oppsett av X på laptop med NVIDIA-kort</a>
-<ol><li><a href="#28.2.1.">Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver</a>
-<li><a href="#28.2.2.">Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og proprietær driver</a>
+</ol><li><a href="#28.2.">Fikse vsync på AMD Radeon</a>
+<li><a href="#28.3.">Oppsett av X på laptop med NVIDIA-kort</a>
+<ol><li><a href="#28.3.1.">Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver</a>
+<li><a href="#28.3.2.">Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og proprietær driver</a>
 </ol></ol><li><a href="#29.">Diverse</a>
 <ol><li><a href="#29.1.">Kernel modules pre-install</a>
 <li><a href="#29.2.">Mozilla-sertifikater</a>
@@ -2165,7 +2166,17 @@ Section "Device"
 EndSection
 </pre></table>
 
-<h2><a class=nolink name="28.2.">28.2. Oppsett av X på laptop med NVIDIA-kort</a></h2>
+<h2><a class=nolink name="28.2.">28.2. Fikse vsync på AMD Radeon</a></h2>
+Opprett <code>/etc/X11/xorg.conf.d/20-radeon.conf</code> med følgende innhold
+<table><tr><td><pre>
+Section "Device"
+    Identifier "Radeon"
+    Driver "radeon"
+    Option "TearFree" "on"
+EndSection
+</pre></table>
+
+<h2><a class=nolink name="28.3.">28.3. Oppsett av X på laptop med NVIDIA-kort</a></h2>
 Legg til <code>nouveau.modeset=0</code> på kernel command line ved installasjonen. Dette
 må gjøres permanent senere ved å legge det inn i <code>/etc/default/grub</code>:
 <table><tr><td><pre>
@@ -2178,7 +2189,7 @@ må gjøres permanent senere ved å legge det inn i <code>/etc/default/grub</cod
 Kjør deretter <code>grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg</code> for å
 generere nye initrd-filer.
 
-<h3><a class=nolink name="28.2.1.">28.2.1. Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver</a></h3>
+<h3><a class=nolink name="28.3.1.">28.3.1. Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og åpen driver</a></h3>
 Last ned <a target="_blank" href="http://downloads.openwrt.org/sources/broadcom-wl-4.178.10.4.tar.bz2">Broadcom's firmware</a>,
 og installer denne som følger:
 <table><tr><td><pre>
@@ -2193,7 +2204,7 @@ wpa_supplicant -i wlan0 -c ~/src/misc/etc/wpa_supplicant.conf -B
 dhclient wlan0
 </pre></table>
 
-<h3><a class=nolink name="28.2.2.">28.2.2. Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og proprietær driver</a></h3>
+<h3><a class=nolink name="28.3.2.">28.3.2. Wireless-nett med Dell 1395 (Broadcom 14e4:4315) og proprietær driver</a></h3>
 Skru først av vanlig b43 driver ved å legge inn følgende i
 <code>/etc/modprobe.d/broadcom.conf</code>:
 <table><tr><td><pre>

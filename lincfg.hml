@@ -1907,6 +1907,16 @@ Section "Device"
 EndSection
 ´
 
+−− Fikse vsync på AMD Radeon
+Opprett ´/etc/X11/xorg.conf.d/20-radeon.conf´ med følgende innhold
+´
+Section "Device"
+    Identifier "Radeon"
+    Driver "radeon"
+    Option "TearFree" "on"
+EndSection
+´
+
 −− Oppsett av X på laptop med NVIDIA-kort
 Legg til ´nouveau.modeset=0´ på kernel command line ved installasjonen. Dette
 må gjøres permanent senere ved å legge det inn i ´/etc/default/grub´:
