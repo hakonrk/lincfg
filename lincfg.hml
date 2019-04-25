@@ -2553,3 +2553,6 @@ La ´~/.config/Trolltech.conf´ inneholde:
 [Qt]
 style=GTK+
 ´
+
+−−− LibreOffice
+Gå til ´Tools → Options → View → Icon style´ og velg ´Breeze Dark´.
