@@ -1431,6 +1431,15 @@ sudo umount /mnt
 sudo cryptsetup close $name
 ´
 
+−− Mounte LUKS-kryptert partisjon ved boot
+Legg først til LUKS-partisjonen i ´/etc/crypttab´:
+´
+UUID=$(sudo cryptsetup luksDump /dev/sdb4 | awk '/UUID/{print$2}')
+echo luks-$UUID UUID=$UUID none discard | sudo tee -a /etc/crypttab
+´
+Deretter kan ´/dev/mapper/luks-$UUID´ mountes i ´/etc/fstab´, som en
+vanlig ukryptert partisjon.
+
 −− eCryptfs med passord fra login
 For å få /foo/private ferdig mountet med ecryptfs ved login
 uten å måtte skrive mount passphrase, start med å sette opp ecryptfs

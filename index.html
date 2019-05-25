@@ -187,17 +187,18 @@
 <li><a href="#24.4.5.">Brukere</a>
 </ol></ol><li><a href="#25.">Harddisker, partisjoner, filsystemer, LVM, RAID, etc.</a>
 <ol><li><a href="#25.1.">Mounte LUKS-kryptert partisjon manuelt</a>
-<li><a href="#25.2.">eCryptfs med passord fra login</a>
-<li><a href="#25.3.">eCryptfs på systemer der authconfig ikke setter det opp</a>
-<li><a href="#25.4.">IDE/ATA DMA</a>
-<li><a href="#25.5.">LVM</a>
-<ol><li><a href="#25.5.1.">Oppsett</a>
-<li><a href="#25.5.2.">Gjenoppretting av tidligere oppsett</a>
-<li><a href="#25.5.3.">Legge til ekstra partisjon</a>
-<li><a href="#25.5.4.">Krympe volum</a>
-</ol><li><a href="#25.6.">RAID5 med mdadm</a>
-<li><a href="#25.7.">Tuning for SSD</a>
-<li><a href="#25.8.">Konvertere ext2 til ext4</a>
+<li><a href="#25.2.">Mounte LUKS-kryptert partisjon ved boot</a>
+<li><a href="#25.3.">eCryptfs med passord fra login</a>
+<li><a href="#25.4.">eCryptfs på systemer der authconfig ikke setter det opp</a>
+<li><a href="#25.5.">IDE/ATA DMA</a>
+<li><a href="#25.6.">LVM</a>
+<ol><li><a href="#25.6.1.">Oppsett</a>
+<li><a href="#25.6.2.">Gjenoppretting av tidligere oppsett</a>
+<li><a href="#25.6.3.">Legge til ekstra partisjon</a>
+<li><a href="#25.6.4.">Krympe volum</a>
+</ol><li><a href="#25.7.">RAID5 med mdadm</a>
+<li><a href="#25.8.">Tuning for SSD</a>
+<li><a href="#25.9.">Konvertere ext2 til ext4</a>
 </ol><li><a href="#26.">PDF-manipulering</a>
 <ol><li><a href="#26.1.">PDF-manipulering vha qpdf</a>
 <li><a href="#26.2.">PDF-manipulering vha pdftk</a>
@@ -1692,7 +1693,16 @@ sudo umount /mnt
 sudo cryptsetup close $name
 </pre></table>
 
-<h2><a class=nolink name="25.2.">25.2. eCryptfs med passord fra login</a></h2>
+<h2><a class=nolink name="25.2.">25.2. Mounte LUKS-kryptert partisjon ved boot</a></h2>
+Legg først til LUKS-partisjonen i <code>/etc/crypttab</code>:
+<table><tr><td><pre>
+UUID=$(sudo cryptsetup luksDump /dev/sdb4 | awk '/UUID/{print$2}')
+echo luks-$UUID UUID=$UUID none discard | sudo tee -a /etc/crypttab
+</pre></table>
+Deretter kan <code>/dev/mapper/luks-$UUID</code> mountes i <code>/etc/fstab</code>, som en
+vanlig ukryptert partisjon.
+
+<h2><a class=nolink name="25.3.">25.3. eCryptfs med passord fra login</a></h2>
 For å få /foo/private ferdig mountet med ecryptfs ved login
 uten å måtte skrive mount passphrase, start med å sette opp ecryptfs
 mount:
@@ -1747,7 +1757,7 @@ $ <kbd>echo -n <var>LOGIN-PASSWORD</var> | ecryptfs-unwrap-passphrase $HOME/.ecr
 <dfn>Outputs <var>MOUNT-PASSWORD</var> in plaintext</dfn>
 </pre></table>
 
-<h2><a class=nolink name="25.3.">25.3. eCryptfs på systemer der authconfig ikke setter det opp</a></h2>
+<h2><a class=nolink name="25.4.">25.4. eCryptfs på systemer der authconfig ikke setter det opp</a></h2>
 Som et alternativ til <code>authconfig --enableecryptfs --updateall</code> kan man prøve
 følgende patch på /etc/pam.d:
 <table><tr><td><pre>
@@ -1798,7 +1808,7 @@ diff -ruN etc/pam.d/remote /etc/pam.d/remote
  password   include      password-auth
 </pre></table>
 
-<h2><a class=nolink name="25.4.">25.4. IDE/ATA DMA</a></h2>
+<h2><a class=nolink name="25.5.">25.5. IDE/ATA DMA</a></h2>
 For å få maks ytelse av disken, legg følgende i <code>/etc/rc.d/rc.S</code>:
 <table><tr><td><pre>
 /usr/sbin/hdparm -q -c3 -m16 -d1 -u1 /dev/hda
@@ -1809,9 +1819,9 @@ Forklaring: <code>-q</code> skrur av output, <code>-c3</code> velger 32-bit IDE 
 interrupt prosessering.  For å se grenser for hva som kan skrus på, se
 <code>/proc/ide/hda/settings</code> og <code>hdparm -i /dev/hda</code>.
 
-<h2><a class=nolink name="25.5.">25.5. LVM</a></h2>
+<h2><a class=nolink name="25.6.">25.6. LVM</a></h2>
 
-<h3><a class=nolink name="25.5.1.">25.5.1. Oppsett</a></h3>
+<h3><a class=nolink name="25.6.1.">25.6.1. Oppsett</a></h3>
 Det følgende er et eksempel som viser hvordan man setter opp to disker
 (<code>/dev/sda</code> og <code>/dev/sdb</code>) i LVM med striping (64 KiB stripe size).
 Start med å opprette en partisjon på hver disk som dekker hele disken.
@@ -1837,14 +1847,14 @@ Dersom man har glemt stripe size på volumet, kan den vises med
 lvs --units b -o stripesize /dev/<var>vgname</var>/<var>lv00</var>
 </pre></table>
 
-<h3><a class=nolink name="25.5.2.">25.5.2. Gjenoppretting av tidligere oppsett</a></h3>
+<h3><a class=nolink name="25.6.2.">25.6.2. Gjenoppretting av tidligere oppsett</a></h3>
 For å hente fram og sette opp et tidligere LVM-oppsett, kjør <code>vgscan</code> for å
 finne gruppene, og deretter
 <table><tr><td><pre>
 vgchange -ay <var>VG-NAME</var>
 </pre></table>
 
-<h3><a class=nolink name="25.5.3.">25.5.3. Legge til ekstra partisjon</a></h3>
+<h3><a class=nolink name="25.6.3.">25.6.3. Legge til ekstra partisjon</a></h3>
 For å legge til <code>/dev/sdq3</code> i volume group <code><var>VG-NAME</var></code>, gjør:
 <table><tr><td><pre>
 pvcreate /dev/sdq3
@@ -1853,7 +1863,7 @@ lvextend -l +100%Free /dev/<var>VG-NAME</var>/<var>LV-NAME</var>
 resize2fs /dev/<var>VG-NAME</var>/<var>LV-NAME</var>
 </pre></table>
 
-<h3><a class=nolink name="25.5.4.">25.5.4. Krympe volum</a></h3>
+<h3><a class=nolink name="25.6.4.">25.6.4. Krympe volum</a></h3>
 Reduser filsystemet til minimum:
 <table><tr><td><pre>
 resize2fs -M /dev/<var>VOLGROUP</var>/<var>LVNAME</var>
@@ -1879,7 +1889,7 @@ Når volumet er resizet til ønsket antall extents, la filsystemet vokse til
 resize2fs /dev/<var>VOLGROUP</var>/<var>LVNAME</var>
 </pre></table>
 
-<h2><a class=nolink name="25.6.">25.6. RAID5 med mdadm</a></h2>
+<h2><a class=nolink name="25.7.">25.7. RAID5 med mdadm</a></h2>
 Følgende viser et eksempel på hvordan man kan sette
 opp et RAID5-array bestående av fire disker, <code>/dev/sda</code>
 t.o.m. <code>/dev/sdd</code>.  Begynn med å partisjonere opp diskene
@@ -1909,7 +1919,7 @@ er 64 KiB, så er RAID-stride 64/4 = 16:
 mkfs.ext3 -b 4096 -E stride=16 /dev/md0
 </pre></table>
 
-<h2><a class=nolink name="25.7.">25.7. Tuning for SSD</a></h2>
+<h2><a class=nolink name="25.8.">25.8. Tuning for SSD</a></h2>
 Legg til <code>noatime,discard</code> på mount options i <code>/etc/fstab</code> for å fjerne access
 time updates og skru på TRIM.  <em>IKKE</em> skru av journaling, for da virker ikke
 <code>discard</code> (auto-TRIM).  Trim kan utføres manuelt med
@@ -1933,7 +1943,7 @@ Verifiser at riktig scheduler brukes med
 cat /sys/block/<var>DEVICE</var>/queue/scheduler
 </pre></table>
 
-<h2><a class=nolink name="25.8.">25.8. Konvertere ext2 til ext4</a></h2>
+<h2><a class=nolink name="25.9.">25.9. Konvertere ext2 til ext4</a></h2>
 Unmount <code><var>PARTITION</var></code> og gjør:
 <table><tr><td><pre>
 tune2fs -O extents,uninit_bg,dir_index,has_journal <var>PARTITION</var>
