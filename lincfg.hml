@@ -33,6 +33,13 @@ Etter at ´xterm´ entryen er laget, konverter terminfo databasen til
 termcap med kommandoen ´infocmp -C -r xterm >xterm.termcap´.  Erstatt
 gammel entry i ´/etc/termcap´ med denne nye utgaven.
 
+− FTP
+−− Automatisk bruke anonymous login for FTP
+Opprett følgende ´~/.netrc´:
+´
+default login anonymous password hakonrk@birk126.studby.uio.no
+´
+
 − VIM
 −− YouCompleteMe
 ´
