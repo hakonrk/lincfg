@@ -1228,16 +1228,48 @@ qemu-system-i386 -enable-kvm -m 512 -hda QEMU-IMAGE -cdrom WINDOWS-ISO -boot d
 
 Starte Windows qemu image:
 ´
-#!/bin/bash
-iface=$(/sbin/ip route get 8.8.8.8 | awk 'BEGIN{RS=" +"}/^dev$/{getline;print}')
-qemu-system-i386 \
-    -enable-kvm \
-    -m 512 \
-    -hda winxp.img \
-    -boot c \
-    -netdev user,id=$iface,net=192.168.76.0/24,dhcpstart=192.168.76.9 \
-    -net nic,model=rtl8139 -net user
+#!/bin/sh
+
+iface=$(/sbin/ip route get 1.1.1.1 | awk 'BEGIN{RS="\\s+"}/^dev$/{getline;print}')
+max_concurrent_threads=$(awk '/^processor/{++n}END{print n}' /proc/cpuinfo)
+
+image=win10.derived.qcow2
+
+qemu_args=()
+qemu_args+=(-enable-kvm)
+qemu_args+=(-m 8192)
+qemu_args+=(-cpu host)
+qemu_args+=(-smp $max_concurrent_threads)
+qemu_args+=(-hda $image)
+#qemu_args+=(-device virtio-scsi-pci,id=scsi0 -drive file=$image,if=none,format=qcow2,id=cDrive -device virtio-scsi-pci,id=scsi -device scsi-hd,drive=cDrive)
+qemu_args+=(-monitor stdio)
+qemu_args+=(-device qemu-xhci,id=xhci)
+qemu_args+=(-device usb-tablet,bus=xhci.0)
+qemu_args+=(-spice port=5924,disable-ticketing)
+qemu_args+=(-device virtio-serial)
+qemu_args+=(-chardev spicevmc,id=vdagent,name=vdagent)
+qemu_args+=(-device virtserialport,chardev=vdagent,name=com.redhat.spice.0)
+qemu_args+=(-vga qxl)
+qemu_args+=(-netdev user,id=$iface,net=192.168.76.0/24,dhcpstart=192.168.76.9 -net nic,model=rtl8139 -net user,smb=/crypt/tmp/qemu)
+#qemu_args+=(-cdrom foobar.iso)
+
+qemu-system-x86_64 "${qemu_args[@]}"
 ´
+
+For shared folders, opprett ´/etc/samba/smb.conf´ med følgende innhold:
+´
+[qemu]
+	path = /crypt/tmp/qemu
+	browseable = yes
+	force user=hakonrk
+	guest ok = true
+	write list = hakonrk
+	acl allow execute always = true
+	create mask = 0664
+	directory mask = 0775
+´
+
+Etter VM'en er startet, så må man koble til display med ´spicy --title 'Windows' localhost -p 5924´.
 
 For å gjøre slik at localhost:9000 går til localhost:22 i VM'en, bytt
 ´-net´ argumentet til:
