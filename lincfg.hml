@@ -43,25 +43,27 @@ default login anonymous password hakonrk@birk126.studby.uio.no
 − VIM
 −− YouCompleteMe
 ´
-cd /path/to/vim/plugins
-git clone https://github.com/Valloric/YouCompleteMe
+cd ~/.vim/pack/hakonrk/opt
+git clone --recurse-submodules https://github.com/Valloric/YouCompleteMe
 cd YouCompleteMe
-python3.7 ./install.py --clang-completer --system-libclang
-cd ~/.vim/pack/hakonrk/start
-ln -s /path/to/vim/plugins/YouCompleteMe
+python3.7 ./install.py --clangd-completer --clang-completer
+cd ~/.vim/doc
+ln -s ../pack/hakonrk/opt/YouCompleteMe/doc YouCompleteMe
+vim +'helptags ~/.vim/doc' +q
 ´
-Legg så følgende først i ´~/.vimrc´:
+Legg så følgende i ´~/.vim/plugin/config-ycm.vim´:
 ´
-let g:ycm_use_clangd = 0
-let g:ycm_global_ycm_extra_conf = "~/src/misc/etc/ycm_extra_conf.py"
-´
-Opprett ´~/src/misc/etc/ycm_extra_conf.py´:
-´
-def FlagsForFile( filename ):
-  return {
-    'flags': ['-w', '-isystem', '/usr/include'],
-    'do_cache': True
-  }
+let g:ycm_use_clangd = 1
+let g:ycm_key_invoke_completion = '°'
+let g:ycm_key_list_stop_completion = ['<C-x>', '<CR>']
+
+let g:ycm_clangd_args = ["-background-index"]
+
+if findfile('compile_commands.json', expand('%:p:h') . ';') != ''
+  packadd YouCompleteMe
+  let g:ale_linters['c'] = []
+  let g:ale_linters['cpp'] = []
+endif
 ´
 
 − Firefox
