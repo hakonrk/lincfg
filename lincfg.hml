@@ -66,6 +66,13 @@ if findfile('compile_commands.json', expand('%:p:h') . ';') != ''
 endif
 ´
 
+− Brave
+−− Sett til default browser
+´
+unset BROWSER
+xdg-settings set default-web-browser brave-browser.desktop
+´
+
 − Firefox
 −− Backspace-oppførsel
 Gå til ´about:config´ og sett
@@ -339,6 +346,27 @@ tc qdisc add dev $DEV handle ffff: ingress
 tc filter add dev $DEV parent ffff: protocol ip prio 50 u32 match ip src \
    0.0.0.0/0 police rate ${DOWNLINK}kbit burst 10k drop flowid :1
 ´
+
+−− Feilsøking og rekonfigurering av router
+Finn ut hvilken statisk IP-adresse routeren kan nås på:
+´
+¡# Eksempelverdi:
+ROUTER_IP=“192.168.1.1”
+´
+
+Gi deretter PC-en som skal snakke med routeren en statisk IP-adresse
+som ikke er i bruk:
+´
+¡# Eksempelverdier:
+PC_NETWORK_INTERFACE=“eth0”
+PC_IP=“192.168.1.2”
+
+ip link set $PC_NETWORK_INTERFACE up
+ip addr add $PC_IP/24 dev $PC_NETWORK_INTERFACE
+ip route add default “192.168.1.0/24” via $ROUTER_IP
+´
+
+Det skal da være mulig å gå til ´http://$ROUTER_IP/´ og logge inn.
 
 −− Privat DNS/DHCP med dnsmasq
 Start med å skru av DHCP på NAT-router, og sett opp dnsmasq-boksen
