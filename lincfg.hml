@@ -744,6 +744,21 @@ poll “SERVER” via localhost port “LOCAL-PORT” username “USERNAME” pa
   preconnect "ssh -fL “LOCAL-PORT”:“SERVER”:110 “SERVER” sleep 20"
 ´
 
+−− Fetchmail til å ta backup av IMAP
+Installer procmail i tillegg til fetchmail (for å få ´formail´). Legg inn login
+info for IMAP-serveren i ´~/.netrc´:
+´
+machine “HOSTNAME” login “USERNAME” password “PASSWORD”
+´
+Deretter kan meldinger lastes ned med følgende kommando:
+´
+fetchmail --username “USERNAME” --keep --fetchall --ssl --mda 'formail -c >> “MBOX-DESTINATION-PATH”' --folder “IMAP-FOLDER” “HOSTNAME”
+´
+For å liste IMAP-mapper, gjør
+´
+curl --netrc --url "imap://“HOSTNAME”/"
+´
+
 − Exim
 −− Korrekt avsender
 Fjern først ´“Sender:”´ ved å sette

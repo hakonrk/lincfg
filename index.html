@@ -118,6 +118,7 @@
 <li><a href="#14.2.">SSH agent</a>
 <li><a href="#14.3.">SSH port forwarding</a>
 <li><a href="#14.4.">Fetchmail via SSH-tunnel</a>
+<li><a href="#14.5.">Fetchmail til å ta backup av IMAP</a>
 </ol><li><a href="#15.">Exim</a>
 <ol><li><a href="#15.1.">Korrekt avsender</a>
 <li><a href="#15.2.">Bruk sammen med fetchmail</a>
@@ -1009,6 +1010,21 @@ La <code>~/.fetchmailrc</code> inneholde følgende:
 <table><tr><td><pre>
 poll <var>SERVER</var> via localhost port <var>LOCAL-PORT</var> username <var>USERNAME</var> password "<var>PASSWD</var>"
   preconnect "ssh -fL <var>LOCAL-PORT</var>:<var>SERVER</var>:110 <var>SERVER</var> sleep 20"
+</pre></table>
+
+<h2><a class=nolink name="14.5.">14.5. Fetchmail til å ta backup av IMAP</a></h2>
+Installer procmail i tillegg til fetchmail (for å få <code>formail</code>). Legg inn login
+info for IMAP-serveren i <code>~/.netrc</code>:
+<table><tr><td><pre>
+machine <var>HOSTNAME</var> login <var>USERNAME</var> password <var>PASSWORD</var>
+</pre></table>
+Deretter kan meldinger lastes ned med følgende kommando:
+<table><tr><td><pre>
+fetchmail --username <var>USERNAME</var> --keep --fetchall --ssl --mda 'formail -c &gt;&gt; <var>MBOX-DESTINATION-PATH</var>' --folder <var>IMAP-FOLDER</var> <var>HOSTNAME</var>
+</pre></table>
+For å liste IMAP-mapper, gjør
+<table><tr><td><pre>
+curl --netrc --url "imap://<var>HOSTNAME</var>/"
 </pre></table>
 
 <h1><a class=nolink name="15.">15. Exim</a></h1>
