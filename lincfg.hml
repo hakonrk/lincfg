@@ -1443,6 +1443,12 @@ htpasswd -c /etc/httpd/conf/webdav-passwd “USERNAME”
 Merk at ´-c´ får htpasswd til å overskrive eksisterende filer.  Dropp ´-c´
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
+−− Backup av MySQL-database
+For å dumpe en SQL-database til fil, gjør følgende:
+´
+mysqldump --add-drop-table -u“USERNAME” -p“PASSWORD” -h“SQL-SERVER” “DBNAME” >“PATH-TO-SQL-DUMP”
+´
+
 −− Oppsett av vBulletin
 Pakk ut vBulletin i ´/var/www/html´.  Sett så opp MySQL:
 ´

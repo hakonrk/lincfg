@@ -184,13 +184,14 @@
 </ol><li><a href="#26.">Web server-oppsett, PHP, SQL, etc.</a>
 <ol><li><a href="#26.1.">Oppsett av alternativ Apache share</a>
 <li><a href="#26.2.">Oppsett av DAV med SSL på Apache</a>
-<li><a href="#26.3.">Oppsett av vBulletin</a>
-<li><a href="#26.4.">Generelt om SQL</a>
-<ol><li><a href="#26.4.1.">Velge database</a>
-<li><a href="#26.4.2.">Beskrive tabell</a>
-<li><a href="#26.4.3.">Printe innhold i tabell</a>
-<li><a href="#26.4.4.">Slette rad i tabell</a>
-<li><a href="#26.4.5.">Brukere</a>
+<li><a href="#26.3.">Backup av MySQL-database</a>
+<li><a href="#26.4.">Oppsett av vBulletin</a>
+<li><a href="#26.5.">Generelt om SQL</a>
+<ol><li><a href="#26.5.1.">Velge database</a>
+<li><a href="#26.5.2.">Beskrive tabell</a>
+<li><a href="#26.5.3.">Printe innhold i tabell</a>
+<li><a href="#26.5.4.">Slette rad i tabell</a>
+<li><a href="#26.5.5.">Brukere</a>
 </ol></ol><li><a href="#27.">Harddisker, partisjoner, filsystemer, LVM, RAID, etc.</a>
 <ol><li><a href="#27.1.">Mounte LUKS-kryptert partisjon manuelt</a>
 <li><a href="#27.2.">Mounte LUKS-kryptert partisjon ved boot</a>
@@ -1711,7 +1712,13 @@ htpasswd -c /etc/httpd/conf/webdav-passwd <var>USERNAME</var>
 Merk at <code>-c</code> får htpasswd til å overskrive eksisterende filer.  Dropp <code>-c</code>
 hvis det allerede eksisterer en passord-fil hvor nye brukere skal legges til.
 
-<h2><a class=nolink name="26.3.">26.3. Oppsett av vBulletin</a></h2>
+<h2><a class=nolink name="26.3.">26.3. Backup av MySQL-database</a></h2>
+For å dumpe en SQL-database til fil, gjør følgende:
+<table><tr><td><pre>
+mysqldump --add-drop-table -u<var>USERNAME</var> -p<var>PASSWORD</var> -h<var>SQL-SERVER</var> <var>DBNAME</var> &gt;<var>PATH-TO-SQL-DUMP</var>
+</pre></table>
+
+<h2><a class=nolink name="26.4.">26.4. Oppsett av vBulletin</a></h2>
 Pakk ut vBulletin i <code>/var/www/html</code>.  Sett så opp MySQL:
 <table><tr><td><pre>
 <dfn># Opprett root-bruker.</dfn>
@@ -1738,18 +1745,18 @@ $config['MasterServer']['password'] = '<var>PASSWORD</var>'
 $config['MasterServer']['servername'] = 'localhost'
 </pre></table>
 
-<h2><a class=nolink name="26.4.">26.4. Generelt om SQL</a></h2>
-<h3><a class=nolink name="26.4.1.">26.4.1. Velge database</a></h3>
+<h2><a class=nolink name="26.5.">26.5. Generelt om SQL</a></h2>
+<h3><a class=nolink name="26.5.1.">26.5.1. Velge database</a></h3>
 To muligheter: <code>mysql -u<var>USER</var> -p<var>PASSWORD</var> <var>DBNAME</var></code> eller
 bare <code>mysql -u<var>USER</var> -p<var>PASSWORD</var></code> og så <code>use <var>DBNAME</var></code>
 i mysql-promptet.
 
-<h3><a class=nolink name="26.4.2.">26.4.2. Beskrive tabell</a></h3>
+<h3><a class=nolink name="26.5.2.">26.5.2. Beskrive tabell</a></h3>
 <table><tr><td><pre>
 mysql&gt; <kbd>describe <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="26.4.3.">26.4.3. Printe innhold i tabell</a></h3>
+<h3><a class=nolink name="26.5.3.">26.5.3. Printe innhold i tabell</a></h3>
 <table><tr><td><pre>
 <dfn># Utvalgte kolonner</dfn>
 mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;</kbd>
@@ -1757,12 +1764,12 @@ mysql&gt; <kbd>select <var>COL1</var>,<var>COL2</var>,... from <var>TABLE</var>;
 mysql&gt; <kbd>select * from <var>TABLE</var>;</kbd>
 </pre></table>
 
-<h3><a class=nolink name="26.4.4.">26.4.4. Slette rad i tabell</a></h3>
+<h3><a class=nolink name="26.5.4.">26.5.4. Slette rad i tabell</a></h3>
 <table><tr><td><pre>
 mysql&gt; <kbd>delete from <var>TABLE</var> where <var>COL</var> = "<var>foo</var>";</kbd>
 </pre></table>
 
-<h3><a class=nolink name="26.4.5.">26.4.5. Brukere</a></h3>
+<h3><a class=nolink name="26.5.5.">26.5.5. Brukere</a></h3>
 Brukere i MySQL ligger i databasen <code>mysql</code> og tabellen <code>user</code>.
 
 
