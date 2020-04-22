@@ -49,6 +49,7 @@ my %colortheme_dark = (
     pre_background => '#121212',
     kbd_color => '#ca2e15',
     dfn_color => '#5873b0',
+    var_color => '#d0d0d0',
 );
 
 my %colortheme_light = (
@@ -179,6 +180,12 @@ sub make_css {
     dfn {
         font-weight: bold;
         color: $colors{dfn_color};
+    }
+
+    var {
+        font-style: normal;
+        font-weight: bold;
+        color: $colors{var_color};
     }
 EOF
 }
