@@ -655,6 +655,9 @@ med følgende innhold:
 <dfn># domain" rather than being forwarded upstream.</dfn>
 bogus-priv
 
+<dfn># Never forward plain names (without a dot or domain part).</dfn>
+domain-needed
+
 <dfn># Don't read the hostnames in /etc/hosts, since it might contain mappings that</dfn>
 <dfn># should not be available in DNS (for example, if /etc/hosts maps the hostname</dfn>
 <dfn># of the dnsmasq server to 127.0.0.1, other clients on the LAN would resolve</dfn>
@@ -670,29 +673,48 @@ domain=venod.com
 <dfn># We don't use /etc/hosts, but these extra files are formatted the same</dfn>
 <dfn># way, and do not have the 127.0.0.1-problem that /etc/hosts has.</dfn>
 addn-hosts=/home/hakonrk/src/misc/etc/hosts
-addn-hosts=/etc/hosts.dnsmasq
-addn-hosts=/etc/hosts.dyndhcp
+addn-hosts=/etc/dnsmasq.d/hosts/static
+<dfn>#addn-hosts=/etc/dnsmasq.d/hosts/dynamic</dfn>
 
 <dfn># DHCP clients gets these values for gateway and DNS server</dfn>
 dhcp-option=option:router,10.0.0.3
 dhcp-option=option:dns-server,10.0.0.3
 
 <dfn># IP addresses of the upstream DNS servers to use for external lookups.</dfn>
-server=213.158.233.130
-server=213.158.233.131
+server=1.1.1.1
+server=1.0.0.1
+server=8.8.4.4
+server=8.8.8.8
 
-<dfn># Never forward DNS requests for *.venod.com to external DNS servers.</dfn>
+<dfn># *.venod.com is a local domain, except for lincfg and wincfg that are external.</dfn>
+server="/lincfg.venod.com/#"
+server="/wincfg.venod.com/#"
+
+<dfn># Never forward DNS requests for *.venod.com to external servers.</dfn>
 local=/venod.com/
+
+<dfn># On the LAN, the bare domain (venod.com) should resolve to the gateway.</dfn>
+host-record=venod.com,10.0.0.3
 
 <dfn># DHCP range for clients without a static map (12 hour lease).</dfn>
 dhcp-range=10.0.0.100,10.0.0.199,12h
 
 <dfn># Static DHCP mappings.</dfn>
-dhcp-host=00:1F:D0:DA:E0:FC,10.0.0.4    <dfn># snowbird</dfn>
-dhcp-host=00:15:99:28:DA:A5,10.0.0.28   <dfn># samsung ml-2851nd</dfn>
-dhcp-host=00:02:3F:07:D6:0B,10.0.0.9    <dfn># montana (ethernet)</dfn>
-dhcp-host=00:0E:35:0C:13:D5,10.0.0.8    <dfn># montana (wifi)</dfn>
-dhcp-host=00:12:5A:C3:48:AA,10.0.0.36   <dfn># xbox 360</dfn>
+dhcp-host=34:97:F6:31:82:C3,10.0.0.4    <dfn># workstation</dfn>
+dhcp-host=30:9C:23:15:E1:71,10.0.0.5    <dfn># laptop fixed</dfn>
+dhcp-host=C0:B6:F9:E5:53:49,10.0.0.8    <dfn># laptop wifi</dfn>
+dhcp-host=30:59:B7:E9:A8:C4,10.0.0.11   <dfn># xbox one</dfn>
+dhcp-host=F8:27:93:E1:9B:6E,10.0.0.13   <dfn># ipad</dfn>
+dhcp-host=E0:B9:A5:AD:02:26,10.0.0.33   <dfn># fob</dfn>
+<dfn>#dhcp-host=00:12:5A:C3:48:AA,10.0.0.36   # xbox 360</dfn>
+dhcp-host=A0:6F:AA:45:CE:B2,10.0.0.55   <dfn># lg tv oled 55 b6v</dfn>
+<dfn>#dhcp-host=14:D6:4D:E7:E9:DB,10.0.0.60   # d-link dir600 AP</dfn>
+<dfn>#dhcp-host=A4:D1:D2:48:C4:22,10.0.0.61   # d-link dir600 AP (extra IP??)</dfn>
+dhcp-host=8E:3B:AD:0E:DC:3D,10.0.0.68   <dfn># Netgear Nighthawk X6S WiFi Extender</dfn>
+dhcp-host=44:D8:78:41:91:E6,10.0.0.75   <dfn># Philips 75" "The One" TV</dfn>
+dhcp-host=00:23:C1:05:41:EE,10.0.0.80   <dfn># verisure box</dfn>
+dhcp-host=74:40:BB:7B:EB:8E,10.0.0.81   <dfn># hp color laserjet pro mfp m281fdw</dfn>
+dhcp-host=6C:C7:EC:57:ED:68,10.0.0.88   <dfn># samsung galaxy s8+</dfn>
 </pre></table>
 Deretter må man sette opp dnsmasq-boksens <code>/etc/resolv.conf</code>
 til å inneholde seg selv (eks: <code>nameserver 10.0.0.3</code>).  Det er ikke

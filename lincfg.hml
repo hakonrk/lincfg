@@ -380,6 +380,9 @@ med følgende innhold:
 ¡# domain" rather than being forwarded upstream.
 bogus-priv
 
+¡# Never forward plain names (without a dot or domain part).
+domain-needed
+
 ¡# Don't read the hostnames in /etc/hosts, since it might contain mappings that
 ¡# should not be available in DNS (for example, if /etc/hosts maps the hostname
 ¡# of the dnsmasq server to 127.0.0.1, other clients on the LAN would resolve
@@ -395,29 +398,48 @@ domain=venod.com
 ¡# We don't use /etc/hosts, but these extra files are formatted the same
 ¡# way, and do not have the 127.0.0.1-problem that /etc/hosts has.
 addn-hosts=/home/hakonrk/src/misc/etc/hosts
-addn-hosts=/etc/hosts.dnsmasq
-addn-hosts=/etc/hosts.dyndhcp
+addn-hosts=/etc/dnsmasq.d/hosts/static
+¡#addn-hosts=/etc/dnsmasq.d/hosts/dynamic
 
 ¡# DHCP clients gets these values for gateway and DNS server
 dhcp-option=option:router,10.0.0.3
 dhcp-option=option:dns-server,10.0.0.3
 
 ¡# IP addresses of the upstream DNS servers to use for external lookups.
-server=213.158.233.130
-server=213.158.233.131
+server=1.1.1.1
+server=1.0.0.1
+server=8.8.4.4
+server=8.8.8.8
 
-¡# Never forward DNS requests for *.venod.com to external DNS servers.
+¡# *.venod.com is a local domain, except for lincfg and wincfg that are external.
+server="/lincfg.venod.com/#"
+server="/wincfg.venod.com/#"
+
+¡# Never forward DNS requests for *.venod.com to external servers.
 local=/venod.com/
+
+¡# On the LAN, the bare domain (venod.com) should resolve to the gateway.
+host-record=venod.com,10.0.0.3
 
 ¡# DHCP range for clients without a static map (12 hour lease).
 dhcp-range=10.0.0.100,10.0.0.199,12h
 
 ¡# Static DHCP mappings.
-dhcp-host=00:1F:D0:DA:E0:FC,10.0.0.4    ¡# snowbird
-dhcp-host=00:15:99:28:DA:A5,10.0.0.28   ¡# samsung ml-2851nd
-dhcp-host=00:02:3F:07:D6:0B,10.0.0.9    ¡# montana (ethernet)
-dhcp-host=00:0E:35:0C:13:D5,10.0.0.8    ¡# montana (wifi)
-dhcp-host=00:12:5A:C3:48:AA,10.0.0.36   ¡# xbox 360
+dhcp-host=34:97:F6:31:82:C3,10.0.0.4    ¡# workstation
+dhcp-host=30:9C:23:15:E1:71,10.0.0.5    ¡# laptop fixed
+dhcp-host=C0:B6:F9:E5:53:49,10.0.0.8    ¡# laptop wifi
+dhcp-host=30:59:B7:E9:A8:C4,10.0.0.11   ¡# xbox one
+dhcp-host=F8:27:93:E1:9B:6E,10.0.0.13   ¡# ipad
+dhcp-host=E0:B9:A5:AD:02:26,10.0.0.33   ¡# fob
+¡#dhcp-host=00:12:5A:C3:48:AA,10.0.0.36   # xbox 360
+dhcp-host=A0:6F:AA:45:CE:B2,10.0.0.55   ¡# lg tv oled 55 b6v
+¡#dhcp-host=14:D6:4D:E7:E9:DB,10.0.0.60   # d-link dir600 AP
+¡#dhcp-host=A4:D1:D2:48:C4:22,10.0.0.61   # d-link dir600 AP (extra IP??)
+dhcp-host=8E:3B:AD:0E:DC:3D,10.0.0.68   ¡# Netgear Nighthawk X6S WiFi Extender
+dhcp-host=44:D8:78:41:91:E6,10.0.0.75   ¡# Philips 75" "The One" TV
+dhcp-host=00:23:C1:05:41:EE,10.0.0.80   ¡# verisure box
+dhcp-host=74:40:BB:7B:EB:8E,10.0.0.81   ¡# hp color laserjet pro mfp m281fdw
+dhcp-host=6C:C7:EC:57:ED:68,10.0.0.88   ¡# samsung galaxy s8+
 ´
 Deretter må man sette opp dnsmasq-boksens ´/etc/resolv.conf´
 til å inneholde seg selv (eks: ´nameserver 10.0.0.3´).  Det er ikke
