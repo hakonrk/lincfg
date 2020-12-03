@@ -99,8 +99,9 @@
 <ol><li><a href="#7.1.">NAT</a>
 <li><a href="#7.2.">Traffic-shaping</a>
 <li><a href="#7.3.">Feilsøking og rekonfigurering av router</a>
-<li><a href="#7.4.">Privat DNS/DHCP med dnsmasq</a>
-<li><a href="#7.5.">Netboot (PXE) vha. dnsmasq</a>
+<li><a href="#7.4.">iproute2 cheat sheet</a>
+<li><a href="#7.5.">Privat DNS/DHCP med dnsmasq</a>
+<li><a href="#7.6.">Netboot (PXE) vha. dnsmasq</a>
 </ol><li><a href="#8.">Scanning</a>
 <ol><li><a href="#8.1.">scanimage</a>
 </ol><li><a href="#9.">Utskrift</a>
@@ -643,7 +644,143 @@ ip route add default <var>192.168.1.0/24</var> via $ROUTER_IP
 
 Det skal da være mulig å gå til <code>http://$ROUTER_IP/</code> og logge inn.
 
-<h2><a class=nolink name="7.4.">7.4. Privat DNS/DHCP med dnsmasq</a></h2>
+<h2><a class=nolink name="7.4.">7.4. iproute2 cheat sheet</a></h2>
+<table><tr><td><pre>
+<dfn># Show information for all addresses</dfn>
+ip addr
+
+<dfn># Display information only for device em1</dfn>
+ip addr show dev em1
+
+<dfn># Show information for all interfaces</dfn>
+ip link
+
+<dfn># Display information only for device em1</dfn>
+ip link show dev em1
+
+<dfn># Display interface statistics</dfn>
+ip -s link
+
+<dfn># List all of the route entries in the kernel</dfn>
+ip route
+
+<dfn># Display multicast information for all devices</dfn>
+ip maddr
+
+<dfn># Display multicast information for device em1</dfn>
+ip maddr show dev em1
+
+<dfn># Display neighbour objects</dfn>
+ip neigh
+
+<dfn># Show the ARP cache for device em1</dfn>
+ip neigh show dev em1
+
+<dfn># Add mutlicast address 33:33:00:00:00:01 to em1</dfn>
+ip maddr add 33:33:00:00:00:01 dev em1
+
+<dfn># Delete address 33:33:00:00:00:01 from em1</dfn>
+ip maddr del 33:33:00:00:00:01 dev em1
+
+<dfn># Add address 192.168.1.1 with netmask 24 to device em1</dfn>
+ip addr add 192.168.1.1/24 dev em1
+
+<dfn># Remove address 192.168.1.1/24 from device em1</dfn>
+ip addr del 192.168.1.1/24 dev em1
+
+<dfn># Bring em1 online </dfn>
+ip link set em1 up
+
+<dfn># Bring em1 offline </dfn>
+ip link set em1 down
+
+<dfn># Set the MTU on em1 to 9000</dfn>
+ip link set em1 mtu 9000
+
+<dfn># Enable promiscuous mode for em1</dfn>
+ip link set em1 promisc on
+
+<dfn># Add a default route (for all addresses) via the local gateway 192.168.1.1 that can be reached on device em1</dfn>
+ip route add default via 192.168.1.1 dev em1
+
+<dfn># Add a route to 192.168.1.0/24 via the gateway at 192.168.1.1</dfn>
+ip route add 192.168.1.0/24 via 192.168.1.1
+
+<dfn># Add a route to 192.168.1.0/24 that can be reached on device em1</dfn>
+ip route add 192.168.1.0/24 dev em1
+
+<dfn># Delete the route for 192.168.1.0/24 via the gateway at 192.168.1.1</dfn>
+ip route delete 192.168.1.0/24 via 192.168.1.1
+
+<dfn># Replace the defined route for 192.168.1.0/24 to use device em1</dfn>
+ip route replace 192.168.1.0/24 dev em1
+
+<dfn># Display the route taken for IP 192.168.1.5</dfn>
+ip route get 192.168.1.5
+
+<dfn># Add address 192.168.1.1 with MAC 1:2:3:4:5:6 to em1</dfn>
+ip neigh add 192.168.1.1 lladdr 1:2:3:4:5:6 dev em1
+
+<dfn># Invalidate the entry for 192.168.1.1 on em1</dfn>
+ip neigh del 192.168.1.1 dev em1
+
+<dfn># Replace the entry for address 192.168.1.1 to use MAC 1:2:3:4:5:6 on em1</dfn>
+ip neigh replace 192.168.1.1 lladdr 1:2:3:4:5:6 dev em1
+
+<dfn># Send ARP request to 192.168.1.1 via interface eth0</dfn>
+arping -I eth0 192.168.1.1
+
+<dfn># Check for duplicate MAC addresses at 192.168.1.1 on eth0</dfn>
+arping -D -I eth0 192.168.1.1
+
+<dfn># Display ring buffer for eth0</dfn>
+ethtool -g eth0
+
+<dfn># Display driver information for eth0</dfn>
+ethtool -i eth0
+
+<dfn># Identify eth0 by sight, typically by causing LEDs to blink on the network port</dfn>
+ethtool -p eth0
+
+<dfn># Display network and driver statistics for eth0</dfn>
+ethtool -S eth0
+
+<dfn># Show all sockets (listening and non-listening)</dfn>
+ss -a
+
+<dfn># Show detailed socket information</dfn>
+ss -e
+
+<dfn># Show timer information</dfn>
+ss -o
+
+<dfn># Do not resolve addresses</dfn>
+ss -n
+
+<dfn># Show process using the socket</dfn>
+ss -p
+
+<dfn># Equivalents:</dfn>
+arp -a                                                       ip neigh
+arp -v                                                       ip -s neigh
+arp -s 192.168.1.1 1:2:3:4:5:6                               ip neigh add 192.168.1.1 lladdr 1:2:3:4:5:6 dev eth1
+arp -i eth1 -d 192.168.1.1                                   ip neigh del 192.168.1.1 dev eth1
+ifconfig -a                                                  ip addr
+ifconfig eth0 down                                           ip link set eth0 down
+ifconfig eth0 up                                             ip link set eth0 up
+ifconfig eth0 192.168.1.1                                    ip addr add 192.168.1.1/24 dev eth0
+ifconfig eth0 netmask 255.255.255.0                          ip addr add 192.168.1.1/24 dev eth0
+ifconfig eth0 mtu 9000                                       ip link set eth0 mtu 9000
+ifconfig eth0:0 192.168.1.2                                  ip addr add 192.168.1.2/24 dev eth0
+netstat                                                      ss
+netstat -neopa                                               ss -neopa
+netstat -g                                                   ip maddr
+route                                                        ip route
+route add -net 192.168.1.0 netmask 255.255.255.0 dev eth0    ip route add 192.168.1.0/24 dev eth0
+route add default gw 192.168.1.1                             ip route add default via 192.168.1.1
+</pre></table>
+
+<h2><a class=nolink name="7.5.">7.5. Privat DNS/DHCP med dnsmasq</a></h2>
 Start med å skru av DHCP på NAT-router, og sett opp dnsmasq-boksen
 slik at den har statisk IP.  Opprett en <code>/etc/hosts.dnsmasq</code> i samme
 format som <code>/etc/hosts</code> som mapper alle statiske IP-er på LAN-et til
@@ -728,7 +865,7 @@ Alle DHCP-klienter på LAN-et må så be om ny IP.  (For Linux-bokser må
 <code>/etc/sysconfig/networking/devices/ifcfg-&lt;interface&gt;</code> oppdateres ved
 at DNS-linjene slettes; man bør også slette <code>SEARCH=</code> linjen.)
 
-<h2><a class=nolink name="7.5.">7.5. Netboot (PXE) vha. dnsmasq</a></h2>
+<h2><a class=nolink name="7.6.">7.6. Netboot (PXE) vha. dnsmasq</a></h2>
 Følg instruksjonene ovenfor for å sette opp dnsmasq, og opprett i tillegg
 <code>/etc/dnsmasq.d/netboot.cfg</code>:
 <table><tr><td><pre>
