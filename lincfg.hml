@@ -710,46 +710,26 @@ er marginene på selve papiret, rundt alle de krympede sidene.
 −− Starte nytt prosjekt
 Lag først en lokal arbeidskatalog.  Eks:
 ´
-mkdir foo
-cd foo
-git init
-touch bar
+¡# Lag katalogen foo hvis den ikke allerede eksisterer og gjør den til et git repo.
+git init “foo”
+
+¡# Opprett filer som skal ha versjonskontroll.
+cd “foo”
+echo hello >hello.txt
+echo world >world.txt
+
+¡# Legg til alle filer som ikke matcher noe i .gitignore
 git add .
-git commit -m "first rev"
+
+¡# Lag en commit med de nye filene.
+git commit -m "“DESCRIPTION”"
 ´
-For lage et remote repository for ´foo´, logg inn på ekstern server
-og følg dette eksempelet:
+For å sette en remote upstream på en SSH server, gjør:
 ´
-cd /path/to/gitroot
-mkdir foo
-cd foo
-git init --bare
+ssh “SERVER” git init --bare /path/to/git/repos/foo.git
+git remote add origin “SERVER”:/path/to/git/repos/foo.git
+git push --set-upstream origin master
 ´
-Tilbake på maskinen med arbeidskatalogen gjør man deretter følgende (i
-katalogen ´foo´):
-´
-git remote add origin ssh://server/path/to/gitroot/foo/
-git push origin master
-git config branch.master.remote origin
-git config branch.master.merge refs/heads/master
-´
-Dersom man setter opp repoet på samme maskin som man har arbeidskatalogen
-bør ´ssh://server´ erstattes med ´file://´.  Det er også mulig å droppe
-´git remote add origin ssh://server/path/to/gitroot/foo/´ hvis man legger
-inn
-´
-[remote "origin"]
-        url = ssh://server/path/to/gitroot/foo/
-        fetch = +refs/heads/*:refs/remotes/origin/*
-´
-i ´.git/config´ (rett etter ´[core]´-blokken).  De to siste linjene
-(´git config branch...´) kan droppes hvis man legger inn
-´
-[branch "master"]
-        remote = origin
-        merge = refs/heads/master
-´
-rett etter ´[remote "origin"]´-blokken.
 
 −− Alias for å forenkle URL-er
 Legg inn

@@ -986,46 +986,26 @@ er marginene på selve papiret, rundt alle de krympede sidene.
 <h2><a class=nolink name="10.1.">10.1. Starte nytt prosjekt</a></h2>
 Lag først en lokal arbeidskatalog.  Eks:
 <table><tr><td><pre>
-mkdir foo
-cd foo
-git init
-touch bar
+<dfn># Lag katalogen foo hvis den ikke allerede eksisterer og gjør den til et git repo.</dfn>
+git init <var>foo</var>
+
+<dfn># Opprett filer som skal ha versjonskontroll.</dfn>
+cd <var>foo</var>
+echo hello &gt;hello.txt
+echo world &gt;world.txt
+
+<dfn># Legg til alle filer som ikke matcher noe i .gitignore</dfn>
 git add .
-git commit -m "first rev"
+
+<dfn># Lag en commit med de nye filene.</dfn>
+git commit -m "<var>DESCRIPTION</var>"
 </pre></table>
-For lage et remote repository for <code>foo</code>, logg inn på ekstern server
-og følg dette eksempelet:
+For å sette en remote upstream på en SSH server, gjør:
 <table><tr><td><pre>
-cd /path/to/gitroot
-mkdir foo
-cd foo
-git init --bare
+ssh <var>SERVER</var> git init --bare /path/to/git/repos/foo.git
+git remote add origin <var>SERVER</var>:/path/to/git/repos/foo.git
+git push --set-upstream origin master
 </pre></table>
-Tilbake på maskinen med arbeidskatalogen gjør man deretter følgende (i
-katalogen <code>foo</code>):
-<table><tr><td><pre>
-git remote add origin ssh://server/path/to/gitroot/foo/
-git push origin master
-git config branch.master.remote origin
-git config branch.master.merge refs/heads/master
-</pre></table>
-Dersom man setter opp repoet på samme maskin som man har arbeidskatalogen
-bør <code>ssh://server</code> erstattes med <code>file://</code>.  Det er også mulig å droppe
-<code>git remote add origin ssh://server/path/to/gitroot/foo/</code> hvis man legger
-inn
-<table><tr><td><pre>
-[remote "origin"]
-        url = ssh://server/path/to/gitroot/foo/
-        fetch = +refs/heads/*:refs/remotes/origin/*
-</pre></table>
-i <code>.git/config</code> (rett etter <code>[core]</code>-blokken).  De to siste linjene
-(<code>git config branch...</code>) kan droppes hvis man legger inn
-<table><tr><td><pre>
-[branch "master"]
-        remote = origin
-        merge = refs/heads/master
-</pre></table>
-rett etter <code>[remote "origin"]</code>-blokken.
 
 <h2><a class=nolink name="10.2.">10.2. Alias for å forenkle URL-er</a></h2>
 Legg inn
