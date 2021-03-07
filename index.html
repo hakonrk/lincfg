@@ -442,8 +442,8 @@ Bruk noe à la følgende rc-script for å sette opp NAT:
 
 echo -n "Configuring firewall... "
 
-wan_iface=eth1
-lan_iface=eth0
+wan_iface=$(ip route get 1.1.1.1 | grep -Po '\s+dev\s+\K\S+')
+lan_iface=$(ip route get 10.0.0.1 | grep -Po '\s+dev\s+\K\S+')
 
 <dfn># Flush all chains in the default table.</dfn>
 iptables -F
