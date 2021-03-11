@@ -421,6 +421,8 @@ convert -resize <var>W</var>x<var>H</var>! <dfn># Resize til eksakt W x H og ign
 </pre></table>
 Resizing-metode kan spesifiseres med <a target="_blank" href="http://www.imagemagick.org/script/command-line-options.php#filter">-filter</a> opsjonen.
 
+For å krympe er det best å bruke <code>-filter Lanczos2Sharp</code> eller <code>-filter Cosine</code>.
+
 <h2><a class=nolink name="6.5.">6.5. Cropping/clipping</a></h2>
 <a target="_blank" href="http://www.imagemagick.org/script/command-line-options.php#crop">Crop</a>-operasjonen
 klipper ut et rektangulært område av bildet:

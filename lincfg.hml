@@ -140,6 +140,8 @@ convert -resize “W”x“H”! ¡# Resize til eksakt W x H og ignorer aspect r
 ´
 Resizing-metode kan spesifiseres med «-filter − http://www.imagemagick.org/script/command-line-options.php#filter» opsjonen.
 
+For å krympe er det best å bruke ´-filter Lanczos2Sharp´ eller ´-filter Cosine´.
+
 −− Cropping/clipping
 «Crop − http://www.imagemagick.org/script/command-line-options.php#crop»-operasjonen
 klipper ut et rektangulært område av bildet:
