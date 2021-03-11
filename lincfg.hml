@@ -2835,3 +2835,51 @@ Gå til ´Tools → Options → View → Icon style´ og velg ´Breeze Dark´.
 
 −−− Google Chrome
 Installer «Just Black − https://chrome.google.com/webstore/detail/just-black/aghfnjkcakhmadgdomlmlhhaocbkloab».
+
+− ZSH
+−− Globbing flags
+«(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Globbing-Flags»
+´
+¡# Funker kun når EXTENDED_GLOB er skrudd på.
+setopt EXTENDED_GLOB
+
+¡# Case insensitive matching.
+ls (#i)*.jpg
+´
+
+−− Glob Qualifiers
+«(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Qualifiers»
+´
+¡# Kun vanlige filer:
+ls *(.)
+
+¡# Vanlige filer og symlinker til vanlige filer.
+ls *(-.)
+
+¡# Alt unntatt vanlige filer:
+ls *(^.)
+
+¡# Kun kataloger:
+ls *(/)
+
+¡# Kun symlinker:
+ls *(@)
+
+¡# Ugyldige symlinker:
+ls *(-@)
+
+¡# Kun filer som er eksakt 20 bytes lange.
+ls *(L20)
+
+¡# Kun filer som er større enn 0 bytes.
+ls *(L+0)
+
+¡# Kun filer som er mindre enn 20 bytes.
+ls *(L-20)
+
+¡# Sorter numerisk (stigende).
+ls *(oc)
+
+¡# Sorter numerisk (synkende).
+ls *(Oc)
+´

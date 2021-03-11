@@ -275,7 +275,10 @@
 <li><a href="#31.36.4.">QT4</a>
 <li><a href="#31.36.5.">LibreOffice</a>
 <li><a href="#31.36.6.">Google Chrome</a>
-</ol></ol></ol>
+</ol></ol><li><a href="#32.">ZSH</a>
+<ol><li><a href="#32.1.">Globbing flags</a>
+<li><a href="#32.2.">Glob Qualifiers</a>
+</ol></ol>
 <h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
 
 <h2><a class=nolink name="1.1.">1.1. Norske tegn i Emacs</a></h2>
@@ -3113,4 +3116,52 @@ Gå til <code>Tools → Options → View → Icon style</code> og velg <code>Bre
 
 <h3><a class=nolink name="31.36.6.">31.36.6. Google Chrome</a></h3>
 Installer <a target="_blank" href="https://chrome.google.com/webstore/detail/just-black/aghfnjkcakhmadgdomlmlhhaocbkloab">Just Black</a>.
+
+<h1><a class=nolink name="32.">32. ZSH</a></h1>
+<h2><a class=nolink name="32.1.">32.1. Globbing flags</a></h2>
+<a target="_blank" href="http://zsh.sourceforge.net/Doc/Release/Expansion.html#Globbing-Flags">(Klikk her for manualen.)</a>
+<table><tr><td><pre>
+<dfn># Funker kun når EXTENDED_GLOB er skrudd på.</dfn>
+setopt EXTENDED_GLOB
+
+<dfn># Case insensitive matching.</dfn>
+ls (#i)*.jpg
+</pre></table>
+
+<h2><a class=nolink name="32.2.">32.2. Glob Qualifiers</a></h2>
+<a target="_blank" href="http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Qualifiers">(Klikk her for manualen.)</a>
+<table><tr><td><pre>
+<dfn># Kun vanlige filer:</dfn>
+ls *(.)
+
+<dfn># Vanlige filer og symlinker til vanlige filer.</dfn>
+ls *(-.)
+
+<dfn># Alt unntatt vanlige filer:</dfn>
+ls *(^.)
+
+<dfn># Kun kataloger:</dfn>
+ls *(/)
+
+<dfn># Kun symlinker:</dfn>
+ls *(@)
+
+<dfn># Ugyldige symlinker:</dfn>
+ls *(-@)
+
+<dfn># Kun filer som er eksakt 20 bytes lange.</dfn>
+ls *(L20)
+
+<dfn># Kun filer som er større enn 0 bytes.</dfn>
+ls *(L+0)
+
+<dfn># Kun filer som er mindre enn 20 bytes.</dfn>
+ls *(L-20)
+
+<dfn># Sorter numerisk (stigende).</dfn>
+ls *(oc)
+
+<dfn># Sorter numerisk (synkende).</dfn>
+ls *(Oc)
+</pre></table>
 </body></html>
