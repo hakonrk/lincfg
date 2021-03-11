@@ -160,6 +160,45 @@ for å lage et grayscale bilde.
 − Nettverk
 
 −− NAT
+−−− Firewalld
+´
+#!/bin/bash
+
+server_ip='10.0.0.3'
+workstation_ip='10.0.0.4'
+wan_iface=$(ip route get 1.1.1.1 | grep -Po '\s+dev\s+\K\S+')
+lan_iface=$(ip route get 10.0.0.1 | grep -Po '\s+dev\s+\K\S+')
+
+systemctl stop firewalld.service
+rm -f /etc/firewalld/zones/*.xml*
+systemctl start firewalld.service
+systemctl enable firewalld.service
+
+function LAN { firewall-cmd --zone=trusted "$@"; }
+function WAN { firewall-cmd --zone=block   "$@"; }
+
+LAN --change-interface=$lan_iface
+WAN --change-interface=$wan_iface
+
+WAN --add-masquerade
+
+¡###########################################################################
+¡# DENY
+¡###########################################################################
+WAN --add-icmp-block-inversion
+
+¡###########################################################################
+¡# ALLOW
+¡###########################################################################
+WAN --add-icmp-block='echo-request'
+WAN --add-forward-port=port='22222':proto='tcp':toport='22'
+WAN --add-forward-port=port='222':proto='tcp':toport='22':toaddr=$workstation_ip
+WAN --add-forward-port=port='5500':proto='tcp':toaddr=$workstation_ip
+
+firewall-cmd --runtime-to-permanent
+´
+
+−−− iptables
 Bruk noe à la følgende rc-script for å sette opp NAT:
 ´
 #!/bin/sh

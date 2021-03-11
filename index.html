@@ -97,7 +97,9 @@
 <li><a href="#6.6.">Colorspace / type</a>
 </ol><li><a href="#7.">Nettverk</a>
 <ol><li><a href="#7.1.">NAT</a>
-<li><a href="#7.2.">Traffic-shaping</a>
+<ol><li><a href="#7.1.1.">Firewalld</a>
+<li><a href="#7.1.2.">iptables</a>
+</ol><li><a href="#7.2.">Traffic-shaping</a>
 <li><a href="#7.3.">Feilsøking og rekonfigurering av router</a>
 <li><a href="#7.4.">iproute2 cheat sheet</a>
 <li><a href="#7.5.">Privat DNS/DHCP med dnsmasq</a>
@@ -436,6 +438,45 @@ for å lage et grayscale bilde.
 <h1><a class=nolink name="7.">7. Nettverk</a></h1>
 
 <h2><a class=nolink name="7.1.">7.1. NAT</a></h2>
+<h3><a class=nolink name="7.1.1.">7.1.1. Firewalld</a></h3>
+<table><tr><td><pre>
+#!/bin/bash
+
+server_ip='10.0.0.3'
+workstation_ip='10.0.0.4'
+wan_iface=$(ip route get 1.1.1.1 | grep -Po '\s+dev\s+\K\S+')
+lan_iface=$(ip route get 10.0.0.1 | grep -Po '\s+dev\s+\K\S+')
+
+systemctl stop firewalld.service
+rm -f /etc/firewalld/zones/*.xml*
+systemctl start firewalld.service
+systemctl enable firewalld.service
+
+function LAN { firewall-cmd --zone=trusted "$@"; }
+function WAN { firewall-cmd --zone=block   "$@"; }
+
+LAN --change-interface=$lan_iface
+WAN --change-interface=$wan_iface
+
+WAN --add-masquerade
+
+<dfn>###########################################################################</dfn>
+<dfn># DENY</dfn>
+<dfn>###########################################################################</dfn>
+WAN --add-icmp-block-inversion
+
+<dfn>###########################################################################</dfn>
+<dfn># ALLOW</dfn>
+<dfn>###########################################################################</dfn>
+WAN --add-icmp-block='echo-request'
+WAN --add-forward-port=port='22222':proto='tcp':toport='22'
+WAN --add-forward-port=port='222':proto='tcp':toport='22':toaddr=$workstation_ip
+WAN --add-forward-port=port='5500':proto='tcp':toaddr=$workstation_ip
+
+firewall-cmd --runtime-to-permanent
+</pre></table>
+
+<h3><a class=nolink name="7.1.2.">7.1.2. iptables</a></h3>
 Bruk noe à la følgende rc-script for å sette opp NAT:
 <table><tr><td><pre>
 #!/bin/sh
