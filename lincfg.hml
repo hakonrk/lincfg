@@ -2884,4 +2884,10 @@ ls *(oc)
 
 ¡# Sorter numerisk (synkende).
 ls *(Oc)
+
+¡# Mindre enn 100 dager siden filen ble modifisert.
+ls *(m-100)
+
+¡# Mer enn 30 timer siden filen ble modifisert.
+ls *(mh+30)
 ´
