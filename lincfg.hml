@@ -2842,52 +2842,57 @@ Installer «Just Black − https://chrome.google.com/webstore/detail/just-black/
 −− Globbing flags
 «(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Globbing-Flags»
 ´
-¡# Funker kun når EXTENDED_GLOB er skrudd på.
-setopt EXTENDED_GLOB
+setopt EXTENDED_GLOB    ¡# Funker kun når EXTENDED_GLOB er skrudd på
 
-¡# Case insensitive matching.
-ls (#i)*.jpg
+ls (#i)*.jpg            ¡# Case insensitive matching
 ´
 
 −− Glob Qualifiers
 «(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Qualifiers»
 ´
-¡# Kun vanlige filer:
-ls *(.)
+ls *(.)         ¡# Kun vanlige filer
 
-¡# Vanlige filer og symlinker til vanlige filer.
-ls *(-.)
+ls *(-.)        ¡# Vanlige filer og symlinker til vanlige filer
 
-¡# Alt unntatt vanlige filer:
-ls *(^.)
+ls *(^.)        ¡# Alt unntatt vanlige filer
 
-¡# Kun kataloger:
-ls *(/)
+ls *(/)         ¡# Kun kataloger
 
-¡# Kun symlinker:
-ls *(@)
+ls *(@)         ¡# Kun symlinker
 
-¡# Ugyldige symlinker:
-ls *(-@)
+ls *(-@)        ¡# Ugyldige symlinker
 
-¡# Kun filer som er eksakt 20 bytes lange.
-ls *(L20)
+ls *(L20)       ¡# Kun filer som er eksakt 20 bytes lange
 
-¡# Kun filer som er større enn 0 bytes.
-ls *(L+0)
+ls *(L+0)       ¡# Kun filer som er større enn 0 bytes
 
-¡# Kun filer som er mindre enn 20 bytes.
-ls *(L-20)
+ls *(L-20)      ¡# Kun filer som er mindre enn 20 bytes
 
-¡# Sorter numerisk (stigende).
-ls *(oc)
+ls *(oc)        ¡# Sorter numerisk (stigende)
 
-¡# Sorter numerisk (synkende).
-ls *(Oc)
+ls *(Oc)        ¡# Sorter numerisk (synkende)
 
-¡# Mindre enn 100 dager siden filen ble modifisert.
-ls *(m-100)
+ls *(m-100)     ¡# Mindre enn 100 dager siden filen ble modifisert
 
-¡# Mer enn 30 timer siden filen ble modifisert.
-ls *(mh+30)
+ls *(mh+30)     ¡# Mer enn 30 timer siden filen ble modifisert
+´
+
+−− Glob Operators
+«(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Operators»
+´
+ls foo<100-199>.txt   ¡# Matches any number in the range x to y, inclusive. Either of the numbers may
+                      ¡# be omitted to make the range open-ended; hence ‘<->’ matches any number.
+                      ¡# To match individual digits, the [...] form is more efficient.  Be careful
+                      ¡# when using other wildcards adjacent to patterns of this form; for example,
+                      ¡# <0-9>* will actually match any number whatsoever at the start of the string,
+                      ¡# since the ‘<0-9>’ will match the first digit, and the ‘*’ will match any others.
+                      ¡# This is a trap for the unwary, but is in fact an inevitable consequence of the
+                      ¡# rule that the longest possible match always succeeds. Expressions such as
+                      ¡# ‘<0-9>[^[:digit:]]*’ can be used instead.
+
+ls (foo|bar).txt      ¡$ Matches foo.txt and bar.txt
+
+ls *~(foo|bar).txt    ¡# Matches anything except foo.txt and bar.txt
+
+ls ^foo.txt           ¡# Matches anything except foo.txt
 ´

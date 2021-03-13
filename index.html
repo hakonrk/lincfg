@@ -278,6 +278,7 @@
 </ol></ol><li><a href="#32.">ZSH</a>
 <ol><li><a href="#32.1.">Globbing flags</a>
 <li><a href="#32.2.">Glob Qualifiers</a>
+<li><a href="#32.3.">Glob Operators</a>
 </ol></ol>
 <h1><a class=nolink name="1.">1. Oppsett av terminal o.l.</a></h1>
 
@@ -3123,53 +3124,58 @@ Installer <a target="_blank" href="https://chrome.google.com/webstore/detail/jus
 <h2><a class=nolink name="32.1.">32.1. Globbing flags</a></h2>
 <a target="_blank" href="http://zsh.sourceforge.net/Doc/Release/Expansion.html#Globbing-Flags">(Klikk her for manualen.)</a>
 <table><tr><td><pre>
-<dfn># Funker kun når EXTENDED_GLOB er skrudd på.</dfn>
-setopt EXTENDED_GLOB
+setopt EXTENDED_GLOB    <dfn># Funker kun når EXTENDED_GLOB er skrudd på</dfn>
 
-<dfn># Case insensitive matching.</dfn>
-ls (#i)*.jpg
+ls (#i)*.jpg            <dfn># Case insensitive matching</dfn>
 </pre></table>
 
 <h2><a class=nolink name="32.2.">32.2. Glob Qualifiers</a></h2>
 <a target="_blank" href="http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Qualifiers">(Klikk her for manualen.)</a>
 <table><tr><td><pre>
-<dfn># Kun vanlige filer:</dfn>
-ls *(.)
+ls *(.)         <dfn># Kun vanlige filer</dfn>
 
-<dfn># Vanlige filer og symlinker til vanlige filer.</dfn>
-ls *(-.)
+ls *(-.)        <dfn># Vanlige filer og symlinker til vanlige filer</dfn>
 
-<dfn># Alt unntatt vanlige filer:</dfn>
-ls *(^.)
+ls *(^.)        <dfn># Alt unntatt vanlige filer</dfn>
 
-<dfn># Kun kataloger:</dfn>
-ls *(/)
+ls *(/)         <dfn># Kun kataloger</dfn>
 
-<dfn># Kun symlinker:</dfn>
-ls *(@)
+ls *(@)         <dfn># Kun symlinker</dfn>
 
-<dfn># Ugyldige symlinker:</dfn>
-ls *(-@)
+ls *(-@)        <dfn># Ugyldige symlinker</dfn>
 
-<dfn># Kun filer som er eksakt 20 bytes lange.</dfn>
-ls *(L20)
+ls *(L20)       <dfn># Kun filer som er eksakt 20 bytes lange</dfn>
 
-<dfn># Kun filer som er større enn 0 bytes.</dfn>
-ls *(L+0)
+ls *(L+0)       <dfn># Kun filer som er større enn 0 bytes</dfn>
 
-<dfn># Kun filer som er mindre enn 20 bytes.</dfn>
-ls *(L-20)
+ls *(L-20)      <dfn># Kun filer som er mindre enn 20 bytes</dfn>
 
-<dfn># Sorter numerisk (stigende).</dfn>
-ls *(oc)
+ls *(oc)        <dfn># Sorter numerisk (stigende)</dfn>
 
-<dfn># Sorter numerisk (synkende).</dfn>
-ls *(Oc)
+ls *(Oc)        <dfn># Sorter numerisk (synkende)</dfn>
 
-<dfn># Mindre enn 100 dager siden filen ble modifisert.</dfn>
-ls *(m-100)
+ls *(m-100)     <dfn># Mindre enn 100 dager siden filen ble modifisert</dfn>
 
-<dfn># Mer enn 30 timer siden filen ble modifisert.</dfn>
-ls *(mh+30)
+ls *(mh+30)     <dfn># Mer enn 30 timer siden filen ble modifisert</dfn>
+</pre></table>
+
+<h2><a class=nolink name="32.3.">32.3. Glob Operators</a></h2>
+<a target="_blank" href="http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Operators">(Klikk her for manualen.)</a>
+<table><tr><td><pre>
+ls foo&lt;100-199&gt;.txt   <dfn># Matches any number in the range x to y, inclusive. Either of the numbers may</dfn>
+                      <dfn># be omitted to make the range open-ended; hence ‘&lt;-&gt;’ matches any number.</dfn>
+                      <dfn># To match individual digits, the [...] form is more efficient.  Be careful</dfn>
+                      <dfn># when using other wildcards adjacent to patterns of this form; for example,</dfn>
+                      <dfn># &lt;0-9&gt;* will actually match any number whatsoever at the start of the string,</dfn>
+                      <dfn># since the ‘&lt;0-9&gt;’ will match the first digit, and the ‘*’ will match any others.</dfn>
+                      <dfn># This is a trap for the unwary, but is in fact an inevitable consequence of the</dfn>
+                      <dfn># rule that the longest possible match always succeeds. Expressions such as</dfn>
+                      <dfn># ‘&lt;0-9&gt;[^[:digit:]]*’ can be used instead.</dfn>
+                     
+ls (foo|bar).txt      <dfn>$ Matches foo.txt and bar.txt</dfn>
+
+ls *~(foo|bar).txt    <dfn># Matches anything except foo.txt and bar.txt</dfn>
+
+ls ^foo.txt           <dfn># Matches anything except foo.txt</dfn>
 </pre></table>
 </body></html>
