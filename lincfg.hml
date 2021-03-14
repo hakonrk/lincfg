@@ -2235,6 +2235,33 @@ Legg deretter inn
 
 − Diverse
 
+−− SysRq
+Skru på SysRq med ´sudo sh -c 'echo 1 >/proc/sys/kernel/sysrq'´, eller for å gjøre det permanent,
+´sudo sh -c 'echo kernel.sysrq = 1 >/etc/sysctl.d/90-sysrq.conf'´. Trykk ´Alt+PrintScrn+“CommandKey”´
+der ´“CommandKey”´ er en av følgende:
+
+´
+“k”    Kills all the process running on the current virtual console.
+“s”    This will attempt to sync all the mounted file system.
+“b”    Immediately reboot the system, without unmounting partitions or syncing.
+“e”    Sends SIGTERM to all process except init.
+“m”    Output current memory information to the console.
+“i”    Send the SIGKILL signal to all processes except init
+“r”    Switch the keyboard from raw mode (the mode used by programs such as X11), to XLATE mode.
+“s”    sync all mounted file system.
+“t”    Output a list of current tasks and their information to the console.
+“u”    Remount all mounted filesystems in readonly mode.
+“o”    Shutdown the system immediately.
+“p”    Print the current registers and flags to the console.
+“0-9”  Sets the console log level, controlling which kernel messages will be printed to your console.
+“f”    Will call oom_kill to kill process which takes more memory.
+“h”    Used to display the help. But any other keys than the above listed will print help.
+´
+Som et alternativ til Alt+PrintScrn kan man også gjøre
+´
+sudo sh -c 'echo “CommandKey” >/proc/sysrq-trigger
+´
+
 −− Kernel modules pre-install
 Sett argumentet ´INSTALL_MOD_PATH´ til temp-prefikset hvor
 ´/lib/modules/...´ blir installert.  (Tilsvarer ´DESTDIR´
@@ -2850,49 +2877,49 @@ ls (#i)*.jpg            ¡# Case insensitive matching
 −− Glob Qualifiers
 «(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Qualifiers»
 ´
-ls *(.)         ¡# Kun vanlige filer
+ls *(.)                 ¡# Kun vanlige filer
 
-ls *(-.)        ¡# Vanlige filer og symlinker til vanlige filer
+ls *(-.)                ¡# Vanlige filer og symlinker til vanlige filer
 
-ls *(^.)        ¡# Alt unntatt vanlige filer
+ls *(^.)                ¡# Alt unntatt vanlige filer
 
-ls *(/)         ¡# Kun kataloger
+ls *(/)                 ¡# Kun kataloger
 
-ls *(@)         ¡# Kun symlinker
+ls *(@)                 ¡# Kun symlinker
 
-ls *(-@)        ¡# Ugyldige symlinker
+ls *(-@)                ¡# Ugyldige symlinker
 
-ls *(L20)       ¡# Kun filer som er eksakt 20 bytes lange
+ls *(L20)               ¡# Kun filer som er eksakt 20 bytes lange
 
-ls *(L+0)       ¡# Kun filer som er større enn 0 bytes
+ls *(L+0)               ¡# Kun filer som er større enn 0 bytes
 
-ls *(L-20)      ¡# Kun filer som er mindre enn 20 bytes
+ls *(L-20)              ¡# Kun filer som er mindre enn 20 bytes
 
-ls *(oc)        ¡# Sorter numerisk (stigende)
+ls *(oc)                ¡# Sorter numerisk (stigende)
 
-ls *(Oc)        ¡# Sorter numerisk (synkende)
+ls *(Oc)                ¡# Sorter numerisk (synkende)
 
-ls *(m-100)     ¡# Mindre enn 100 dager siden filen ble modifisert
+ls *(m-100)             ¡# Mindre enn 100 dager siden filen ble modifisert
 
-ls *(mh+30)     ¡# Mer enn 30 timer siden filen ble modifisert
+ls *(mh+30)             ¡# Mer enn 30 timer siden filen ble modifisert
 ´
 
 −− Glob Operators
 «(Klikk her for manualen.) − http://zsh.sourceforge.net/Doc/Release/Expansion.html#Glob-Operators»
 ´
-ls foo<100-199>.txt   ¡# Matches any number in the range x to y, inclusive. Either of the numbers may
-                      ¡# be omitted to make the range open-ended; hence ‘<->’ matches any number.
-                      ¡# To match individual digits, the [...] form is more efficient.  Be careful
-                      ¡# when using other wildcards adjacent to patterns of this form; for example,
-                      ¡# <0-9>* will actually match any number whatsoever at the start of the string,
-                      ¡# since the ‘<0-9>’ will match the first digit, and the ‘*’ will match any others.
-                      ¡# This is a trap for the unwary, but is in fact an inevitable consequence of the
-                      ¡# rule that the longest possible match always succeeds. Expressions such as
-                      ¡# ‘<0-9>[^[:digit:]]*’ can be used instead.
+ls foo<100-199>.txt     ¡# Matches any number in the range x to y, inclusive. Either of the numbers may
+                        ¡# be omitted to make the range open-ended; hence ‘<->’ matches any number.
+                        ¡# To match individual digits, the [...] form is more efficient.  Be careful
+                        ¡# when using other wildcards adjacent to patterns of this form; for example,
+                        ¡# <0-9>* will actually match any number whatsoever at the start of the string,
+                        ¡# since the ‘<0-9>’ will match the first digit, and the ‘*’ will match any others.
+                        ¡# This is a trap for the unwary, but is in fact an inevitable consequence of the
+                        ¡# rule that the longest possible match always succeeds. Expressions such as
+                        ¡# ‘<0-9>[^[:digit:]]*’ can be used instead.
 
-ls (foo|bar).txt      ¡$ Matches foo.txt and bar.txt
+ls (foo|bar).txt        ¡$ Matches foo.txt and bar.txt
 
-ls *~(foo|bar).txt    ¡# Matches anything except foo.txt and bar.txt
+ls *~(foo|bar).txt      ¡# Matches anything except foo.txt and bar.txt
 
-ls ^foo.txt           ¡# Matches anything except foo.txt
+ls ^foo.txt             ¡# Matches anything except foo.txt
 ´
