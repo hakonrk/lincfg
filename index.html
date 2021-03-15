@@ -3205,5 +3205,9 @@ ls (foo|bar).txt        <dfn>$ Matches foo.txt and bar.txt</dfn>
 ls *~(foo|bar).txt      <dfn># Matches anything except foo.txt and bar.txt</dfn>
 
 ls ^foo.txt             <dfn># Matches anything except foo.txt</dfn>
+
+ls [a-z]#               <dfn># Matches anything with ZERO or more letters in the range a-z</dfn>
+
+ls [a-z]##              <dfn># Matches anything with ONE or more letters in the range a-z</dfn>
 </pre></table>
 </body></html>

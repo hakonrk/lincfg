@@ -2922,4 +2922,8 @@ ls (foo|bar).txt        ¡$ Matches foo.txt and bar.txt
 ls *~(foo|bar).txt      ¡# Matches anything except foo.txt and bar.txt
 
 ls ^foo.txt             ¡# Matches anything except foo.txt
+
+ls [a-z]#               ¡# Matches anything with ZERO or more letters in the range a-z
+
+ls [a-z]##              ¡# Matches anything with ONE or more letters in the range a-z
 ´
