@@ -2895,9 +2895,13 @@ ls *(L+0)               ¡# Kun filer som er større enn 0 bytes
 
 ls *(L-20)              ¡# Kun filer som er mindre enn 20 bytes
 
-ls *(oc)                ¡# Sorter numerisk (stigende)
+print -l *(oc)          ¡# Sorter numerisk (stigende)
 
-ls *(Oc)                ¡# Sorter numerisk (synkende)
+print -l *(Oc)          ¡# Sorter numerisk (synkende)
+
+print -l *(om)          ¡# Sorter etter mtime (ny til gammel)
+
+print -l *(Om)          ¡# Sorter etter mtime (gammel til ny)
 
 ls *(m-100)             ¡# Mindre enn 100 dager siden filen ble modifisert
 

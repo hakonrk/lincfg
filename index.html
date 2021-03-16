@@ -3178,9 +3178,13 @@ ls *(L+0)               <dfn># Kun filer som er større enn 0 bytes</dfn>
 
 ls *(L-20)              <dfn># Kun filer som er mindre enn 20 bytes</dfn>
 
-ls *(oc)                <dfn># Sorter numerisk (stigende)</dfn>
+print -l *(oc)          <dfn># Sorter numerisk (stigende)</dfn>
 
-ls *(Oc)                <dfn># Sorter numerisk (synkende)</dfn>
+print -l *(Oc)          <dfn># Sorter numerisk (synkende)</dfn>
+
+print -l *(om)          <dfn># Sorter etter mtime (ny til gammel)</dfn>
+
+print -l *(Om)          <dfn># Sorter etter mtime (gammel til ny)</dfn>
 
 ls *(m-100)             <dfn># Mindre enn 100 dager siden filen ble modifisert</dfn>
 
