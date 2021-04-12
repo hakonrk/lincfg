@@ -139,6 +139,7 @@
 </ol><li><a href="#16.">GPG</a>
 <ol><li><a href="#16.1.">Signering av filer</a>
 <li><a href="#16.2.">Verifisering av filer</a>
+<li><a href="#16.3.">Symmetrisk kryptering med passord fra stdin</a>
 </ol><li><a href="#17.">Samba</a>
 <ol><li><a href="#17.1.">Oppsett med brukere</a>
 <li><a href="#17.2.">Mounting av Samba-shares</a>
@@ -1312,6 +1313,15 @@ gpg --armor --detach-sig --output <var>foo.asc</var> --local-user <var>SIGNING-K
 For å verifisere at <code>foo</code> ved hjelp av <code>foo.asc</code>, gjør
 <table><tr><td><pre>
 gpg --verify <var>foo.asc</var>
+</pre></table>
+
+<h2><a class=nolink name="16.3.">16.3. Symmetrisk kryptering med passord fra stdin</a></h2>
+<table><tr><td><pre>
+<dfn># Kryptere:</dfn>
+echo <var>PASSWORD</var> | gpg --pinentry-mode loopback --passphrase-fd 0 --symmetric <var>FILE-TO-BE-ENCRYPTED</var>
+
+<dfn># Dekryptere:</dfn>
+echo <var>PASSWORD</var> | gpg --pinentry-mode loopback --passphrase-fd 0 --decrypt <var>ENCRYPTED-FILE</var> --output <var>DECRYPTED-FILE</var>
 </pre></table>
 
 <h1><a class=nolink name="17.">17. Samba</a></h1>

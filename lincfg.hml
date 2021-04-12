@@ -1031,6 +1031,15 @@ For å verifisere at ´foo´ ved hjelp av ´foo.asc´, gjør
 gpg --verify “foo.asc”
 ´
 
+−− Symmetrisk kryptering med passord fra stdin
+´
+¡# Kryptere:
+echo “PASSWORD” | gpg --pinentry-mode loopback --passphrase-fd 0 --symmetric “FILE-TO-BE-ENCRYPTED”
+
+¡# Dekryptere:
+echo “PASSWORD” | gpg --pinentry-mode loopback --passphrase-fd 0 --decrypt “ENCRYPTED-FILE” --output “DECRYPTED-FILE”
+´
+
 − Samba
 −− Oppsett med brukere
 La ´/etc/samba/smb.conf´ inneholde ´security = user´ (eller ingenting,
