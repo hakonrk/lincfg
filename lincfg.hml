@@ -155,7 +155,7 @@ For å konvertere colorspace bruker man
 «-type − http://www.imagemagick.org/script/command-line-options.php#type»
 flagget.  F.eks. bruker man
 ´
-convert -type Grayscale
+convert -colorspace Gray
 ´
 for å lage et grayscale bilde.
 
@@ -1066,12 +1066,6 @@ broadcast-oppslag hver eneste gang, putt ´wins support = yes´ i
 ´global´-seksjonen i ´smb.conf´.
 
 − Red Hat og Fedora
-−− Nettverksinstallasjon
-Adressen som oppgis i nettverksinstallasjonen må inneholde katalogen
-´repodata´.  Eks. for Fedora 8:
-´
-ftp://ftp.uio.no/linux/Fedora/releases/8/Fedora/i386/os/
-´
 
 −− Skru av SELinux
 På slutten av ´kernel´-linjen i ´/etc/grub.conf´, legg til ´selinux=0´.  Man
@@ -1085,9 +1079,9 @@ For å slette SELinux attributter i filsystemet, gjør
 find “ROOT” -print0 | xargs -0 setfattr -x security.selinux
 ´
 
-−− Installere på ReiserFS
-Legg til ´selinux=0 reiserfs´ på kernel-kommandolinjen ved installasjon
-for å muliggjøre installasjon til ReiserFS.
+−− Legge til Windows i grub boot
+Installer ´os-prober´ hvis den ikke allerede er der, da skal Windows
+automatisk legges til menyen når du gjør ´grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg´.
 
 −− Flytting til annen disk
 Opprett partisjoner på ny disk for data og swap.  Boot fra rescue
