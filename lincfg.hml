@@ -830,6 +830,12 @@ git reset --hard “REVISION”
 git checkout “NEW-BRANCH”
 ´
 
+−− Få git til å ignorere permissions på Windows-filsystem
+´
+¡# Gjør dette i prosjektkatalogen:
+git config core.fileMode false
+´
+
 − Tcpdump
 
 −− Vanlige filtre

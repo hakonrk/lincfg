@@ -116,6 +116,7 @@
 <li><a href="#10.4.">Se dine endringer som upstream ikke har merget ennå</a>
 <li><a href="#10.5.">Lage ny branch som også legges på remote repo</a>
 <li><a href="#10.6.">Flytte 'master' noen hakk tilbake, og lage ny branch fra tilsvarende sted</a>
+<li><a href="#10.7.">Få git til å ignorere permissions på Windows-filsystem</a>
 </ol><li><a href="#11.">Tcpdump</a>
 <ol><li><a href="#11.1.">Vanlige filtre</a>
 </ol><li><a href="#12.">Indenting</a>
@@ -1111,6 +1112,12 @@ man:
 git branch <var>NEW-BRANCH</var>
 git reset --hard <var>REVISION</var>
 git checkout <var>NEW-BRANCH</var>
+</pre></table>
+
+<h2><a class=nolink name="10.7.">10.7. Få git til å ignorere permissions på Windows-filsystem</a></h2>
+<table><tr><td><pre>
+<dfn># Gjør dette i prosjektkatalogen:</dfn>
+git config core.fileMode false
 </pre></table>
 
 <h1><a class=nolink name="11.">11. Tcpdump</a></h1>
